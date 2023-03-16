@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passController = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
-  Color primary = Color.fromARGB(235, 255, 205, 131);
+  Color primary = Color.fromARGB(255, 253, 234, 206);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text(
               "Login",
               style: TextStyle(
-                fontSize: screenWidth / 20,
+                fontSize: screenWidth / 15,
                 color: Colors.red,
               ),
             ),
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text(
               "Sign in to your account.",
               style: TextStyle(
-                fontSize: screenWidth / 40,
+                fontSize: screenWidth / 30,
                 color: Colors.black,
               ),
             ),
@@ -62,13 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 60,
                   width: screenWidth,
                   decoration: const BoxDecoration(
-                      color: Colors.orange,
+                      color: Color.fromARGB(255, 255, 125, 19),
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Center(
                     child: Text(
                       "LOGIN",
                       style: TextStyle(
-                        fontSize: screenWidth / 30,
+                        fontSize: screenWidth / 20,
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 2,
                       ),
                     ),
@@ -79,13 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: screenWidth,
                   margin: const EdgeInsets.only(top: 70, bottom: 20),
                   decoration: const BoxDecoration(
-                      color: Colors.orange,
+                      color: Color.fromARGB(255, 255, 255, 255),
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Center(
                     child: Text(
                       "REGISTER",
                       style: TextStyle(
-                        fontSize: screenWidth / 30,
+                        fontSize: screenWidth / 20,
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 2,
                       ),
                     ),
