@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passController = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
-  Color primary = const Color(0xffeef444c);
+  Color primary = Color.fromARGB(235, 255, 205, 131);
 
   @override
   Widget build(BuildContext context) {
@@ -22,26 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: primary,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          isKeyboardVisible
-              ? const SizedBox()
-              : Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('images/KMUTT.png'),
-                          fit: BoxFit.fill)),
-                ),
+          Expanded(child: Image.asset('images/MaMai.png')),
           Container(
-            margin: EdgeInsets.only(
-              top: screenHeight / 15,
-            ),
             child: Text(
               "Login",
               style: TextStyle(
-                fontSize: screenWidth / 30,
-                color: Colors.orange,
+                fontSize: screenWidth / 20,
+                color: Colors.red,
               ),
             ),
           ),
@@ -52,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text(
               "Sign in to your account.",
               style: TextStyle(
-                fontSize: screenWidth / 50,
+                fontSize: screenWidth / 40,
                 color: Colors.black,
               ),
             ),
@@ -77,7 +68,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       "LOGIN",
                       style: TextStyle(
-                        fontSize: screenWidth / 26,
+                        fontSize: screenWidth / 30,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 60,
+                  width: screenWidth,
+                  margin: const EdgeInsets.only(top: 70, bottom: 20),
+                  decoration: const BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Center(
+                    child: Text(
+                      "REGISTER",
+                      style: TextStyle(
+                        fontSize: screenWidth / 30,
                         letterSpacing: 2,
                       ),
                     ),
@@ -92,12 +100,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget customField(
-      String hint, TextEditingController controller, bool obscure) {
+    String hint,
+    TextEditingController controller,
+    bool obscure,
+  ) {
     return Container(
       width: screenWidth,
       margin: const EdgeInsets.only(bottom: 40),
       decoration: const BoxDecoration(
-        color: Colors.orangeAccent,
+        color: Color.fromARGB(255, 236, 234, 234),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: Row(
@@ -118,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 autocorrect: false,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
-                      vertical: screenHeight / 35,
+                      vertical: screenHeight / 40,
                     ),
                     hintText: hint,
                     border: InputBorder.none),
