@@ -4,6 +4,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/loginscreen.dart';
 import 'package:mamaimakhrap/role.dart';
+import 'package:mamaimakhrap/studentProfile.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const KeyboardVisibilityProvider(child: StudentHomePage()),
+      home: const KeyboardVisibilityProvider(child: studentProfile()),
     );
   }
 }
