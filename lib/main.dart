@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/TeacherHomePage.dart';
 import 'package:mamaimakhrap/loginscreen.dart';
 import 'package:mamaimakhrap/role.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
