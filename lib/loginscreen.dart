@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passController = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
-  Color primary = Color.fromARGB(255, 253, 234, 206);
+  Color primary = Color.fromARGB(255, 255, 255, 255);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text(
               "Login",
               style: TextStyle(
+                fontWeight: FontWeight.bold,
                 fontSize: screenWidth / 15,
-                color: Colors.red,
+                color: Color.fromARGB(255, 56, 56, 154),
               ),
             ),
           ),
@@ -58,41 +59,41 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 customField("Username", idController, false),
                 customField("Password", passController, true),
-                Container(
-                  height: 60,
-                  width: screenWidth,
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 255, 125, 19),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                SizedBox(
+                  height: 130,
+                  width: double.infinity,
                   child: Center(
-                    child: Text(
-                      "LOGIN",
-                      style: TextStyle(
-                        fontSize: screenWidth / 20,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(350, 50),
+                        textStyle: const TextStyle(fontSize: 25),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Color.fromARGB(255, 56, 56, 154),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: screenWidth,
-                  margin: const EdgeInsets.only(top: 70, bottom: 20),
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                SizedBox(
+                  height: 130,
+                  width: double.infinity,
                   child: Center(
-                    child: Text(
-                      "REGISTER",
-                      style: TextStyle(
-                        fontSize: screenWidth / 20,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Register'),
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                            width: 1.0,
+                            color: Color.fromARGB(255, 56, 56, 154)),
+                        fixedSize: const Size(350, 50),
+                        textStyle: const TextStyle(fontSize: 25),
+                        foregroundColor: Color.fromARGB(255, 56, 56, 154),
+                        backgroundColor: Colors.white,
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           )
