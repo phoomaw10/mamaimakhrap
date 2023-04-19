@@ -59,7 +59,10 @@ class _studentProfile extends State<studentProfile> {
                       ],
                     ),
                   ),
-                  const CircleAvatar(
+                  SizedBox(
+                    height: screenHeight / 1.5,
+                    child: Column(children: [
+                     const CircleAvatar(
                     backgroundImage: AssetImage('images/face.jpeg'),
                     radius: 80,
                   ),
@@ -128,9 +131,9 @@ class _studentProfile extends State<studentProfile> {
                     ),
                   ),
                   customField('nawat.sujj@kmutt.ac.th'),
-                  SizedBox(height: screenHeight / 20),
+                    ]),
+                  ),
                   Container(
-                    margin: const EdgeInsets.only(top: 25),
                     width: screenWidth - 60,
                     height: screenHeight / 12,
                     decoration: const BoxDecoration(
@@ -188,7 +191,7 @@ class _studentProfile extends State<studentProfile> {
         width: screenWidth - 80,
         height: screenHeight / 17,
         margin: const EdgeInsets.only(bottom: 7),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Color.fromARGB(255, 236, 242, 255),
             borderRadius: BorderRadius.all(Radius.circular(5)),
             boxShadow: [
@@ -196,13 +199,13 @@ class _studentProfile extends State<studentProfile> {
                 color: Color.fromARGB(181, 214, 213, 213),
                 spreadRadius: 0.1,
                 blurRadius: 0.5,
-                offset: const Offset(0, 5),
+                offset: Offset(0, 5),
               ),
-              const BoxShadow(
+              BoxShadow(
                 color: Colors.white70,
                 offset: Offset(-5, 0),
               ),
-              const BoxShadow(
+              BoxShadow(
                 color: Colors.white70,
                 offset: Offset(5, 0),
               )
