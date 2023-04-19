@@ -4,6 +4,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/FeedbackPage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
+import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/InsideFeedbackPage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';

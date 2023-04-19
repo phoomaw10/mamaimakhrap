@@ -30,7 +30,7 @@ class _InsideFeedbackPageState extends State<InsideFeedbackPage> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.only(left: 10, bottom: 15),
+                      margin: const EdgeInsets.only(left: 10, bottom: 4),
                       child: IconButton(
                           onPressed: () {},
                           icon: const Icon(
@@ -88,11 +88,15 @@ class _InsideFeedbackPageState extends State<InsideFeedbackPage> {
                                         style: TextStyle(
                                             fontSize: 30,
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromARGB(255, 56, 56, 154)),
+                                            color: Color.fromARGB(
+                                                255, 56, 56, 154)),
                                         children: [
                                       TextSpan(
                                           text: 'Feedback from Aj.Vajirasak',
-                                          style: TextStyle(fontSize: 15, color: Color.fromARGB(149, 56, 56, 154)))
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Color.fromARGB(
+                                                  149, 56, 56, 154)))
                                     ]))
                               ]),
                             )
@@ -108,8 +112,8 @@ class _InsideFeedbackPageState extends State<InsideFeedbackPage> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         child: Container(
-                          margin: const EdgeInsets.only(top: 10, left: 10),
-                          child: Text('This is your feedback')),
+                            margin: const EdgeInsets.only(top: 10, left: 10),
+                            child: Text('This is your feedback')),
                       )
                     ]),
                   ),

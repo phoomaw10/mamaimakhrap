@@ -24,22 +24,38 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
-          Container(
-            height: 100,
-            width: screenWidth,
-            child: Container(
-              margin: const EdgeInsets.only(top: 40),
-              child: const Center(
-                child: Text(
-                  "Course",
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 5, 47, 109)),
+          SizedBox(
+              height: 100,
+              width: screenWidth,
+              child: Container(
+                margin: const EdgeInsets.only(top: 40),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(left: 10, bottom: 4),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.arrow_circle_left_rounded,
+                            size: 40,
+                            color: Color.fromARGB(255, 56, 56, 154),
+                          )),
+                    ),
+                    const Expanded(
+                        child: Padding(
+                      padding: EdgeInsets.only(right: 40),
+                      child: Text(
+                        "Course",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 5, 47, 109)),
+                      ),
+                    ))
+                  ],
                 ),
-              ),
-            ),
-          ),
+              )),
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
@@ -55,7 +71,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                         const EdgeInsets.only(top: 10, right: 10, bottom: 20),
                   ),
                   Container(
-                    margin: EdgeInsets.all(20.0),
+                    margin: EdgeInsets.all(15.0),
                     child: SizedBox(
                       child: Column(
                         children: const <Widget>[
@@ -75,7 +91,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(20.0),
+                    margin: EdgeInsets.all(15.0),
                     child: SizedBox(
                       child: Column(
                         children: const <Widget>[
@@ -92,6 +108,28 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                         ],
                       ),
                     ),
+                  ),
+                  Container(
+                    height: screenWidth - 40,
+                    width: screenWidth - 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Color.fromARGB(255, 236, 242, 255),
+                    ),
+                    child: Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: Column(
+                          children: [
+                            customField('CSC234',
+                                'Thursday 13 April 2023 13.30 - 16.30'),
+                            customField('CSC234',
+                                'Thursday 20 April 2023 13.30 - 16.30'),
+                            customField('CSC234',
+                                'Thursday 27 April 2023 13.30 - 16.30'),
+                            customField('CSC234',
+                                'Thursday 27 April 2023 13.30 - 16.30')
+                          ],
+                        )),
                   ),
                 ],
               ),
@@ -110,40 +148,35 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
 
   Widget customField(
     String hint,
+    String date,
   ) {
-    return Container(
-        width: screenWidth - 80,
-        height: screenHeight / 17,
-        margin: const EdgeInsets.only(bottom: 7),
-        decoration: BoxDecoration(
-            color: Color.fromARGB(255, 236, 242, 255),
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(181, 214, 213, 213),
-                spreadRadius: 0.1,
-                blurRadius: 0.5,
-                offset: const Offset(0, 5),
-              ),
-              const BoxShadow(
-                color: Colors.white70,
-                offset: Offset(-5, 0),
-              ),
-              const BoxShadow(
-                color: Colors.white70,
-                offset: Offset(5, 0),
-              )
-            ]),
-        child: Container(
-          margin: const EdgeInsets.only(left: 25),
-          child: Row(
-            children: [
-              Text(
-                hint,
-                style: const TextStyle(color: Color.fromARGB(158, 0, 0, 0)),
-              )
-            ],
-          ),
-        ));
+    return Column(children: [
+      Container(
+          width: screenWidth - 85,
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Card(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(
+                        Icons.check_circle_rounded,
+                        color: Colors.green,
+                        size: screenWidth / 10,
+                      ),
+                      title: Text(
+                        hint,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 56, 56, 154),
+                        ),
+                      ),
+                      subtitle: Text(date),
+                    )
+                  ])))
+    ]);
   }
 }
