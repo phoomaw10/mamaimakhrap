@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/TeacherHomePage.dart';
 import 'package:mamaimakhrap/loginscreen.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const KeyboardVisibilityProvider(child: CoursePage()),
+      home: const KeyboardVisibilityProvider(child: InsideCoursePage()),
     );
   }
 }
