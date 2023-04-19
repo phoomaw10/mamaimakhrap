@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "372808837483",
-    "project_id": "mamaimakrup",
-    "storage_bucket": "mamaimakrup.appspot.com"
+    "project_number": "921089098894",
+    "project_id": "mamai-makhrap",
+    "storage_bucket": "mamai-makhrap.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:372808837483:android:b54341695ca7bd1698442e",
+        "mobilesdk_app_id": "1:921089098894:android:d12867f95cbc06147b35df",
         "android_client_info": {
           "package_name": "com.example.mamaimakhrap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "372808837483-q2v6ieli28ncm2lu1fu61uv5fhl73mvq.apps.googleusercontent.com",
+          "client_id": "921089098894-0ikiusslv3ce9cml4p9ld00dpe4jng6v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDcgwjK2l1VXdHlPa119KqDM3RPLiLmCxw"
+          "current_key": "AIzaSyACL5yvvHxeBmSg5oeOwnQBUIqoQYIQbb0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "372808837483-q2v6ieli28ncm2lu1fu61uv5fhl73mvq.apps.googleusercontent.com",
+              "client_id": "921089098894-0ikiusslv3ce9cml4p9ld00dpe4jng6v.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "372808837483-fu8g9sonsvk2b5a1qo842v5hom4rf3vu.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.mamaimakhrap"
-              }
             }
           ]
         }
