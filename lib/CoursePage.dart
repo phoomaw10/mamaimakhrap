@@ -13,6 +13,8 @@ class _CoursePageState extends State<CoursePage> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
+  TextEditingController _textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -23,20 +25,21 @@ class _CoursePageState extends State<CoursePage> {
       body: Column(
         children: <Widget>[
           Container(
-              height: 100,
-              width: screenWidth,
-              child: Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: const Center(
-                  child: Text(
-                    "Course",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 5, 47, 109)),
-                  ),
+            height: 100,
+            width: screenWidth,
+            child: Container(
+              margin: const EdgeInsets.only(top: 40),
+              child: const Center(
+                child: Text(
+                  "Course",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 5, 47, 109)),
                 ),
-              )),
+              ),
+            ),
+          ),
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
@@ -52,30 +55,79 @@ class _CoursePageState extends State<CoursePage> {
                         const EdgeInsets.only(top: 10, right: 10, bottom: 20),
                   ),
                   SizedBox(
-                    height: screenHeight / 1.4,
-                    child: Column(children: [
-                      Container(
-                          child: TextButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blue),
-                                overlayColor:
-                                    MaterialStateProperty.resolveWith<Color?>(
-                                  (Set<MaterialState> states) {
-                                    if (states.contains(MaterialState.hovered))
-                                      return Colors.blue.withOpacity(0.04);
-                                    if (states
-                                            .contains(MaterialState.focused) ||
-                                        states.contains(MaterialState.pressed))
-                                      return Colors.blue.withOpacity(0.12);
-                                    return null; // Defer to the widget's default.
-                                  },
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: Text('TextButton')))
-                    ]),
+                    height: screenHeight / 1.5,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: screenWidth - 20,
+                          child: Card(
+                            color: const Color.fromARGB(255, 236, 242, 255),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const <Widget>[
+                                ListTile(
+                                  title: Text(
+                                    'CSC234',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 56, 56, 154),
+                                    ),
+                                  ),
+                                  subtitle:
+                                      Text('User-Centered Mobile Application'),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: screenWidth - 20,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FloatingActionButton(
+                          child: Icon(Icons.add),
+                          backgroundColor: Color.fromARGB(255, 255, 188, 153),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  title: const Text(
+                                    'Add Course',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 5, 47, 109)),
+                                  ),
+                                  content: TextField(
+                                    controller: _textEditingController,
+                                    decoration:
+                                        InputDecoration(hintText: "CourseID"),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Close'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        )
+                      ],
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 25),
@@ -127,6 +179,12 @@ class _CoursePageState extends State<CoursePage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   Widget customField(
