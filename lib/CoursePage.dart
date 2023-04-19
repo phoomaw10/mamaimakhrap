@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
-class studentProfile extends StatefulWidget {
-  const studentProfile({super.key});
+class CoursePage extends StatefulWidget {
+  const CoursePage({super.key});
 
   @override
-  State<studentProfile> createState() => _studentProfile();
+  State<CoursePage> createState() => _CoursePageState();
 }
 
-class _studentProfile extends State<studentProfile> {
+class _CoursePageState extends State<CoursePage> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
@@ -16,7 +18,7 @@ class _studentProfile extends State<studentProfile> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 241, 191, 134),
+      backgroundColor: const Color.fromARGB(255, 255, 188, 153),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
@@ -27,7 +29,7 @@ class _studentProfile extends State<studentProfile> {
                 margin: const EdgeInsets.only(top: 40),
                 child: const Center(
                   child: Text(
-                    "Student",
+                    "Course",
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -45,90 +47,36 @@ class _studentProfile extends State<studentProfile> {
               child: Column(
                 children: <Widget>[
                   Container(
+                    alignment: Alignment.bottomCenter,
                     margin:
                         const EdgeInsets.only(top: 10, right: 10, bottom: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.logout_rounded),
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                          iconSize: screenWidth / 10,
-                        )
-                      ],
-                    ),
                   ),
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('images/face.jpeg'),
-                    radius: 80,
+                  SizedBox(
+                    height: screenHeight / 1.4,
+                    child: Column(children: [
+                      Container(
+                          child: TextButton(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue),
+                                overlayColor:
+                                    MaterialStateProperty.resolveWith<Color?>(
+                                  (Set<MaterialState> states) {
+                                    if (states.contains(MaterialState.hovered))
+                                      return Colors.blue.withOpacity(0.04);
+                                    if (states
+                                            .contains(MaterialState.focused) ||
+                                        states.contains(MaterialState.pressed))
+                                      return Colors.blue.withOpacity(0.12);
+                                    return null; // Defer to the widget's default.
+                                  },
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: Text('TextButton')))
+                    ]),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40, top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "First name",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('Nawat'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Last name",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('Sujjaritrat'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Faculty",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('School of Information Technology'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Department",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('Computer Science'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Email",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('nawat.sujj@kmutt.ac.th'),
-                  SizedBox(height: screenHeight / 20),
                   Container(
                     margin: const EdgeInsets.only(top: 25),
                     width: screenWidth - 60,
