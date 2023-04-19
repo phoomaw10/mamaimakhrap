@@ -5,6 +5,7 @@ import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/FeedbackPage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InsideFeedbackPage.dart';
+import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/TeacherHomePage.dart';
 import 'package:mamaimakhrap/TeacherProfile.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const KeyboardVisibilityProvider(child: InsideFeedbackPage()),
+      home: const KeyboardVisibilityProvider(child: QRCodePage()),
     );
   }
 }

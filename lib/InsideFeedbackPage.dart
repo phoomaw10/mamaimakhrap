@@ -122,40 +122,4 @@ class _InsideFeedbackPageState extends State<InsideFeedbackPage> {
     );
   }
 
-  Widget customField(
-    String hint,
-    String date,
-  ) {
-    return Column(children: [
-      GestureDetector(
-        onTap: () => print("tapped"),
-        child: Container(
-            width: screenWidth - 40,
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Card(
-                color: const Color.fromARGB(255, 236, 242, 255),
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(
-                          Icons.local_post_office_rounded,
-                          color: Colors.black,
-                          size: screenWidth / 10,
-                        ),
-                        title: Text(
-                          hint,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 56, 56, 154),
-                          ),
-                        ),
-                        subtitle: Text(date),
-                      )
-                    ]))),
-      )
-    ]);
-  }
 }
