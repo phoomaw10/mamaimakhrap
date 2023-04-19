@@ -18,7 +18,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 177, 230, 252),
+      backgroundColor: const Color.fromARGB(255, 181, 236, 205),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
@@ -54,9 +54,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   SizedBox(
                     height: screenHeight / 1.4,
                     child: Column(children: [
-                      customField('CSC111','Feedback from Aj.Vajirasak'),
-                      customField('CSC213','Feedback from Aj.Narongrit'),
-                      customField('CSC102','Feedback from Aj.Chonlamet')
+                      customField('CSC111', 'Feedback from Aj.Vajirasak'),
+                      customField('CSC213', 'Feedback from Aj.Narongrit'),
+                      customField('CSC102', 'Feedback from Aj.Chonlamet')
                     ]),
                   ),
                   Container(
@@ -115,34 +115,36 @@ class _FeedbackPageState extends State<FeedbackPage> {
     String hint,
     String date,
   ) {
-    return  Column(children: [
-                      GestureDetector(
-                        onTap: () => print("tapped"),
-                        child: Container(
-                            width: screenWidth - 40,
-                            margin: const EdgeInsets.only(bottom: 10),
-                            child: Card(
-                                color: const Color.fromARGB(255, 236, 242, 255),
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: Icon(Icons.local_post_office_rounded, color: Colors.black, size: screenWidth / 10,),
-                                        title: Text(
-                                          hint,
-                                          style: const TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                Color.fromARGB(255, 56, 56, 154),
-                                          ),
-                                        ),
-                                        subtitle: Text(
-                                            date),
-                                      )
-                                    ]))),
+    return Column(children: [
+      GestureDetector(
+        onTap: () => print("tapped"),
+        child: Container(
+            width: screenWidth - 40,
+            margin: const EdgeInsets.only(bottom: 10),
+            child: Card(
+                color: const Color.fromARGB(255, 236, 242, 255),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(
+                          Icons.local_post_office_rounded,
+                          color: Colors.black,
+                          size: screenWidth / 10,
+                        ),
+                        title: Text(
+                          hint,
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 56, 56, 154),
+                          ),
+                        ),
+                        subtitle: Text(date),
                       )
-                    ]);
+                    ]))),
+      )
+    ]);
   }
 }
