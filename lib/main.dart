@@ -5,6 +5,7 @@ import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/TeacherHomePage.dart';
+import 'package:mamaimakhrap/TeacherProfile.dart';
 import 'package:mamaimakhrap/loginscreen.dart';
 import 'package:mamaimakhrap/role.dart';
 import 'package:mamaimakhrap/studentProfile.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class studentProfile extends StatefulWidget {
-  const studentProfile({super.key});
+class TeacherProfile extends StatefulWidget {
+  const TeacherProfile({super.key});
 
   @override
-  State<studentProfile> createState() => _studentProfile();
+  State<TeacherProfile> createState() => _TeacherProfile();
 }
 
-class _studentProfile extends State<studentProfile> {
+class _TeacherProfile extends State<TeacherProfile> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
@@ -20,14 +20,14 @@ class _studentProfile extends State<studentProfile> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
-          Container(
+          SizedBox(
               height: 100,
               width: screenWidth,
               child: Container(
                 margin: const EdgeInsets.only(top: 40),
                 child: const Center(
                   child: Text(
-                    "Student",
+                    "Professor",
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class _studentProfile extends State<studentProfile> {
                       ],
                     ),
                   ),
-                  customField('Nawat'),
+                  customField('Vijirasak'),
                   Container(
                     margin: const EdgeInsets.only(left: 40),
                     child: Row(
@@ -91,7 +91,7 @@ class _studentProfile extends State<studentProfile> {
                       ],
                     ),
                   ),
-                  customField('Sujjaritrat'),
+                  customField('Vaninja'),
                   Container(
                     margin: const EdgeInsets.only(left: 40),
                     child: Row(
@@ -130,7 +130,7 @@ class _studentProfile extends State<studentProfile> {
                       ],
                     ),
                   ),
-                  customField('nawat.sujj@kmutt.ac.th'),
+                  customField('vajirasak.van@kmutt.ac.th'),
                     ]),
                   ),
                   Container(
