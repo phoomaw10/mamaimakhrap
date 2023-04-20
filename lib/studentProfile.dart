@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
@@ -14,6 +15,8 @@ class studentProfile extends StatefulWidget {
 class _studentProfile extends State<studentProfile> {
   double screenHeight = 0;
   double screenWidth = 0;
+  final users = FirebaseAuth.instance.currentUser;
+
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   @override
   Widget build(BuildContext context) {
@@ -105,6 +108,7 @@ class _studentProfile extends State<studentProfile> {
                                       ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
+                                        FirebaseAuth.instance.signOut();
                                       },
                                     ),
                                   ],
