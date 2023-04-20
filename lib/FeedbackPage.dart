@@ -23,7 +23,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 177, 230, 252),
+      backgroundColor: const Color.fromARGB(255, 181, 236, 205),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/HistoryPage.dart';
+import 'package:mamaimakhrap/QRCodePage.dart';
+import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/studentProfile.dart';
 
-class QRCodePage extends StatefulWidget {
-  const QRCodePage({super.key});
+class ConfirmQR extends StatefulWidget {
+  const ConfirmQR({super.key});
 
   @override
-  State<QRCodePage> createState() => _QRCodePageState();
+  State<ConfirmQR> createState() => _ConfirmQRState();
 }
 
-class _QRCodePageState extends State<QRCodePage> {
+class _ConfirmQRState extends State<ConfirmQR> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 177, 230, 252);
@@ -51,21 +55,38 @@ class _QRCodePageState extends State<QRCodePage> {
                     height: screenHeight / 1.35,
                     child: Column(children: [
                       Container(
-                        margin: const EdgeInsets.only(top: 30, bottom: 10),
-                        height: screenHeight - 550,
+                        margin: const EdgeInsets.only(top: 80, bottom: 10),
+                        height: screenHeight - 650,
                         width: screenWidth - 80,
-                        color: Color.fromARGB(255, 236, 242, 255),
-                      ),
-                      Container(
-                        child: Text(
-                          'Estimate time of QR code : 3.00',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                        child: Icon(
+                          Icons.check_circle_rounded,
+                          size: 170,
+                          color: Colors.green,
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 20),
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: 'You have ',
+                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'successfully\n',
+                                style: TextStyle(
+                                  color: Colors.green
+                                )
+                              ),
+                              TextSpan(
+                                text: 'attendance',
+                              )
+                            ]
+                          ),
+                        )
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 70),
+                        height: 35,
                         child: ElevatedButton(
                           onPressed: () {
                             // Refresh action
@@ -79,10 +100,8 @@ class _QRCodePageState extends State<QRCodePage> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.refresh, color: Colors.white),
-                              SizedBox(width: 8),
-                              Text('Refresh',
-                                  style: TextStyle(color: Colors.white)),
+                              Text('Finish',
+                                  style: TextStyle(color: Colors.white, fontSize: 23,fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
@@ -100,31 +119,53 @@ class _QRCodePageState extends State<QRCodePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            
+                          },
                           icon: const Icon(Icons.book),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HistoryPage())
+                            );
+                          },
                           icon: const Icon(Icons.history),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const StudentHomePage())
+                            );
+                          },
                           icon: const Icon(Icons.home),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const QRCodePage())
+                            );
+                          },
                           icon: const Icon(Icons.qr_code),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const studentProfile())
+                            );
+                          },
                           icon: const Icon(Icons.person),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),

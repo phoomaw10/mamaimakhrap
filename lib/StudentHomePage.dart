@@ -36,7 +36,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 50),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 60,
                     backgroundImage: AssetImage(
                       'images/face.jpeg',

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:mamaimakhrap/ConfirmQR.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/FeedbackPage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/InsideFeedbackPage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
+import 'package:mamaimakhrap/ScanPage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/TeacherHomePage.dart';
 import 'package:mamaimakhrap/TeacherProfile.dart';
