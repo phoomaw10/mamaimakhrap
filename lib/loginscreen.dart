@@ -104,26 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 130,
-                          width: double.infinity,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text('Register'),
-                              style: ElevatedButton.styleFrom(
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color: Color.fromARGB(255, 56, 56, 154)),
-                                fixedSize: const Size(350, 50),
-                                textStyle: const TextStyle(fontSize: 25),
-                                foregroundColor:
-                                    Color.fromARGB(255, 56, 56, 154),
-                                backgroundColor: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   )

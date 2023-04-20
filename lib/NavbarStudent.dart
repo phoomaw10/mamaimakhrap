@@ -9,14 +9,14 @@ import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
-class mainpage extends StatefulWidget {
-  const mainpage({Key? key}) : super(key: key);
+class NavbarStudent extends StatefulWidget {
+  const NavbarStudent({Key? key}) : super(key: key);
 
   @override
-  State<mainpage> createState() => _mainpageState();
+  State<NavbarStudent> createState() => _NavbarStudentState();
 }
 
-class _mainpageState extends State<mainpage> {
+class _NavbarStudentState extends State<NavbarStudent> {
   final pages = const [
     CoursePage(),
     HistoryPage(),
