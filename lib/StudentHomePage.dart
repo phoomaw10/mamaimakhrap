@@ -62,7 +62,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
               ),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Padding(
               padding: EdgeInsets.all(16.0),
               child: Row(

@@ -41,34 +41,39 @@ class _mainpageState extends State<mainpage> {
         }),
         items: [
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
               Icons.book,
-              color: Colors.black,
+              color: Color.fromARGB(255, 56, 56, 154),
             ),
             label: 'Course',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
               Icons.history,
-              color: Colors.black,
+              color: Color.fromARGB(255, 56, 56, 154),
             ),
             label: 'History',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
               Icons.qr_code,
-              color: Colors.black,
+              color: Color.fromARGB(255, 56, 56, 154),
             ),
             label: 'QR code',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
               Icons.person_2_rounded,
-              color: Colors.black,
+              color: Color.fromARGB(255, 56, 56, 154),
             ),
-            label: 'Person',
+            label: 'Porfile',
           ),
         ],
+        selectedItemColor: Color.fromARGB(255, 56, 56, 154),
       ),
       body: pages[_selectedTab],
     );
