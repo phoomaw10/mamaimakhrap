@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/HistoryPage.dart';
+import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/studentProfile.dart';
 
 class QRCodePage extends StatefulWidget {
   const QRCodePage({super.key});
@@ -92,53 +96,82 @@ class _QRCodePageState extends State<QRCodePage> {
                       )
                     ]),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 25),
-                    width: screenWidth - 60,
-                    height: screenHeight / 12,
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 236, 242, 255),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.book),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.history),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.home),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.qr_code),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.person),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                      ],
-                    ),
-                  )
+                  navigatebar()
                 ],
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget navigatebar() {
+    return Container(
+      width: screenWidth - 60,
+      height: screenHeight / 12,
+      margin: EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 236, 242, 255),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const CoursePage())));
+            },
+            icon: const Icon(Icons.book),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const HistoryPage())));
+            },
+            icon: const Icon(Icons.history),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const StudentHomePage())));
+            },
+            icon: const Icon(Icons.home),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const QRCodePage())));
+            },
+            icon: const Icon(Icons.qr_code),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const studentProfile())));
+            },
+            icon: const Icon(Icons.person),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
         ],
       ),
     );

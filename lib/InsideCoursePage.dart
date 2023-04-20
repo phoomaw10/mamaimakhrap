@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/CoursePage.dart';
 
 class InsideCoursePage extends StatefulWidget {
   const InsideCoursePage({super.key});
@@ -34,7 +35,9 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                     Container(
                       margin: const EdgeInsets.only(left: 10, bottom: 4),
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop((context));
+                          },
                           icon: const Icon(
                             Icons.arrow_circle_left_rounded,
                             size: 40,

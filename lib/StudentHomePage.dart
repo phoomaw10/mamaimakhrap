@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/FeedbackPage.dart';
+import 'package:mamaimakhrap/HistoryPage.dart';
+import 'package:mamaimakhrap/QRCodePage.dart';
+import 'package:mamaimakhrap/studentProfile.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({Key? key}) : super(key: key);
@@ -11,16 +16,12 @@ class StudentHomePage extends StatefulWidget {
 }
 
 class _StudentHomePageState extends State<StudentHomePage> {
-  TextEditingController idController = TextEditingController();
-  TextEditingController passController = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = Color.fromARGB(255, 255, 255, 255);
 
   @override
   Widget build(BuildContext context) {
-    final bool isKeyboardVisible =
-        KeyboardVisibilityProvider.isKeyboardVisible(context);
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -68,10 +69,15 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const CoursePage())));
+                    },
                     icon: Column(
                       children: [
-                        Icon(Icons.book, size: 50), // <-- Icon
+                        Icon(Icons.book, size: 50),
                         Text(
                           "Class",
                           style: TextStyle(
@@ -105,7 +111,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   ),
                   SizedBox(width: 50),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const QRCodePage())));
+                    },
                     icon: Column(
                       children: [
                         Icon(Icons.qr_code, size: 50), // <-- Icon
@@ -147,7 +158,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const HistoryPage())));
+                },
                 icon: Column(
                   children: [
                     Icon(Icons.history, size: 50), // <-- Icon
@@ -182,7 +198,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
               ),
               SizedBox(width: 50),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const studentProfile())));
+                },
                 icon: Column(
                   children: [
                     Icon(Icons.account_circle, size: 50), // <-- Icon
@@ -219,7 +240,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
           ),
           SizedBox(height: 40),
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const FeedbackPage())));
+            },
             icon: Column(
               children: [
                 Icon(Icons.assignment_rounded, size: 50), // <-- Icon

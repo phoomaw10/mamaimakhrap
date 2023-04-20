@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/HistoryPage.dart';
+import 'package:mamaimakhrap/InsideCoursePage.dart';
+import 'package:mamaimakhrap/QRCodePage.dart';
+import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/studentProfile.dart';
 
 class CoursePage extends StatefulWidget {
   const CoursePage({super.key});
@@ -58,27 +63,33 @@ class _CoursePageState extends State<CoursePage> {
                     height: screenHeight / 1.5,
                     child: Column(
                       children: [
-                        Container(
-                          width: screenWidth - 20,
-                          child: Card(
-                            color: const Color.fromARGB(255, 236, 242, 255),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const <Widget>[
-                                ListTile(
-                                  title: Text(
-                                    'CSC234',
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 56, 56, 154),
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => InsideCoursePage()))),
+                          child: Container(
+                            width: screenWidth - 20,
+                            child: Card(
+                              color: const Color.fromARGB(255, 236, 242, 255),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const <Widget>[
+                                  ListTile(
+                                    title: Text(
+                                      'CSC234',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 56, 56, 154),
+                                      ),
                                     ),
-                                  ),
-                                  subtitle:
-                                      Text('User-Centered Mobile Application'),
-                                )
-                              ],
+                                    subtitle: Text(
+                                        'User-Centered Mobile Application'),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -115,10 +126,37 @@ class _CoursePageState extends State<CoursePage> {
                                   ),
                                   actions: <Widget>[
                                     TextButton(
-                                      child: Text('Close'),
+                                      child: Text(
+                                        'Close',
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 56, 56, 154),
+                                        ),
+                                      ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        side: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 56, 56, 154),
+                                          width: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      child: Text(
+                                        'Add',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 56, 56, 154),
+                                      ),
                                     ),
                                   ],
                                 );
@@ -129,53 +167,82 @@ class _CoursePageState extends State<CoursePage> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 25),
-                    width: screenWidth - 60,
-                    height: screenHeight / 12,
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 236, 242, 255),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.book),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.history),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.home),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.qr_code),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.person),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                      ],
-                    ),
-                  )
+                  navigatebar()
                 ],
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget navigatebar() {
+    return Container(
+      width: screenWidth - 60,
+      height: screenHeight / 12,
+      margin: EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 236, 242, 255),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const CoursePage())));
+            },
+            icon: const Icon(Icons.book),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const HistoryPage())));
+            },
+            icon: const Icon(Icons.history),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const StudentHomePage())));
+            },
+            icon: const Icon(Icons.home),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const QRCodePage())));
+            },
+            icon: const Icon(Icons.qr_code),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const studentProfile())));
+            },
+            icon: const Icon(Icons.person),
+            iconSize: 30,
+            color: const Color.fromARGB(255, 55, 56, 128),
+          ),
         ],
       ),
     );
