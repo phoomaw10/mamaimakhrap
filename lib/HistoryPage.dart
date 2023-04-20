@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/QRCodePage.dart';
+import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/studentProfile.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -70,31 +73,53 @@ class _HistoryPageState extends State<HistoryPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            
+                          },
                           icon: const Icon(Icons.book),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HistoryPage())
+                            );
+                          },
                           icon: const Icon(Icons.history),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const StudentHomePage())
+                            );
+                          },
                           icon: const Icon(Icons.home),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const QRCodePage())
+                            );
+                          },
                           icon: const Icon(Icons.qr_code),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const studentProfile())
+                            );
+                          },
                           icon: const Icon(Icons.person),
                           iconSize: 30,
                           color: const Color.fromARGB(255, 55, 56, 128),
