@@ -44,39 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAGcxDyltr8br-fA2keTKFYd8JRaqDu4FM',
-    appId: '1:372808837483:web:d717d6ee984131ee98442e',
-    messagingSenderId: '372808837483',
-    projectId: 'mamaimakrup',
-    authDomain: 'mamaimakrup.firebaseapp.com',
-    storageBucket: 'mamaimakrup.appspot.com',
+    apiKey: 'AIzaSyBomC5-yAZQdQbbigRlWmoSMN0_oG3lduU',
+    appId: '1:921089098894:web:c94bd37e9814ae457b35df',
+    messagingSenderId: '921089098894',
+    projectId: 'mamai-makhrap',
+    authDomain: 'mamai-makhrap.firebaseapp.com',
+    storageBucket: 'mamai-makhrap.appspot.com',
+    measurementId: 'G-025MD3JV4Y',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDcgwjK2l1VXdHlPa119KqDM3RPLiLmCxw',
-    appId: '1:372808837483:android:b54341695ca7bd1698442e',
-    messagingSenderId: '372808837483',
-    projectId: 'mamaimakrup',
-    storageBucket: 'mamaimakrup.appspot.com',
+    apiKey: 'AIzaSyACL5yvvHxeBmSg5oeOwnQBUIqoQYIQbb0',
+    appId: '1:921089098894:android:d12867f95cbc06147b35df',
+    messagingSenderId: '921089098894',
+    projectId: 'mamai-makhrap',
+    storageBucket: 'mamai-makhrap.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDsgUG4xeQXbSK2fUwNhwdxMrQBvPI9VsA',
-    appId: '1:372808837483:ios:9ae793cc59d24ddc98442e',
-    messagingSenderId: '372808837483',
-    projectId: 'mamaimakrup',
-    storageBucket: 'mamaimakrup.appspot.com',
-    iosClientId: '372808837483-fu8g9sonsvk2b5a1qo842v5hom4rf3vu.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCmQ7hju5FWAyPNTrAUFJhM2biudkTe5x8',
+    appId: '1:921089098894:ios:0e781b2ee6d222117b35df',
+    messagingSenderId: '921089098894',
+    projectId: 'mamai-makhrap',
+    storageBucket: 'mamai-makhrap.appspot.com',
+    iosClientId: '921089098894-4lgtcmuabedalv1bou37vmo0v5ji1r50.apps.googleusercontent.com',
     iosBundleId: 'com.example.mamaimakhrap',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDsgUG4xeQXbSK2fUwNhwdxMrQBvPI9VsA',
-    appId: '1:372808837483:ios:9ae793cc59d24ddc98442e',
-    messagingSenderId: '372808837483',
-    projectId: 'mamaimakrup',
-    storageBucket: 'mamaimakrup.appspot.com',
-    iosClientId: '372808837483-fu8g9sonsvk2b5a1qo842v5hom4rf3vu.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCmQ7hju5FWAyPNTrAUFJhM2biudkTe5x8',
+    appId: '1:921089098894:ios:0e781b2ee6d222117b35df',
+    messagingSenderId: '921089098894',
+    projectId: 'mamai-makhrap',
+    storageBucket: 'mamai-makhrap.appspot.com',
+    iosClientId: '921089098894-4lgtcmuabedalv1bou37vmo0v5ji1r50.apps.googleusercontent.com',
     iosBundleId: 'com.example.mamaimakhrap',
   );
 }
