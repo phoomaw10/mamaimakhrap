@@ -13,6 +13,7 @@ import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/TeacherHomePage.dart';
 import 'package:mamaimakhrap/TeacherProfile.dart';
 import 'package:mamaimakhrap/loginscreen.dart';
+import 'package:mamaimakhrap/mainpage.dart';
 import 'package:mamaimakhrap/role.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 import 'firebase_options.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const StudentHomePage();
+              return const mainpage();
             } else {
               return const KeyboardVisibilityProvider(child: LoginScreen());
             }

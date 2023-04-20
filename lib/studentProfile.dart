@@ -176,7 +176,6 @@ class _studentProfile extends State<studentProfile> {
                         ),
                       ),
                       customField('nawat.sujj@kmutt.ac.th'),
-                      navigatebar(),
                     ]),
                   ),
                 ],

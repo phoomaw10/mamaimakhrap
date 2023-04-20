@@ -46,203 +46,120 @@ class _CoursePageState extends State<CoursePage> {
             ),
           ),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0))),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    margin:
-                        const EdgeInsets.only(top: 10, right: 10, bottom: 20),
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  width: screenWidth,
+                  height: screenHeight,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0))),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                          customCourse(
+                              'CSC234', 'User-Centered Mobile Pongmungtai'),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    height: screenHeight / 1.5,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => InsideCoursePage()))),
-                          child: Container(
-                            width: screenWidth - 20,
-                            child: Card(
-                              color: const Color.fromARGB(255, 236, 242, 255),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const <Widget>[
-                                  ListTile(
-                                    title: Text(
-                                      'CSC234',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 56, 56, 154),
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                        'User-Centered Mobile Application'),
-                                  )
-                                ],
-                              ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 20, right: 20),
+                  child: FloatingActionButton(
+                    child: Icon(Icons.add),
+                    backgroundColor: Color.fromARGB(255, 255, 188, 153),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            title: const Text(
+                              'Add Course',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 5, 47, 109)),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: screenWidth - 20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        FloatingActionButton(
-                          child: Icon(Icons.add),
-                          backgroundColor: Color.fromARGB(255, 255, 188, 153),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
-                                  title: const Text(
-                                    'Add Course',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 5, 47, 109)),
+                            content: TextField(
+                              controller: _textEditingController,
+                              decoration: InputDecoration(hintText: "CourseID"),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  'Close',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 56, 56, 154),
                                   ),
-                                  content: TextField(
-                                    controller: _textEditingController,
-                                    decoration:
-                                        InputDecoration(hintText: "CourseID"),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  side: BorderSide(
+                                    color: Color.fromARGB(255, 56, 56, 154),
+                                    width: 1,
                                   ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text(
-                                        'Close',
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 56, 56, 154),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        side: BorderSide(
-                                          color:
-                                              Color.fromARGB(255, 56, 56, 154),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      child: Text(
-                                        'Add',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      style: TextButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 56, 56, 154),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        )
-                      ],
-                    ),
+                                ),
+                              ),
+                              TextButton(
+                                child: Text(
+                                  'Add',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 56, 56, 154),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   ),
-                  navigatebar()
-                ],
-              ),
+                )
+              ],
             ),
           )
-        ],
-      ),
-    );
-  }
-
-  Widget navigatebar() {
-    return Container(
-      width: screenWidth - 60,
-      height: screenHeight / 12,
-      margin: EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 236, 242, 255),
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const CoursePage())));
-            },
-            icon: const Icon(Icons.book),
-            iconSize: 30,
-            color: const Color.fromARGB(255, 55, 56, 128),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const HistoryPage())));
-            },
-            icon: const Icon(Icons.history),
-            iconSize: 30,
-            color: const Color.fromARGB(255, 55, 56, 128),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const StudentHomePage())));
-            },
-            icon: const Icon(Icons.home),
-            iconSize: 30,
-            color: const Color.fromARGB(255, 55, 56, 128),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const QRCodePage())));
-            },
-            icon: const Icon(Icons.qr_code),
-            iconSize: 30,
-            color: const Color.fromARGB(255, 55, 56, 128),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const studentProfile())));
-            },
-            icon: const Icon(Icons.person),
-            iconSize: 30,
-            color: const Color.fromARGB(255, 55, 56, 128),
-          ),
         ],
       ),
     );
@@ -256,40 +173,66 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget customField(
     String hint,
+    String date,
   ) {
-    return Container(
-        width: screenWidth - 80,
-        height: screenHeight / 17,
-        margin: const EdgeInsets.only(bottom: 7),
-        decoration: BoxDecoration(
-            color: Color.fromARGB(255, 236, 242, 255),
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(181, 214, 213, 213),
-                spreadRadius: 0.1,
-                blurRadius: 0.5,
-                offset: const Offset(0, 5),
-              ),
-              const BoxShadow(
-                color: Colors.white70,
-                offset: Offset(-5, 0),
-              ),
-              const BoxShadow(
-                color: Colors.white70,
-                offset: Offset(5, 0),
-              )
-            ]),
-        child: Container(
-          margin: const EdgeInsets.only(left: 25),
-          child: Row(
-            children: [
-              Text(
-                hint,
-                style: const TextStyle(color: Color.fromARGB(158, 0, 0, 0)),
+    return Column(children: [
+      Container(
+          width: screenWidth - 40,
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Card(
+              color: const Color.fromARGB(255, 236, 242, 255),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(
+                        Icons.check_circle_rounded,
+                        color: Colors.green,
+                        size: screenWidth / 10,
+                      ),
+                      title: Text(
+                        hint,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 56, 56, 154),
+                        ),
+                      ),
+                      subtitle: Text(date),
+                    )
+                  ])))
+    ]);
+  }
+
+  Widget customCourse(String title, String subtitle) {
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => InsideCoursePage()))),
+      child: Container(
+        width: screenWidth - 40,
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Card(
+          color: const Color.fromARGB(255, 236, 242, 255),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 56, 56, 154),
+                  ),
+                ),
+                subtitle: Text(subtitle),
               )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
