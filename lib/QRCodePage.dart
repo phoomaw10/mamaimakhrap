@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QRCodePage extends StatefulWidget {
   const QRCodePage({super.key});
@@ -10,6 +11,7 @@ class QRCodePage extends StatefulWidget {
 }
 
 class _QRCodePageState extends State<QRCodePage> {
+  final controller = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 177, 230, 252);
@@ -55,6 +57,10 @@ class _QRCodePageState extends State<QRCodePage> {
                         height: screenHeight - 550,
                         width: screenWidth - 80,
                         color: Color.fromARGB(255, 236, 242, 255),
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 8),
+                          child: QrImage(data: controller.text),
+                        ),
                       ),
                       Container(
                         child: Text(

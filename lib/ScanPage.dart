@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key});
@@ -10,9 +14,22 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  Barcode? result;
+  QRViewController? controller;
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 177, 230, 252);
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller!.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller!.resumeCamera();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -28,7 +45,7 @@ class _ScanPageState extends State<ScanPage> {
               child: Container(
                 margin: const EdgeInsets.only(top: 50),
                 child: const Text(
-                  "QR Code",
+                  "Scan",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 30,
@@ -47,48 +64,29 @@ class _ScanPageState extends State<ScanPage> {
                       topRight: Radius.circular(30.0))),
               child: Column(
                 children: <Widget>[
-                  SizedBox(
-                    height: screenHeight / 1.35,
-                    child: Column(children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 30, bottom: 10),
-                        height: screenHeight - 550,
-                        width: screenWidth - 80,
-                        color: Color.fromARGB(255, 236, 242, 255),
+                  Expanded(
+                    flex: 5,
+                    child: QRView(
+                      key: qrKey,
+                      onQRViewCreated: _onQRViewCreated,
+                      overlay: QrScannerOverlayShape(
+                        borderColor: Colors.blueAccent,
+                        borderRadius: 10,
+                        borderLength: 20,
+                        borderWidth: 10,
+                        cutOutSize: MediaQuery.of(context).size.width * 0.8,
                       ),
-                      Container(
-                        child: Text(
-                          'Estimate time of QR code : 3.00',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Refresh action
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 5, 47, 109),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.refresh, color: Colors.white),
-                              SizedBox(width: 8),
-                              Text('Refresh',
-                                  style: TextStyle(color: Colors.white)),
-                            ],
-                          ),
-                        ),
-                      )
-                    ]),
+                    ),
                   ),
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: (result != null)
+                          ? Text(
+                              'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                          : Text('Scan a code'),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -130,5 +128,20 @@ class _ScanPageState extends State<ScanPage> {
                     )
                   ])))
     ]);
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 }
