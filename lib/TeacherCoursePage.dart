@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
+import 'package:mamaimakhrap/InCoursePage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
@@ -182,8 +183,8 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
 
   Widget customCourse(String title, String subtitle) {
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => InsideCoursePage()))),
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => InCoursePage()))),
       child: Container(
         width: screenWidth - 40,
         margin: const EdgeInsets.only(bottom: 10),
