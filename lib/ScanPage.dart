@@ -54,41 +54,50 @@ class _ScanPageState extends State<ScanPage> {
                 ),
               )),
           Expanded(
-            child: Container(
-              height: screenHeight,
-              width: screenWidth,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0))),
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: QRView(
-                      key: qrKey,
-                      onQRViewCreated: _onQRViewCreated,
-                      overlay: QrScannerOverlayShape(
-                        borderColor: Colors.blueAccent,
-                        borderRadius: 10,
-                        borderLength: 20,
-                        borderWidth: 10,
-                        cutOutSize: MediaQuery.of(context).size.width * 0.8,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: screenHeight,
+                  width: screenWidth,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0))),
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 5,
+                        child: QRView(
+                          key: qrKey,
+                          onQRViewCreated: _onQRViewCreated,
+                          overlay: QrScannerOverlayShape(
+                            borderColor: Colors.blueAccent,
+                            borderRadius: 10,
+                            borderLength: 20,
+                            borderWidth: 10,
+                            cutOutSize: MediaQuery.of(context).size.width * 0.8,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Center(
-                      child: (result != null)
-                          ? Text(
-                              'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                          : Text('Scan a code'),
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Positioned(
+                  bottom: 30,
+                  child: Container(
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white24),
+                    child: (result != null)
+                        ? Text(
+                            'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                        : Text('Scan a code'),
+                  ),
+                )
+              ],
             ),
           )
         ],
@@ -129,6 +138,18 @@ class _ScanPageState extends State<ScanPage> {
                   ])))
     ]);
   }
+
+  Widget buildQrView(BuildContext context) => QRView(
+        key: qrKey,
+        onQRViewCreated: _onQRViewCreated,
+        overlay: QrScannerOverlayShape(
+          borderColor: Colors.blueAccent,
+          borderRadius: 10,
+          borderLength: 20,
+          borderWidth: 10,
+          cutOutSize: MediaQuery.of(context).size.width * 0.8,
+        ),
+      );
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
