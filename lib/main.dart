@@ -7,6 +7,7 @@ import 'package:mamaimakhrap/FeedbackPage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/InsideFeedbackPage.dart';
+import 'package:mamaimakhrap/NavbarTeacher.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/ScanPage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
@@ -43,9 +44,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const NavbarStudent();
+              return const NavbarTeacher();
             } else {
-              return const KeyboardVisibilityProvider(child: LoginScreen());
+              return const KeyboardVisibilityProvider(child: TeacherProfile());
             }
           },
         ));

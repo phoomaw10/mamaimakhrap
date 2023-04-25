@@ -7,14 +7,14 @@ import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
-class CoursePage extends StatefulWidget {
-  const CoursePage({super.key});
+class TeacherCoursePage extends StatefulWidget {
+  const TeacherCoursePage({super.key});
 
   @override
-  State<CoursePage> createState() => _CoursePageState();
+  State<TeacherCoursePage> createState() => _TeacherCoursePageState();
 }
 
-class _CoursePageState extends State<CoursePage> {
+class _TeacherCoursePageState extends State<TeacherCoursePage> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
@@ -72,7 +72,7 @@ class _CoursePageState extends State<CoursePage> {
                 Container(
                   margin: EdgeInsets.only(bottom: 20, right: 20),
                   child: FloatingActionButton(
-                    child: Icon(Icons.add),
+                    child: Icon(Icons.create),
                     backgroundColor: Color.fromARGB(255, 255, 188, 153),
                     onPressed: () {
                       showDialog(
@@ -82,7 +82,7 @@ class _CoursePageState extends State<CoursePage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             title: const Text(
-                              'Add Course',
+                              'Create Course',
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -90,7 +90,8 @@ class _CoursePageState extends State<CoursePage> {
                             ),
                             content: TextField(
                               controller: _textEditingController,
-                              decoration: InputDecoration(hintText: "CourseID"),
+                              decoration:
+                                  InputDecoration(hintText: "Course Name"),
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -113,7 +114,7 @@ class _CoursePageState extends State<CoursePage> {
                               ),
                               TextButton(
                                 child: Text(
-                                  'Add',
+                                  'Create',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 onPressed: () {

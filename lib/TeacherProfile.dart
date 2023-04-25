@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TeacherProfile extends StatefulWidget {
   const TeacherProfile({super.key});
@@ -11,6 +12,8 @@ class _TeacherProfile extends State<TeacherProfile> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
+  final users = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -20,7 +23,7 @@ class _TeacherProfile extends State<TeacherProfile> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
-          SizedBox(
+          Container(
               height: 100,
               width: screenWidth,
               child: Container(
@@ -51,7 +54,64 @@ class _TeacherProfile extends State<TeacherProfile> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  title: const Text(
+                                    'Logout',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 5, 47, 109)),
+                                  ),
+                                  content:
+                                      const Text('Are you sure to logout?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        'No',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color.fromARGB(
+                                                255, 56, 56, 154)),
+                                      ),
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        side: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 56, 56, 154),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        'Yes',
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.white),
+                                      ),
+                                      style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 56, 56, 154),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        FirebaseAuth.instance.signOut();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                           icon: const Icon(Icons.logout_rounded),
                           color: const Color.fromARGB(255, 55, 56, 128),
                           iconSize: screenWidth / 10,
@@ -60,121 +120,78 @@ class _TeacherProfile extends State<TeacherProfile> {
                     ),
                   ),
                   SizedBox(
-                    height: screenHeight / 1.5,
                     child: Column(children: [
-                     const CircleAvatar(
-                    backgroundImage: AssetImage('images/face.jpeg'),
-                    radius: 80,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40, top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "First name",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('Vijirasak'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Last name",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('Vaninja'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Faculty",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('School of Information Technology'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Department",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('Computer Science'),
-                  Container(
-                    margin: const EdgeInsets.only(left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Email",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  customField('vajirasak.van@kmutt.ac.th'),
+                      const CircleAvatar(
+                        backgroundImage: AssetImage('images/face.jpeg'),
+                        radius: 100,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 40, top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const <Widget>[
+                            Text(
+                              "First name",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      customField('Vajirsak'),
+                      Container(
+                        margin: const EdgeInsets.only(left: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const <Widget>[
+                            Text(
+                              "Last name",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      customField('Vanija'),
+                      Container(
+                        margin: const EdgeInsets.only(left: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const <Widget>[
+                            Text(
+                              "Faculty",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      customField('School of Information Technology'),
+                      Container(
+                        margin: const EdgeInsets.only(left: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const <Widget>[
+                            Text(
+                              "Department",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      customField('Computer Science'),
+                      Container(
+                        margin: const EdgeInsets.only(left: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const <Widget>[
+                            Text(
+                              "Email",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      customField('vachee@sit.kmutt.ac.th'),
                     ]),
                   ),
-                  Container(
-                    width: screenWidth - 60,
-                    height: screenHeight / 12,
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 236, 242, 255),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.book),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.history),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.home),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.qr_code),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.person),
-                          iconSize: 30,
-                          color: const Color.fromARGB(255, 55, 56, 128),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),
@@ -190,7 +207,7 @@ class _TeacherProfile extends State<TeacherProfile> {
     return Container(
         width: screenWidth - 80,
         height: screenHeight / 17,
-        margin: const EdgeInsets.only(bottom: 7),
+        margin: const EdgeInsets.only(bottom: 10),
         decoration: const BoxDecoration(
             color: Color.fromARGB(255, 236, 242, 255),
             borderRadius: BorderRadius.all(Radius.circular(5)),
