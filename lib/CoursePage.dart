@@ -47,7 +47,7 @@ class _CoursePageState extends State<CoursePage> {
           ),
           Expanded(
             child: Stack(
-              alignment: Alignment.bottomRight,
+              //alignment: Alignment.bottomRight,
               children: [
                 Container(
                   width: screenWidth,
