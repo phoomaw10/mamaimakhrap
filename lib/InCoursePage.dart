@@ -119,13 +119,13 @@ class _InCoursePageState extends State<InCoursePage> {
                       color: Color.fromARGB(255, 236, 242, 255),
                     ),
                     child: Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: Column(
-                          children: [
-                            customField('CSC234',
-                                'Thursday 13 April 2023 13.30 - 16.30'),
-                          ],
-                        )),
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          customMember('Nawat Sujjaritrat'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -142,37 +142,104 @@ class _InCoursePageState extends State<InCoursePage> {
     super.dispose();
   }
 
-  Widget customField(
+  Widget customMember(
     String hint,
-    String date,
+    //String date,
   ) {
-    return Column(children: [
-      Container(
-          width: screenWidth - 85,
+    return Column(
+      children: [
+        Container(
+          width: screenWidth - 40,
           margin: const EdgeInsets.only(bottom: 10),
           child: Card(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(
-                        Icons.check_circle_rounded,
-                        color: Colors.green,
-                        size: screenWidth / 10,
+            margin: const EdgeInsets.all(20),
+            child: InkWell(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Color.fromARGB(255, 236, 242, 255),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      title: const Text(
+                        'Action',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 5, 47, 109)),
                       ),
-                      title: Text(
-                        hint,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 56, 56, 154),
+                      actions: <Widget>[
+                        Column(
+                          children: [
+                            Container(
+                              color: Colors.white,
+                              child: InkWell(
+                                onTap: () {},
+                                child: ListTile(
+                                  leading: Icon(Icons.feedback),
+                                  title: Text(
+                                    "Feedback",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: Colors.white,
+                              child: InkWell(
+                                onTap: () {},
+                                child: ListTile(
+                                  leading: Icon(
+                                    Icons.block,
+                                    color: Colors.red,
+                                  ),
+                                  title: Text(
+                                    "Kick",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 23,
+                      backgroundImage: AssetImage("images/face.jpeg"),
+                    ),
+                    title: Text(
+                      hint,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
                       ),
-                      subtitle: Text(date),
-                    )
-                  ])))
-    ]);
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
