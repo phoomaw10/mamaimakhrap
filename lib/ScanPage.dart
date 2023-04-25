@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key});
@@ -92,8 +93,10 @@ class _ScanPageState extends State<ScanPage> {
                         borderRadius: BorderRadius.circular(8),
                         color: Colors.white24),
                     child: (result != null)
-                        ? Text(
-                            'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                        ? ElevatedButton(
+                            onPressed: () => _launchUrl('${result!.code}'),
+                            child: Text('Click to open'),
+                          )
                         : Text('Scan a code'),
                   ),
                 )
@@ -105,52 +108,6 @@ class _ScanPageState extends State<ScanPage> {
     );
   }
 
-  Widget customField(
-    String hint,
-    String date,
-  ) {
-    return Column(children: [
-      Container(
-          width: screenWidth - 40,
-          margin: const EdgeInsets.only(bottom: 10),
-          child: Card(
-              color: const Color.fromARGB(255, 236, 242, 255),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(
-                        Icons.check_circle_rounded,
-                        color: Colors.green,
-                        size: screenWidth / 10,
-                      ),
-                      title: Text(
-                        hint,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 56, 56, 154),
-                        ),
-                      ),
-                      subtitle: Text(date),
-                    )
-                  ])))
-    ]);
-  }
-
-  Widget buildQrView(BuildContext context) => QRView(
-        key: qrKey,
-        onQRViewCreated: _onQRViewCreated,
-        overlay: QrScannerOverlayShape(
-          borderColor: Colors.blueAccent,
-          borderRadius: 10,
-          borderLength: 20,
-          borderWidth: 10,
-          cutOutSize: MediaQuery.of(context).size.width * 0.8,
-        ),
-      );
-
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
@@ -158,6 +115,13 @@ class _ScanPageState extends State<ScanPage> {
         result = scanData;
       });
     });
+  }
+
+  _launchUrl(String uu) async {
+    final Uri _url = Uri.parse(uu);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 
   @override
