@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/ConfirmQR.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -94,7 +95,10 @@ class _ScanPageState extends State<ScanPage> {
                         color: Colors.white24),
                     child: (result != null)
                         ? ElevatedButton(
-                            onPressed: () => _launchUrl('${result!.code}'),
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ConfirmQR())),
                             child: Text('Click to open'),
                           )
                         : Text('Scan a code'),

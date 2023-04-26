@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
-import 'package:mamaimakhrap/SendFeedback.dart';
 
-class InCoursePage extends StatefulWidget {
-  const InCoursePage({super.key});
+class SendFeedback extends StatefulWidget {
+  const SendFeedback({super.key});
 
   @override
-  State<InCoursePage> createState() => _InCoursePageState();
+  State<SendFeedback> createState() => _SendFeedbackState();
 }
 
-class _InCoursePageState extends State<InCoursePage> {
+class _SendFeedbackState extends State<SendFeedback> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
@@ -36,7 +35,7 @@ class _InCoursePageState extends State<InCoursePage> {
                       margin: const EdgeInsets.only(left: 10, bottom: 4),
                       child: IconButton(
                           onPressed: () {
-                            Navigator.pop((context));
+                            Navigator.pop(context);
                           },
                           icon: const Icon(
                             Icons.arrow_circle_left_rounded,
@@ -159,10 +158,10 @@ class _InCoursePageState extends State<InCoursePage> {
                         const EdgeInsets.only(top: 10, right: 10, bottom: 20),
                   ),
                   Container(
-                    margin: EdgeInsets.all(15.0),
+                    margin: EdgeInsets.only(left: 15.0, right: 15, top: 15),
                     child: SizedBox(
                       child: Column(
-                        children: const <Widget>[
+                        children: <Widget>[
                           ListTile(
                             title: Text(
                               'CSC234',
@@ -173,44 +172,42 @@ class _InCoursePageState extends State<InCoursePage> {
                               ),
                             ),
                             subtitle: Text('User-Centered Mobile Application'),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: SizedBox(
-                      child: Column(
-                        children: const <Widget>[
-                          ListTile(
-                            title: Text(
-                              'Member',
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 56, 56, 154),
-                              ),
-                            ),
                           ),
+                          customMember('Nawat Sujjaritrat')
                         ],
                       ),
                     ),
                   ),
                   Container(
-                    height: screenWidth - 40,
+                    height: screenHeight / 1.8,
                     width: screenWidth - 60,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: Color.fromARGB(255, 236, 242, 255),
                     ),
-                    child: Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          customMember('Nawat Sujjaritrat'),
-                        ],
-                      ),
+                    child: Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        Container(
+                            margin:
+                                EdgeInsets.only(top: 10, right: 20, left: 20),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  child: TextField(
+                                    maxLines: 22,
+                                    minLines: 1,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.send_rounded,
+                              size: 30,
+                            ))
+                      ],
                     ),
                   ),
                 ],
@@ -241,7 +238,7 @@ class _InCoursePageState extends State<InCoursePage> {
             margin: const EdgeInsets.all(20),
             child: InkWell(
               onTap: () {
-                showDialog(
+                /*showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
@@ -266,13 +263,7 @@ class _InCoursePageState extends State<InCoursePage> {
                                 color: Colors.white,
                               ),
                               child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SendFeedback()));
-                                },
+                                onTap: () {},
                                 child: ListTile(
                                   leading: Icon(Icons.feedback),
                                   title: Text(
@@ -294,97 +285,7 @@ class _InCoursePageState extends State<InCoursePage> {
                                 color: Colors.white,
                               ),
                               child: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Color.fromARGB(
-                                              255, 236, 242, 255),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0)),
-                                          title: const Text(
-                                            'Warning',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromARGB(
-                                                    255, 5, 47, 109)),
-                                          ),
-                                          content: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              RichText(
-                                                textAlign: TextAlign.center,
-                                                text: TextSpan(
-                                                    text:
-                                                        'Are you sure to kick\n ',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
-                                                    children: <TextSpan>[
-                                                      TextSpan(
-                                                          text: hint + ' ?',
-                                                          style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      255,
-                                                                      0,
-                                                                      0),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                    ]),
-                                              )
-                                            ],
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                style: TextButton.styleFrom(
-                                                  backgroundColor: Colors.white,
-                                                  side: BorderSide(
-                                                    color: Color.fromARGB(
-                                                        255, 56, 56, 154),
-                                                    width: 1,
-                                                  ),
-                                                ),
-                                                child: Text(
-                                                  'No',
-                                                  style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 56, 56, 154),
-                                                  ),
-                                                )),
-                                            TextButton(
-                                                onPressed: () {},
-                                                style: TextButton.styleFrom(
-                                                  backgroundColor:
-                                                      Color.fromARGB(
-                                                          255, 56, 56, 154),
-                                                  side: BorderSide(
-                                                    color: Color.fromARGB(
-                                                        255, 56, 56, 154),
-                                                    width: 1,
-                                                  ),
-                                                ),
-                                                child: Text(
-                                                  'Yes',
-                                                  style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                  ),
-                                                ))
-                                          ],
-                                        );
-                                      });
-                                },
+                                onTap: () {},
                                 child: ListTile(
                                   leading: Icon(
                                     Icons.block,
@@ -407,26 +308,48 @@ class _InCoursePageState extends State<InCoursePage> {
                     );
                   },
                 );
+              */
               },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  ListTile(
-                    leading: CircleAvatar(
-                      radius: 23,
-                      backgroundImage: AssetImage("images/face.jpeg"),
-                    ),
-                    title: Text(
-                      hint,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(181, 214, 213, 213),
+                        spreadRadius: 0.1,
+                        blurRadius: 0.5,
+                        offset: Offset(0, 5),
+                      ),
+                      BoxShadow(
+                        color: Colors.white70,
+                        offset: Offset(-5, 0),
+                      ),
+                      BoxShadow(
+                        color: Colors.white70,
+                        offset: Offset(5, 0),
+                      )
+                    ]),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ListTile(
+                      leading: CircleAvatar(
+                        radius: 23,
+                        backgroundImage: AssetImage("images/face.jpeg"),
+                      ),
+                      title: Text(
+                        hint,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
