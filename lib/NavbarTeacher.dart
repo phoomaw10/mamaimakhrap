@@ -57,7 +57,7 @@ class _NavbarTeacherState extends State<NavbarTeacher> {
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
-              Icons.history_edu_rounded,
+              Icons.history,
               color: Color.fromARGB(255, 56, 56, 154),
             ),
             label: 'History',

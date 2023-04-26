@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/profile.dart';
 
 class InCoursePage extends StatefulWidget {
   const InCoursePage({super.key});
@@ -13,8 +15,12 @@ class InCoursePage extends StatefulWidget {
 class _InCoursePageState extends State<InCoursePage> {
   double screenHeight = 0;
   double screenWidth = 0;
+  TextEditingController idController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController timeinput = TextEditingController();
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   TextEditingController _textEditingController = TextEditingController();
+  Profile profile = Profile(email: '', password: '');
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -55,77 +61,76 @@ class _InCoursePageState extends State<InCoursePage> {
                             color: Color.fromARGB(255, 5, 47, 109)),
                       ),
                     )),
-                    Container(margin: const EdgeInsets.only(right: 20),child: IconButton(onPressed: () {showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            title: Row(
-                              children: [
-                                const Text(
-                                  'Generate QR Code',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 5, 47, 109)),
-                                ),
-                                Spacer(),
-                             
-                              ],
-                            ),
-                            content: Container(
-                              height: screenHeight / 5 ,
-                              child: Column(
-                                children: [
-                                  TextField(
-                                    controller: _textEditingController,
-                                    decoration: InputDecoration(hintText: "CourseID"),
-                                  ),
-                                  TextField(
-                                    controller: _textEditingController,
-                                    decoration: InputDecoration(hintText: "CourseID"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                  'Close',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 56, 56, 154),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                    Container(
+                        margin: const EdgeInsets.only(right: 20),
+                        child: IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    title: Row(
+                                      children: [
+                                        const Text(
+                                          'Generate QR Code',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color.fromARGB(
+                                                  255, 5, 47, 109)),
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                    content: Container(
+                                      height: screenHeight / 5,
+                                      child: Column(
+                                        children: [
+                                          customFieldCourseName(
+                                            "CourseName",
+                                            idController,
+                                            false,
+                                          ),
+                                          customFieldDate(
+                                            "Date",
+                                            idController,
+                                            false,
+                                          ),
+                                          customFieldTime(
+                                            "Time",
+                                            idController,
+                                            false,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                          'Create',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              Color.fromARGB(255, 56, 56, 154),
+                                        ),
+                                      ),
+                                    ],
+                                  );
                                 },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  side: BorderSide(
-                                    color: Color.fromARGB(255, 56, 56, 154),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                child: Text(
-                                  'Add',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 56, 56, 154),
-                                ),
-                              ),
-                              
-                            ],
-                          );
-                        },
-                      );}, icon: const Icon(Icons.qr_code, size: 35, color: Color.fromARGB(255, 5, 47, 109),))),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.qr_code,
+                              size: 35,
+                              color: Color.fromARGB(255, 5, 47, 109),
+                            ))),
                   ],
                 ),
               )),
@@ -311,6 +316,141 @@ class _InCoursePageState extends State<InCoursePage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget customFieldCourseName(
+      String hint, TextEditingController controller, bool obscure) {
+    return Container(
+      width: screenWidth,
+      child: Row(
+        children: [
+          Container(
+            width: screenWidth / 10,
+            child: Icon(
+              Icons.book,
+              size: screenWidth / 15,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: screenWidth / 12),
+              child: TextFormField(
+                decoration: InputDecoration(hintText: "Enter your name"),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dateController.text = "";
+  }
+
+  Widget customFieldDate(
+      String hint, TextEditingController controller, bool obscure) {
+    return Container(
+      width: screenWidth,
+      child: Row(
+        children: [
+          Container(
+            width: screenWidth / 10,
+            child: Icon(
+              Icons.calendar_today,
+              size: screenWidth / 15,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: screenWidth / 12),
+              child: TextFormField(
+                  controller: dateController,
+                  decoration: const InputDecoration(labelText: "Enter Date"),
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null) {
+                      print(pickedDate);
+                      String formattedDate =
+                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                      print(formattedDate);
+
+                      setState(() {
+                        dateController.text = formattedDate;
+                      });
+                    } else {
+                      print("Date is not selected");
+                    }
+                  }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initTime() {
+    timeinput.text = "";
+    super.initState();
+  }
+
+  Widget customFieldTime(
+      String hint, TextEditingController controller, bool obscure) {
+    return Container(
+      width: screenWidth,
+      child: Row(
+        children: [
+          Container(
+            width: screenWidth / 10,
+            child: Icon(
+              Icons.timer,
+              size: screenWidth / 15,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: screenWidth / 12),
+              child: TextFormField(
+                controller: timeinput,
+                decoration: InputDecoration(labelText: "Enter Time"),
+                readOnly: true,
+                onTap: () async {
+                  TimeOfDay? pickedTime = await showTimePicker(
+                    initialTime: TimeOfDay.now(),
+                    context: context,
+                  );
+                  if (pickedTime != null) {
+                    print(pickedTime.format(context));
+                    DateTime parsedTime = DateFormat.jm()
+                        .parse(pickedTime.format(context).toString());
+
+                    print(parsedTime);
+                    String formattedTime =
+                        DateFormat('HH:mm:ss').format(parsedTime);
+                    print(formattedTime);
+
+                    setState(() {
+                      timeinput.text = formattedTime;
+                    });
+                  } else {
+                    print("Time is not selected");
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
