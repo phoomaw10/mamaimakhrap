@@ -20,7 +20,7 @@ class NavbarTeacher extends StatefulWidget {
 }
 
 class _NavbarTeacherState extends State<NavbarTeacher> {
-  final pages = const [TeacherCoursePage(), ScanPage(), TeacherProfile()];
+  final pages = const [TeacherCoursePage(), TeacherProfile(), HistoryPage()];
   int _selectedTab = 2;
   double screenHeight = 0;
   double screenWidth = 0;
@@ -49,18 +49,18 @@ class _NavbarTeacherState extends State<NavbarTeacher> {
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
-              Icons.qr_code_scanner_rounded,
+              Icons.person_2_rounded,
               color: Color.fromARGB(255, 56, 56, 154),
             ),
-            label: 'Scan',
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
-              Icons.person_2_rounded,
+              Icons.history_edu_rounded,
               color: Color.fromARGB(255, 56, 56, 154),
             ),
-            label: 'Porfile',
+            label: 'History',
           ),
         ],
         selectedItemColor: Color.fromARGB(255, 56, 56, 154),

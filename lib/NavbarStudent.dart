@@ -6,6 +6,7 @@ import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/FeedbackPage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
+import 'package:mamaimakhrap/ScanPage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
@@ -20,7 +21,7 @@ class _NavbarStudentState extends State<NavbarStudent> {
   final pages = const [
     CoursePage(),
     HistoryPage(),
-    QRCodePage(),
+    ScanPage(),
     studentProfile()
   ];
   int _selectedTab = 3;
@@ -62,7 +63,7 @@ class _NavbarStudentState extends State<NavbarStudent> {
               Icons.qr_code,
               color: Color.fromARGB(255, 56, 56, 154),
             ),
-            label: 'QR code',
+            label: 'Scan',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),
@@ -70,7 +71,7 @@ class _NavbarStudentState extends State<NavbarStudent> {
               Icons.person_2_rounded,
               color: Color.fromARGB(255, 56, 56, 154),
             ),
-            label: 'Porfile',
+            label: 'Profile',
           ),
         ],
         selectedItemColor: Color.fromARGB(255, 56, 56, 154),

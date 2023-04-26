@@ -55,7 +55,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 5, 47, 109)),
                       ),
-                    ))
+                    )),
                   ],
                 ),
               )),

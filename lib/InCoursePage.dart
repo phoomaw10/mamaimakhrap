@@ -45,7 +45,7 @@ class _InCoursePageState extends State<InCoursePage> {
                     ),
                     const Expanded(
                         child: Padding(
-                      padding: EdgeInsets.only(right: 40),
+                      padding: EdgeInsets.only(left: 2),
                       child: Text(
                         "Course",
                         textAlign: TextAlign.center,
@@ -54,7 +54,78 @@ class _InCoursePageState extends State<InCoursePage> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 5, 47, 109)),
                       ),
-                    ))
+                    )),
+                    Container(margin: const EdgeInsets.only(right: 20),child: IconButton(onPressed: () {showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            title: Row(
+                              children: [
+                                const Text(
+                                  'Generate QR Code',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 5, 47, 109)),
+                                ),
+                                Spacer(),
+                             
+                              ],
+                            ),
+                            content: Container(
+                              height: screenHeight / 5 ,
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    controller: _textEditingController,
+                                    decoration: InputDecoration(hintText: "CourseID"),
+                                  ),
+                                  TextField(
+                                    controller: _textEditingController,
+                                    decoration: InputDecoration(hintText: "CourseID"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  'Close',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 56, 56, 154),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  side: BorderSide(
+                                    color: Color.fromARGB(255, 56, 56, 154),
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                child: Text(
+                                  'Add',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 56, 56, 154),
+                                ),
+                              ),
+                              
+                            ],
+                          );
+                        },
+                      );}, icon: const Icon(Icons.qr_code, size: 35, color: Color.fromARGB(255, 5, 47, 109),))),
                   ],
                 ),
               )),
