@@ -16,24 +16,10 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passController = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
-  String? errorText = null;
   Color primary = Color.fromARGB(255, 255, 255, 255);
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '');
-
-  void refreshErrorText() {
-    final text = idController.value.text;
-    if (!text.endsWith("@kmutt.ac.th")) {
-      setState(() {
-        errorText = 'An email must be @kmutt.ac.th';
-      });
-    } else {
-      setState(() {
-        errorText = null;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,34 +47,15 @@ class _LoginScreenState extends State<LoginScreen> {
               body: Column(
                 children: [
                   Expanded(child: Image.asset('images/MaMai.png')),
-                  GestureDetector(
-                      onTap: () async {
-                        try {
-                          print(11111);
-                          final credential = await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: idController.text,
-                                  password: passController.text);
-                          print(22222);
-                        } on FirebaseAuthException catch (e) {
-                          print(333333);
-                          if (e.code == 'user-not-found') {
-                            print('No user found for that email.');
-                          } else if (e.code == 'wrong-password') {
-                            print('Wrong password provided for that user.');
-                          }
-                        }
-                      },
-                      child: Container(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth / 15,
-                            color: Color.fromARGB(255, 56, 56, 154),
-                          ),
-                        ),
-                      )),
+                  Container(
+                      child: Text(
+                    "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: screenWidth / 15,
+                      color: Color.fromARGB(255, 56, 56, 154),
+                    ),
+                  )),
                   Container(
                     margin: EdgeInsets.only(
                       bottom: screenHeight / 30,
@@ -109,8 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        customFieldEmail("Username", idController, false,
-                            errorText, refreshErrorText),
+                        customFieldEmail("Username", idController, false),
                         customFieldPassword("Password", passController, true),
                         SizedBox(
                           height: 130,
@@ -152,8 +118,11 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  Widget customFieldEmail(String hint, TextEditingController controller,
-      bool obscure, String? _errorText, Function refreshErrorText) {
+  Widget customFieldEmail(
+    String hint,
+    TextEditingController controller,
+    bool obscure,
+  ) {
     return Container(
       width: screenWidth,
       margin: const EdgeInsets.only(bottom: 40),
@@ -177,16 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: controller,
                 enableSuggestions: false,
                 autocorrect: false,
-                onChanged: (value) {
-                  refreshErrorText();
-                },
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
                       vertical: screenHeight / 40,
                     ),
                     hintText: hint,
-                    border: InputBorder.none,
-                    errorText: _errorText),
+                    border: InputBorder.none),
                 maxLines: 1,
                 obscureText: obscure,
                 onSaved: (String? email) {
