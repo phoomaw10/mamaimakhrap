@@ -32,7 +32,9 @@ class _InsideFeedbackPageState extends State<InsideFeedbackPage> {
                     Container(
                       margin: const EdgeInsets.only(left: 10, bottom: 4),
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: const Icon(
                             Icons.arrow_circle_left_rounded,
                             size: 40,

@@ -111,7 +111,7 @@ class _InCoursePageState extends State<InCoursePage> {
                                     actions: <Widget>[
                                       TextButton(
                                         child: Text(
-                                          'Create',
+                                          'Generate',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         onPressed: () {

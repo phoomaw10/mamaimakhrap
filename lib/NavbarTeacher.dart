@@ -9,6 +9,7 @@ import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/ScanPage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/TeacherCoursePage.dart';
+import 'package:mamaimakhrap/TeacherHistory.dart';
 import 'package:mamaimakhrap/TeacherProfile.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
@@ -20,7 +21,7 @@ class NavbarTeacher extends StatefulWidget {
 }
 
 class _NavbarTeacherState extends State<NavbarTeacher> {
-  final pages = const [TeacherCoursePage(), TeacherProfile(), HistoryPage()];
+  final pages = const [TeacherCoursePage(), TeacherProfile(), TeacherHistory()];
   int _selectedTab = 2;
   double screenHeight = 0;
   double screenWidth = 0;

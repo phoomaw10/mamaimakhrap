@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return const NavbarTeacher();
             } else {
-              return const KeyboardVisibilityProvider(child: NavbarTeacher());
+              return const KeyboardVisibilityProvider(child: NavbarStudent());
             }
           },
         ));
