@@ -90,8 +90,8 @@ class _InCoursePageState extends State<InCoursePage> {
                                       height: screenHeight / 5,
                                       child: Column(
                                         children: [
-                                          customFieldCourseName(
-                                            "CourseName",
+                                          customFieldNumber(
+                                            "Number",
                                             idController,
                                             false,
                                           ),
@@ -426,7 +426,7 @@ class _InCoursePageState extends State<InCoursePage> {
     );
   }
 
-  Widget customFieldCourseName(
+  Widget customFieldNumber(
       String hint, TextEditingController controller, bool obscure) {
     return Container(
       width: screenWidth,
@@ -435,7 +435,7 @@ class _InCoursePageState extends State<InCoursePage> {
           Container(
             width: screenWidth / 10,
             child: Icon(
-              Icons.book,
+              Icons.person,
               size: screenWidth / 15,
             ),
           ),
@@ -443,7 +443,7 @@ class _InCoursePageState extends State<InCoursePage> {
             child: Padding(
               padding: EdgeInsets.only(right: screenWidth / 12),
               child: TextFormField(
-                decoration: InputDecoration(hintText: "Enter your name"),
+                decoration: InputDecoration(hintText: "Number of student"),
               ),
             ),
           ),

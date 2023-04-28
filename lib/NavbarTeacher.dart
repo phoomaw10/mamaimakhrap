@@ -22,7 +22,7 @@ class NavbarTeacher extends StatefulWidget {
 
 class _NavbarTeacherState extends State<NavbarTeacher> {
   final pages = const [TeacherCoursePage(), TeacherProfile(), TeacherHistory()];
-  int _selectedTab = 2;
+  int _selectedTab = 1;
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = Color.fromARGB(255, 2, 2, 2);

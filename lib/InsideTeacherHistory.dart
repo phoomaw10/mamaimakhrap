@@ -27,37 +27,38 @@ class _InsideTeacherHistoryState extends State<InsideTeacherHistory> {
       body: Column(
         children: <Widget>[
           SizedBox(
-              height: 100,
-              width: screenWidth,
-              child: Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: Row(children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, bottom: 4),
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop((context));
-                        },
-                        icon: const Icon(
-                          Icons.arrow_circle_left_rounded,
-                          size: 40,
-                          color: Color.fromARGB(255, 56, 56, 154),
-                        )),
+            height: 100,
+            width: screenWidth,
+            child: Container(
+              margin: const EdgeInsets.only(top: 40),
+              child: Row(children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10, bottom: 4),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop((context));
+                      },
+                      icon: const Icon(
+                        Icons.arrow_circle_left_rounded,
+                        size: 40,
+                        color: Color.fromARGB(255, 56, 56, 154),
+                      )),
+                ),
+                const Expanded(
+                    child: Padding(
+                  padding: EdgeInsets.only(right: 40),
+                  child: Text(
+                    "Attendance",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 5, 47, 109)),
                   ),
-                  const Expanded(
-                      child: Padding(
-                    padding: EdgeInsets.only(right: 40),
-                    child: Text(
-                      "Attendance",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 5, 47, 109)),
-                    ),
-                  )),
-                ]),
-              )),
+                )),
+              ]),
+            ),
+          ),
           Expanded(
             child: Container(
               height: screenHeight,
@@ -71,6 +72,27 @@ class _InsideTeacherHistoryState extends State<InsideTeacherHistory> {
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Column(children: [
+                    Container(
+                      margin: EdgeInsets.all(15.0),
+                      child: SizedBox(
+                        child: Column(
+                          children: const <Widget>[
+                            ListTile(
+                              title: Text(
+                                'CSC234',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 56, 56, 154),
+                                ),
+                              ),
+                              subtitle: Text(
+                                  'User-Centered Mobile Application\nThursday 13 April 2023\n13.30 - 16.30 PM'),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     customMember('Nawat Sujjaritrat'),
                     customMember('Panusorn Roeksukrungrueang'),
                     customMember('Puvadet Niyomdaychar'),

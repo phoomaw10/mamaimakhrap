@@ -27,20 +27,21 @@ class _HistoryPageState extends State<HistoryPage> {
       body: Column(
         children: <Widget>[
           SizedBox(
-              height: 100,
-              width: screenWidth,
-              child: Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: const Center(
-                  child: Text(
-                    "History",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 5, 47, 109)),
-                  ),
+            height: 100,
+            width: screenWidth,
+            child: Container(
+              margin: const EdgeInsets.only(top: 40),
+              child: const Center(
+                child: Text(
+                  "History",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 5, 47, 109)),
                 ),
-              )),
+              ),
+            ),
+          ),
           Expanded(
             child: Container(
               height: screenHeight,
