@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const NavbarTeacher();
+              return const StudentHomePage();
             } else {
-              return const KeyboardVisibilityProvider(child: NavbarTeacher());
+              return const KeyboardVisibilityProvider(child: LoginScreen());
             }
           },
         ));

@@ -98,7 +98,7 @@ class _studentProfile extends State<studentProfile> {
                                     ),
                                     TextButton(
                                       child: const Text(
-                                        'Yes',
+                                        'Yessss',
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.white),
                                       ),
@@ -107,8 +107,8 @@ class _studentProfile extends State<studentProfile> {
                                             Color.fromARGB(255, 56, 56, 154),
                                       ),
                                       onPressed: () {
-                                        Navigator.of(context).pop();
                                         FirebaseAuth.instance.signOut();
+                                        Navigator.of(context).pop();
                                       },
                                     ),
                                   ],

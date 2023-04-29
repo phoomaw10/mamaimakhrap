@@ -103,6 +103,31 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 130,
+                          width: double.infinity,
+                          child: Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: idController.text.trim(),
+                                        password: passController.text.trim());
+                                // formKey.currentState!.save();
+                                print(
+                                    "email = ${idController.text} password= ${passController.text}");
+                              },
+                              child: Text('Login with Google'),
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(350, 50),
+                                textStyle: const TextStyle(fontSize: 25),
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    Color.fromARGB(255, 56, 56, 154),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   )
