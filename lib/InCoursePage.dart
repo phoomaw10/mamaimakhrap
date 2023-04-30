@@ -95,11 +95,6 @@ class _InCoursePageState extends State<InCoursePage> {
                                             idController,
                                             false,
                                           ),
-                                          customFieldDate(
-                                            "Date",
-                                            idController,
-                                            false,
-                                          ),
                                           customFieldTime(
                                             "Time",
                                             idController,
@@ -456,53 +451,6 @@ class _InCoursePageState extends State<InCoursePage> {
   void initState() {
     super.initState();
     dateController.text = "";
-  }
-
-  Widget customFieldDate(
-      String hint, TextEditingController controller, bool obscure) {
-    return Container(
-      width: screenWidth,
-      child: Row(
-        children: [
-          Container(
-            width: screenWidth / 10,
-            child: Icon(
-              Icons.calendar_today,
-              size: screenWidth / 15,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(right: screenWidth / 12),
-              child: TextFormField(
-                  controller: dateController,
-                  decoration: const InputDecoration(labelText: "Enter Date"),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(2101),
-                    );
-                    if (pickedDate != null) {
-                      print(pickedDate);
-                      String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
-                      print(formattedDate);
-
-                      setState(() {
-                        dateController.text = formattedDate;
-                      });
-                    } else {
-                      print("Date is not selected");
-                    }
-                  }),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   @override

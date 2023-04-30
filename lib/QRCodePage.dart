@@ -63,14 +63,6 @@ class _QRCodePageState extends State<QRCodePage> {
                         ),
                       ),
                       Container(
-                        child: Text(
-                          'Estimate time of QR code : 3.00',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: ElevatedButton(
                           onPressed: () {
