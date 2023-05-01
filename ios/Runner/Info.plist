@@ -56,5 +56,32 @@
 <true/>
 <key>NSCameraUsageDescription</key>
 <string>This app needs camera access to scan QR codes</string>
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+        </array>
+    </dict>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.googleusercontent.apps.921089098894-4lgtcmuabedalv1bou37vmo0v5ji1r50</string>
+        </array>
+    </dict>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>***Something here***</string>
+        </array>
+    </dict>
+</array>
 </dict>
 </plist>

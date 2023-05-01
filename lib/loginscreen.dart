@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:mamaimakhrap/auth_service.dart';
 import 'package:mamaimakhrap/profile.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -109,13 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: idController.text.trim(),
-                                        password: passController.text.trim());
-                                // formKey.currentState!.save();
-                                print(
-                                    "email = ${idController.text} password= ${passController.text}");
+                                AuthService().signInWithGoogle();
                               },
                               child: Text('Login with Google'),
                               style: ElevatedButton.styleFrom(
