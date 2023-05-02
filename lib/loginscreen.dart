@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.orange),
                               label: Text("Login with Google"),
                               onPressed: () async {
-                                await AuthService().signInWithGoogle;
+                                await AuthService().signInWithGoogle();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
