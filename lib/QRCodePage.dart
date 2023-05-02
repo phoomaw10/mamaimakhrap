@@ -25,19 +25,42 @@ class _QRCodePageState extends State<QRCodePage> {
       body: Column(
         children: <Widget>[
           SizedBox(
-              height: 100,
-              width: screenWidth,
-              child: Container(
-                margin: const EdgeInsets.only(top: 50),
-                child: const Text(
-                  "QR Code",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 5, 47, 109)),
-                ),
-              )),
+            height: 100,
+            width: screenWidth,
+            child: Container(
+              margin: const EdgeInsets.only(top: 40),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(left: 10, bottom: 4),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop((context));
+                      },
+                      icon: const Icon(
+                        Icons.arrow_circle_left_rounded,
+                        size: 40,
+                        color: Color.fromARGB(255, 56, 56, 154),
+                      ),
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 55),
+                      child: Text(
+                        "QR Code",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 5, 47, 109)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: Container(
               height: screenHeight,
@@ -56,35 +79,12 @@ class _QRCodePageState extends State<QRCodePage> {
                         margin: const EdgeInsets.only(top: 30, bottom: 10),
                         height: screenHeight - 550,
                         width: screenWidth - 80,
-                        color: Color.fromARGB(255, 236, 242, 255),
+                        //color: Color.fromARGB(255, 236, 242, 255),
                         child: Container(
                           margin: const EdgeInsets.only(left: 8),
                           child: QrImage(data: controller.text),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Refresh action
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 5, 47, 109),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.refresh, color: Colors.white),
-                              SizedBox(width: 8),
-                              Text('Refresh',
-                                  style: TextStyle(color: Colors.white)),
-                            ],
-                          ),
-                        ),
-                      )
                     ]),
                   ),
                 ],

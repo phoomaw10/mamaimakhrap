@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/SendFeedback.dart';
 import 'package:mamaimakhrap/profile.dart';
 
@@ -41,14 +42,15 @@ class _InCoursePageState extends State<InCoursePage> {
                     Container(
                       margin: const EdgeInsets.only(left: 10, bottom: 4),
                       child: IconButton(
-                          onPressed: () {
-                            Navigator.pop((context));
-                          },
-                          icon: const Icon(
-                            Icons.arrow_circle_left_rounded,
-                            size: 40,
-                            color: Color.fromARGB(255, 56, 56, 154),
-                          )),
+                        onPressed: () {
+                          Navigator.pop((context));
+                        },
+                        icon: const Icon(
+                          Icons.arrow_circle_left_rounded,
+                          size: 40,
+                          color: Color.fromARGB(255, 56, 56, 154),
+                        ),
+                      ),
                     ),
                     const Expanded(
                         child: Padding(
@@ -110,7 +112,11 @@ class _InCoursePageState extends State<InCoursePage> {
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         onPressed: () {
-                                          Navigator.of(context).pop();
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const QRCodePage()));
                                         },
                                         style: TextButton.styleFrom(
                                           backgroundColor:

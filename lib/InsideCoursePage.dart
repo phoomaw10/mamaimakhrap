@@ -119,7 +119,8 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: Color.fromARGB(255, 236, 242, 255),
                     ),
-                    child: Container(
+                    child: SingleChildScrollView(
+                      child: Container(
                         margin: EdgeInsets.only(top: 20),
                         child: Column(
                           children: [
@@ -130,9 +131,13 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                             customField('CSC234',
                                 'Thursday 27 April 2023 13.30 - 16.30'),
                             customField('CSC234',
-                                'Thursday 27 April 2023 13.30 - 16.30')
+                                'Thursday 27 April 2023 13.30 - 16.30'),
+                            customField(
+                                'CSC234', 'Thursday 4 April 2023 13.30 - 16.30')
                           ],
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
