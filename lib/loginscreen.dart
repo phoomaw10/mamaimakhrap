@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mamaimakhrap/auth_service.dart';
 import 'package:mamaimakhrap/profile.dart';
+import 'package:mamaimakhrap/splash_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -109,8 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           child: Center(
                             child: ElevatedButton(
-                              onPressed: () {
-                                AuthService().signInWithGoogle();
+                              onPressed: () async {
+                                await AuthService().signInWithGoogle();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SplashScreen()));
                               },
                               child: Text('Login with Google'),
                               style: ElevatedButton.styleFrom(

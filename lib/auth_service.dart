@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mamaimakhrap/caller.dart';
 import 'package:mamaimakhrap/firebase_options.dart';
 import 'package:mamaimakhrap/model/authen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   signInWithGoogle() async {
@@ -25,13 +27,13 @@ class AuthService {
     final idToken = await userCredential.user!.getIdToken();
 
     final dio = Dio();
-    final response =
-        await dio.get('http://10.5.4.128:8080/callback?idToken=' + idToken);
+    final response = await Caller.dio.get('/callback?idToken=' + idToken);
 
     CallbackResponse cb = CallbackResponse.fromJson(response.data);
 
     print(cb.token);
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', cb.token);
+    Caller.setToken(cb.token);
   }
 }
