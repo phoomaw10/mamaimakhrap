@@ -1,6 +1,8 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mamaimakhrap/NavbarStudent.dart';
+import 'package:mamaimakhrap/NavbarTeacher.dart';
 
 class RolePage extends StatefulWidget {
   const RolePage({super.key});
@@ -41,7 +43,12 @@ class _RolePageState extends State<RolePage> {
               width: double.infinity,
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NavbarTeacher()));
+                  },
                   child: Image.asset('images/Teacher.png'),
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(200, 200),
@@ -57,7 +64,12 @@ class _RolePageState extends State<RolePage> {
               width: double.infinity,
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NavbarStudent()));
+                  },
                   child: Image.asset('images/Student.png'),
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(200, 200),

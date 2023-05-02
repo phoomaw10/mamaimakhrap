@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mamaimakhrap/caller.dart';
 import 'package:mamaimakhrap/firebase_options.dart';
+import 'package:mamaimakhrap/loginscreen.dart';
 import 'package:mamaimakhrap/model/authen.dart';
+import 'package:mamaimakhrap/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
@@ -35,5 +38,23 @@ class AuthService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', cb.token);
     Caller.setToken(cb.token);
+  }
+
+  signOut() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    FirebaseAuth.instance.signOut();
+    await prefs.remove('token');
+  }
+
+  handleAuthState() {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return SplashScreen();
+          } else {
+            return const LoginScreen();
+          }
+        });
   }
 }
