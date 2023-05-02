@@ -4,6 +4,9 @@ import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/auth_service.dart';
+import 'package:mamaimakhrap/loginscreen.dart';
+import 'package:mamaimakhrap/splash_screen.dart';
 
 class studentProfile extends StatefulWidget {
   const studentProfile({super.key});
@@ -98,7 +101,7 @@ class _studentProfile extends State<studentProfile> {
                                     ),
                                     TextButton(
                                       child: const Text(
-                                        'Yessss',
+                                        'Yes',
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.white),
                                       ),
@@ -107,8 +110,13 @@ class _studentProfile extends State<studentProfile> {
                                             Color.fromARGB(255, 56, 56, 154),
                                       ),
                                       onPressed: () {
-                                        FirebaseAuth.instance.signOut();
+                                        AuthService().signOut();
                                         Navigator.of(context).pop();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const SplashScreen()));
                                       },
                                     ),
                                   ],

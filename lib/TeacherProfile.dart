@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mamaimakhrap/auth_service.dart';
+import 'package:mamaimakhrap/splash_screen.dart';
 
 class TeacherProfile extends StatefulWidget {
   const TeacherProfile({super.key});
@@ -104,7 +106,13 @@ class _TeacherProfile extends State<TeacherProfile> {
                                       ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
-                                        FirebaseAuth.instance.signOut();
+                                        AuthService().signOut();
+                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const SplashScreen()));
                                       },
                                     ),
                                   ],
