@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mamaimakhrap/auth_service.dart';
 import 'package:mamaimakhrap/profile.dart';
 import 'package:mamaimakhrap/splash_screen.dart';
@@ -48,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               resizeToAvoidBottomInset: false,
               body: Column(
                 children: [
-                  Expanded(child: Image.asset('images/MaMai.png')),
+                  Image.asset('images/MaMai.png'),
                   Container(
                       child: Text(
                     "Login",
@@ -59,9 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )),
                   Container(
-                    margin: EdgeInsets.only(
-                      bottom: screenHeight / 30,
-                    ),
                     child: Text(
                       "Sign in to your account.",
                       style: TextStyle(
@@ -78,54 +76,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        customFieldEmail("Username", idController, false),
-                        customFieldPassword("Password", passController, true),
                         SizedBox(
-                          height: 130,
+                          height: 100,
                           width: double.infinity,
                           child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: idController.text.trim(),
-                                        password: passController.text.trim());
-                                // formKey.currentState!.save();
-                                print(
-                                    "email = ${idController.text} password= ${passController.text}");
-                              },
-                              child: Text('Login'),
+                            child: ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(350, 50),
-                                textStyle: const TextStyle(fontSize: 25),
-                                foregroundColor: Colors.white,
                                 backgroundColor:
-                                    Color.fromARGB(255, 56, 56, 154),
+                                    Color.fromARGB(255, 5, 47, 109),
+                                minimumSize: Size(double.infinity, 50),
                               ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 130,
-                          width: double.infinity,
-                          child: Center(
-                            child: ElevatedButton(
+                              icon: FaIcon(FontAwesomeIcons.google,
+                                  color: Colors.orange),
+                              label: Text("Login with Google"),
                               onPressed: () async {
-                                await AuthService().signInWithGoogle();
+                                await AuthService().signInWithGoogle;
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const SplashScreen()));
+                                // formKey.currentState!.save();
+                                print(
+                                    "email = ${idController.text} password= ${passController.text}");
                               },
-                              child: Text('Login with Google'),
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(350, 50),
-                                textStyle: const TextStyle(fontSize: 25),
-                                foregroundColor: Colors.white,
-                                backgroundColor:
-                                    Color.fromARGB(255, 56, 56, 154),
-                              ),
                             ),
                           ),
                         ),
@@ -238,3 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+///////////////////////////////////////////////// 
+
