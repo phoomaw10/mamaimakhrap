@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -59,16 +58,19 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // Timer
-    Timer(const Duration(milliseconds: 2500), () async {
-      final navi = await navigate();
-      if (mounted) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    navi)); // Use pushReplacement for clear backstack.
-      }
-    });
+    Timer(
+      const Duration(milliseconds: 3000),
+      () async {
+        final navi = await navigate();
+        if (mounted) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      navi)); // Use pushReplacement for clear backstack.
+        }
+      },
+    );
   }
 
   @override
@@ -81,23 +83,8 @@ class _SplashScreenState extends State<SplashScreen> {
               opacity: .6,
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 185, 73, 152),
-                        Color.fromARGB(255, 165, 4, 117)
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      tileMode: TileMode.mirror,
-                      stops: const [.4, 12]),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Mamai",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 32),
+                  image: DecorationImage(
+                    image: AssetImage("images/bgapp.png"),
                   ),
                 ),
               ),
