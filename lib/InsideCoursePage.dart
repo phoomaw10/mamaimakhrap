@@ -46,7 +46,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                     ),
                     const Expanded(
                         child: Padding(
-                      padding: EdgeInsets.only(right: 40),
+                      padding: EdgeInsets.only(right: 60),
                       child: Text(
                         "Course",
                         textAlign: TextAlign.center,
@@ -88,7 +88,15 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                               ),
                             ),
                             subtitle: Text('User-Centered Mobile Application'),
-                          )
+                          ),
+                          ListTile(
+                            title: Text(
+                              'CourseID : XYZ35TI',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

@@ -59,16 +59,6 @@ class _TeacherHistoryState extends State<TeacherHistory> {
                         'CSC111', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
                     customHistory(
                         'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customHistory(
-                        'CSC102', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customHistory(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customHistory(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customHistory(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customHistory(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
                   ]),
                 ),
               ),
@@ -79,10 +69,7 @@ class _TeacherHistoryState extends State<TeacherHistory> {
     );
   }
 
-  Widget customHistory(
-    String hint,
-    String date,
-  ) {
+  Widget customHistory(String title, String subtitle) {
     return GestureDetector(
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: ((context) => InsideTeacherHistory()))),
@@ -96,20 +83,15 @@ class _TeacherHistoryState extends State<TeacherHistory> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               ListTile(
-                leading: Icon(
-                  Icons.bookmark_add_rounded,
-                  color: Colors.green,
-                  size: screenWidth / 10,
-                ),
                 title: Text(
-                  hint,
+                  title,
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 56, 56, 154),
                   ),
                 ),
-                subtitle: Text(date),
+                subtitle: Text(subtitle),
               )
             ],
           ),

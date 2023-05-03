@@ -165,7 +165,15 @@ class _InCoursePageState extends State<InCoursePage> {
                               ),
                             ),
                             subtitle: Text('User-Centered Mobile Application'),
-                          )
+                          ),
+                          ListTile(
+                            title: Text(
+                              'CourseID : XYZ35TI',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

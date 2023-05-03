@@ -61,38 +61,6 @@ class _HistoryPageState extends State<HistoryPage> {
                         'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
                     customField(
                         'CSC102', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
                   ]),
                 ),
               ),
