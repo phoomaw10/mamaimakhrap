@@ -7,6 +7,10 @@ import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+import 'model/QRCodeGenerator.dart';
 
 class TeacherCoursePage extends StatefulWidget {
   const TeacherCoursePage({super.key});
@@ -16,6 +20,7 @@ class TeacherCoursePage extends StatefulWidget {
 }
 
 class _TeacherCoursePageState extends State<TeacherCoursePage> {
+  String _qrData = '';
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
@@ -140,46 +145,6 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
-  }
-
-  Widget customField(
-    String hint,
-    String date,
-  ) {
-    return Column(children: [
-      Container(
-          width: screenWidth - 40,
-          margin: const EdgeInsets.only(bottom: 10),
-          child: Card(
-              color: const Color.fromARGB(255, 236, 242, 255),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(
-                        Icons.check_circle_rounded,
-                        color: Colors.green,
-                        size: screenWidth / 10,
-                      ),
-                      title: Text(
-                        hint,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 56, 56, 154),
-                        ),
-                      ),
-                      subtitle: Text(date),
-                    )
-                  ])))
-    ]);
   }
 
   Widget customCourse(String title, String subtitle) {

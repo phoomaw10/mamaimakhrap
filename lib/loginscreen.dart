@@ -40,8 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            final bool isKeyboardVisible =
-                KeyboardVisibilityProvider.isKeyboardVisible(context);
             screenHeight = MediaQuery.of(context).size.height;
             screenWidth = MediaQuery.of(context).size.width;
             return Scaffold(
