@@ -176,7 +176,6 @@ class _CoursePageState extends State<CoursePage> {
         ],
       ),
     );
-    
   }
 
   @override
@@ -233,7 +232,7 @@ class _CoursePageState extends State<CoursePage> {
         MaterialPageRoute(
           builder: ((context) => InsideCoursePage()),
           settings: RouteSettings(
-            arguments: {"id": id},
+            arguments: id,
           ),
         ),
       ),
@@ -267,16 +266,14 @@ class _CoursePageState extends State<CoursePage> {
 
 class ContactRow extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _ContactRow('AAA','BBB');
-  
+  State<StatefulWidget> createState() => _ContactRow('AAA', 'BBB');
 }
 
 class _ContactRow extends State<ContactRow> {
   String title;
-  String description; 
+  String description;
 
-
-   _ContactRow(this.title, this.description);
+  _ContactRow(this.title, this.description);
   double screenHeight = 0;
   double screenWidth = 0;
   @override

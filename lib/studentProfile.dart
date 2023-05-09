@@ -29,20 +29,6 @@ class _studentProfile extends State<studentProfile> {
   double screenHeight = 0;
   double screenWidth = 0;
   final users = FirebaseAuth.instance.currentUser;
-  // Future sendRole() async {
-  //   final response = await Caller.dio.get("/me");
-  //   // * Parse response
-  //   print(response.data);
-  //   final data = Profile.fromJson(response.data);
-  //   final role = data.role;
-  // }
-  // Caller.dio.get("/me").then((response) {
-  //     setState(() {
-  //       recent = RecentRecord.fromJson(response.data["data"]);
-  //     });
-  //   }).onError((DioError error, _) {
-  //     Caller.handle(context, error);
-  //   });
 
   @override
   void initState() {

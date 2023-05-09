@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/caller.dart';
+import 'package:mamaimakhrap/model/class.dart';
 
 class InsideCoursePage extends StatefulWidget {
   const InsideCoursePage({super.key});
@@ -11,6 +14,41 @@ class InsideCoursePage extends StatefulWidget {
 }
 
 class _InsideCoursePageState extends State<InsideCoursePage> {
+  late int id;
+  String name = '';
+  String code = '';
+  String join_code = '';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      fetchData(context);
+    });
+  }
+
+  void fetchData(BuildContext context) async {
+    try {
+      // final routeArguments =
+      //     ModalRoute.of(context)!.settings.arguments as Map<String, int>;
+      // final id = routeArguments["id"];
+      // print("Id of course " + id.toString());
+      // print('arguments');
+      // print(routeArguments);
+      final id = ModalRoute.of(context)!.settings.arguments as int;
+      Response response = await Caller.dio.get("/course/$id");
+      setState(() {
+        final data = Course.fromJson(response.data);
+        name = data.name;
+        code = data.code;
+        join_code = data.join_code;
+        print(name);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
@@ -20,12 +58,6 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
-    final routeArguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, int>;
-    final id = routeArguments["id"];
-    print("Id of course " + id.toString());
-    print('arguments');
-    print(routeArguments);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 188, 153),
       resizeToAvoidBottomInset: false,
@@ -83,21 +115,21 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                     margin: EdgeInsets.all(15.0),
                     child: SizedBox(
                       child: Column(
-                        children: const <Widget>[
+                        children: <Widget>[
                           ListTile(
                             title: Text(
-                              'CSC234',
-                              style: TextStyle(
+                              code,
+                              style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 56, 56, 154),
                               ),
                             ),
-                            subtitle: Text('User-Centered Mobile Application'),
+                            subtitle: Text(name),
                           ),
                           ListTile(
                             title: Text(
-                              'CourseID : XYZ35TI',
+                              'Join Code : ' + join_code,
                               style: TextStyle(
                                 fontSize: 15,
                               ),

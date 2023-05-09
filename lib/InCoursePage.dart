@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -7,7 +8,9 @@ import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/SendFeedback.dart';
 import 'package:mamaimakhrap/profile.dart';
 
+import 'caller.dart';
 import 'model/QRCodeGenerator.dart';
+import 'model/class.dart';
 
 class InCoursePage extends StatefulWidget {
   const InCoursePage({super.key});
@@ -22,6 +25,41 @@ class _InCoursePageState extends State<InCoursePage> {
       TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 2)));
   double screenHeight = 0;
   double screenWidth = 0;
+  late int id;
+  String name = '';
+  String code = '';
+  String join_code = '';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      fetchData(context);
+    });
+  }
+
+  void fetchData(BuildContext context) async {
+    try {
+      // final routeArguments =
+      //     ModalRoute.of(context)!.settings.arguments as Map<String, int>;
+      // final id = routeArguments["id"];
+      // print("Id of course " + id.toString());
+      // print('arguments');
+      // print(routeArguments);
+      final id = ModalRoute.of(context)!.settings.arguments as int;
+      Response response = await Caller.dio.get("/course/$id");
+      setState(() {
+        final data = Course.fromJson(response.data);
+        name = data.name;
+        code = data.code;
+        join_code = data.join_code;
+        print(name);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   TextEditingController idController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController timeinput = TextEditingController();
@@ -101,21 +139,21 @@ class _InCoursePageState extends State<InCoursePage> {
                     margin: EdgeInsets.all(15.0),
                     child: SizedBox(
                       child: Column(
-                        children: const <Widget>[
+                        children: <Widget>[
                           ListTile(
                             title: Text(
-                              'CSC234',
+                              code,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 56, 56, 154),
                               ),
                             ),
-                            subtitle: Text('User-Centered Mobile Application'),
+                            subtitle: Text(name),
                           ),
                           ListTile(
                             title: Text(
-                              'CourseID : XYZ35TI',
+                              'Join Code : ' + join_code,
                               style: TextStyle(
                                 fontSize: 15,
                               ),
@@ -408,11 +446,11 @@ class _InCoursePageState extends State<InCoursePage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    dateController.text = "";
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   dateController.text = "";
+  // }
 
   @override
   void initTime() {

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -10,7 +11,9 @@ import 'package:mamaimakhrap/studentProfile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import 'caller.dart';
 import 'model/QRCodeGenerator.dart';
+import 'model/class.dart';
 
 class TeacherCoursePage extends StatefulWidget {
   const TeacherCoursePage({super.key});
@@ -23,6 +26,39 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
   String _qrData = '';
   double screenHeight = 0;
   double screenWidth = 0;
+  List<Course> enrolled_courses = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      Response response = await Caller.dio.get("/course");
+      setState(() {
+        print(response.data);
+        final List<dynamic> courses = response.data["created_courses"];
+        for (var course in courses) {
+          print(course);
+          enrolled_courses.add(Course.fromJson(course));
+        }
+        print(enrolled_courses);
+        // data = ClassList.fromJson(response.data["enrolled_courses"]);
+        // final data = Profile.fromJson(response.data);
+        // fname = data.firstname;
+        // lastname = data.lastname;
+        // email = data.email;
+        // faculty = data.faculty;
+        // department = data.department;
+        // this.avatarUrl = data.avatarURL;
+        // print(data.firstname);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   TextEditingController _textEditingController = TextEditingController();
   final CourseController = TextEditingController();
@@ -68,11 +104,9 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
                     child: Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
-                        children: [
-                          customCourse('CSC234', 'User-Centered Mobile'),
-                          customCourse('CSC234', 'User-Centered Mobile'),
-                        ],
-                      ),
+                          children: enrolled_courses
+                              .map((e) => customCourse(e.id, e.code, e.name))
+                              .toList()),
                     ),
                   ),
                 ),
@@ -147,10 +181,17 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
     );
   }
 
-  Widget customCourse(String title, String subtitle) {
+  Widget customCourse(int id, String title, String subtitle) {
     return GestureDetector(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => InCoursePage()))),
+        context,
+        MaterialPageRoute(
+          builder: ((context) => InCoursePage()),
+          settings: RouteSettings(
+            arguments: id,
+          ),
+        ),
+      ),
       child: Container(
         width: screenWidth - 40,
         margin: const EdgeInsets.only(bottom: 10),
