@@ -20,6 +20,7 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   TextEditingController _textEditingController = TextEditingController();
+  final CourseController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
