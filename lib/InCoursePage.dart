@@ -7,6 +7,8 @@ import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/SendFeedback.dart';
 import 'package:mamaimakhrap/profile.dart';
 
+import 'model/QRCodeGenerator.dart';
+
 class InCoursePage extends StatefulWidget {
   const InCoursePage({super.key});
 
@@ -15,6 +17,9 @@ class InCoursePage extends StatefulWidget {
 }
 
 class _InCoursePageState extends State<InCoursePage> {
+  String _qrData = '';
+  TimeOfDay _endTime =
+      TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 2)));
   double screenHeight = 0;
   double screenWidth = 0;
   TextEditingController idController = TextEditingController();
@@ -68,65 +73,7 @@ class _InCoursePageState extends State<InCoursePage> {
                         margin: const EdgeInsets.only(right: 20),
                         child: IconButton(
                             onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    title: Row(
-                                      children: [
-                                        const Text(
-                                          'Generate QR Code',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 5, 47, 109)),
-                                        ),
-                                        Spacer(),
-                                      ],
-                                    ),
-                                    content: Container(
-                                      height: screenHeight / 5,
-                                      child: Column(
-                                        children: [
-                                          customFieldNumber(
-                                            "Number",
-                                            idController,
-                                            false,
-                                          ),
-                                          customFieldTime(
-                                            "Time",
-                                            idController,
-                                            false,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text(
-                                          'Generate',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const QRCodePage()));
-                                        },
-                                        style: TextButton.styleFrom(
-                                          backgroundColor:
-                                              Color.fromARGB(255, 56, 56, 154),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              _showQrCodeGeneratorDialog(context);
                             },
                             icon: const Icon(
                               Icons.qr_code,
@@ -473,53 +420,79 @@ class _InCoursePageState extends State<InCoursePage> {
     super.initState();
   }
 
-  Widget customFieldTime(
-      String hint, TextEditingController controller, bool obscure) {
-    return Container(
-      width: screenWidth,
-      child: Row(
-        children: [
-          Container(
-            width: screenWidth / 10,
-            child: Icon(
-              Icons.timer,
-              size: screenWidth / 15,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(right: screenWidth / 12),
-              child: TextFormField(
-                controller: timeinput,
-                decoration: InputDecoration(labelText: "Enter Time"),
-                readOnly: true,
-                onTap: () async {
-                  TimeOfDay? pickedTime = await showTimePicker(
-                    initialTime: TimeOfDay.now(),
-                    context: context,
-                  );
-                  if (pickedTime != null) {
-                    print(pickedTime.format(context));
-                    DateTime parsedTime = DateFormat.jm()
-                        .parse(pickedTime.format(context).toString());
-
-                    print(parsedTime);
-                    String formattedTime =
-                        DateFormat('HH:mm:ss').format(parsedTime);
-                    print(formattedTime);
-
-                    setState(() {
-                      timeinput.text = formattedTime;
-                    });
-                  } else {
-                    print("Time is not selected");
-                  }
+  void _showQrCodeGeneratorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Generate QR Code'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Enter student ID',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _qrData = value;
+                  });
                 },
               ),
-            ),
+              SizedBox(height: 16),
+              InkWell(
+                onTap: () async {
+                  final TimeOfDay? selectedTime = await showTimePicker(
+                    context: context,
+                    initialTime: _endTime,
+                  );
+                  if (selectedTime != null) {
+                    setState(() {
+                      _endTime = selectedTime;
+                    });
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'End Time',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      _endTime.format(context),
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => QRCodeGenerator(
+                      data: _qrData,
+                      endTime: _endTime,
+                    ),
+                  ),
+                );
+              },
+              child: Text('Generate'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

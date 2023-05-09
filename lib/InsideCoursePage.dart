@@ -20,6 +20,12 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
+    final routeArguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, int>;
+    final id = routeArguments["id"];
+    print("Id of course " + id.toString());
+    print('arguments');
+    print(routeArguments);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 188, 153),
       resizeToAvoidBottomInset: false,

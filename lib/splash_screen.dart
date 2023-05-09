@@ -33,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Set caller token value
     Caller.setToken(token);
 
+    print(111122);
     try {
       // * Call launch information endpoint
       final response = await Caller.dio.get("/me");
@@ -49,6 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
         exit(0);
       }
     } on DioError catch (e) {
+      print(e.toString());
       exit(0);
     }
   }
@@ -61,7 +63,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(milliseconds: 3000),
       () async {
+        print(1111);
         final navi = await navigate();
+        print(2222);
         if (mounted) {
           Navigator.pushReplacement(
               context,

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,8 @@ import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/caller.dart';
+import 'package:mamaimakhrap/model/class.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
 class CoursePage extends StatefulWidget {
@@ -15,6 +18,38 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
+  List<Course> enrolled_courses = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      Response response = await Caller.dio.get("/course");
+      setState(() {
+        print(response.data);
+        final List<dynamic> courses = response.data["enrolled_courses"];
+        for (var course in courses) {
+          enrolled_courses.add(Course.fromJson(course));
+        }
+        print(enrolled_courses);
+        // data = ClassList.fromJson(response.data["enrolled_courses"]);
+        // final data = Profile.fromJson(response.data);
+        // fname = data.firstname;
+        // lastname = data.lastname;
+        // email = data.email;
+        // faculty = data.faculty;
+        // department = data.department;
+        // this.avatarUrl = data.avatarURL;
+        // print(data.firstname);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   double screenHeight = 0;
   double screenWidth = 0;
   int _count = 0;
@@ -64,8 +99,14 @@ class _CoursePageState extends State<CoursePage> {
                     child: Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
-                        children: _contatos,
-                      ),
+                          children: enrolled_courses
+                              .map((e) => customCourse(e.id, e.code, e.name))
+                              .toList()
+                          // [
+                          //   customCourse('CSC234', 'User-Centered Mobile'),
+                          //   customCourse('CSC234', 'User-Centered Mobile'),
+                          // ],
+                          ),
                     ),
                   ),
                 ),
@@ -163,6 +204,7 @@ class _CoursePageState extends State<CoursePage> {
               child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  // children: data!.id.map((e) => )
                   children: <Widget>[
                     ListTile(
                       leading: Icon(
@@ -184,10 +226,17 @@ class _CoursePageState extends State<CoursePage> {
     ]);
   }
 
-  Widget customCourse(String title, String subtitle) {
+  Widget customCourse(int id, String title, String subtitle) {
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => InsideCoursePage()))),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => InsideCoursePage()),
+          settings: RouteSettings(
+            arguments: {"id": id},
+          ),
+        ),
+      ),
       child: Container(
         width: screenWidth - 40,
         margin: const EdgeInsets.only(bottom: 10),
@@ -225,7 +274,7 @@ class ContactRow extends StatefulWidget {
 class _ContactRow extends State<ContactRow> {
   String title;
   String description; 
-  
+
 
    _ContactRow(this.title, this.description);
   double screenHeight = 0;
