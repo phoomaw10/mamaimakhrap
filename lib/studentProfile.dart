@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
@@ -5,8 +6,11 @@ import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/auth_service.dart';
+import 'package:mamaimakhrap/caller.dart';
 import 'package:mamaimakhrap/loginscreen.dart';
 import 'package:mamaimakhrap/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mamaimakhrap/model/me.dart';
 
 class studentProfile extends StatefulWidget {
   const studentProfile({super.key});
@@ -16,9 +20,53 @@ class studentProfile extends StatefulWidget {
 }
 
 class _studentProfile extends State<studentProfile> {
+  String fname = '';
+  String lastname = '';
+  String email = '';
+  String faculty = '';
+  String department = '';
+  String avatarUrl = '';
   double screenHeight = 0;
   double screenWidth = 0;
   final users = FirebaseAuth.instance.currentUser;
+  // Future sendRole() async {
+  //   final response = await Caller.dio.get("/me");
+  //   // * Parse response
+  //   print(response.data);
+  //   final data = Profile.fromJson(response.data);
+  //   final role = data.role;
+  // }
+  // Caller.dio.get("/me").then((response) {
+  //     setState(() {
+  //       recent = RecentRecord.fromJson(response.data["data"]);
+  //     });
+  //   }).onError((DioError error, _) {
+  //     Caller.handle(context, error);
+  //   });
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      Response response = await Caller.dio.get("/me");
+      setState(() {
+        final data = Profile.fromJson(response.data);
+        fname = data.firstname;
+        lastname = data.lastname;
+        email = data.email;
+        faculty = data.faculty;
+        department = data.department;
+        this.avatarUrl = data.avatarURL;
+        print(data.firstname);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   @override
@@ -149,7 +197,7 @@ class _studentProfile extends State<studentProfile> {
                           ],
                         ),
                       ),
-                      customField('Nawat'),
+                      customField(fname),
                       Container(
                         margin: const EdgeInsets.only(left: 40),
                         child: Row(
@@ -162,7 +210,7 @@ class _studentProfile extends State<studentProfile> {
                           ],
                         ),
                       ),
-                      customField('Sujjaritrat'),
+                      customField(lastname),
                       Container(
                         margin: const EdgeInsets.only(left: 40),
                         child: Row(
@@ -201,7 +249,7 @@ class _studentProfile extends State<studentProfile> {
                           ],
                         ),
                       ),
-                      customField('nawat.sujj@kmutt.ac.th'),
+                      customField(email),
                     ]),
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,8 @@ import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/caller.dart';
+import 'package:mamaimakhrap/model/class.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
 class CoursePage extends StatefulWidget {
@@ -15,6 +18,32 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      Response response = await Caller.dio.get("/course");
+      setState(() {
+        final data = ClassList.fromJson(response.data["data"]);
+        // final data = Profile.fromJson(response.data);
+        // fname = data.firstname;
+        // lastname = data.lastname;
+        // email = data.email;
+        // faculty = data.faculty;
+        // department = data.department;
+        // this.avatarUrl = data.avatarURL;
+        // print(data.firstname);
+        print(data.code);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
