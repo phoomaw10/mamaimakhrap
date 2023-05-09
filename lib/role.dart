@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/NavbarStudent.dart';
 import 'package:mamaimakhrap/NavbarTeacher.dart';
+import 'package:mamaimakhrap/caller.dart';
 
 class RolePage extends StatefulWidget {
   const RolePage({super.key});
@@ -12,6 +14,16 @@ class RolePage extends StatefulWidget {
 }
 
 class _RolePageState extends State<RolePage> {
+  Future sendRole() async {
+    // Set caller token value
+    try {
+      // * Call launch information endpoint
+      final setRole = await Caller.dio.post("/me/role");
+    } on DioError catch (e) {
+      print(e);
+    }
+  }
+
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = Color.fromARGB(255, 255, 255, 255);
@@ -44,6 +56,7 @@ class _RolePageState extends State<RolePage> {
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    Caller.dio.post("/me/role", data: {"role": "teacher"});
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -65,6 +78,7 @@ class _RolePageState extends State<RolePage> {
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    Caller.dio.post("/me/role", data: {"role": "student"});
                     Navigator.push(
                         context,
                         MaterialPageRoute(
