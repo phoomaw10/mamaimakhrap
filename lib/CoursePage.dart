@@ -17,11 +17,14 @@ class CoursePage extends StatefulWidget {
 class _CoursePageState extends State<CoursePage> {
   double screenHeight = 0;
   double screenWidth = 0;
+  int _count = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _contatos =
+        new List.generate(_count, (int i) => new ContactRow());
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -48,7 +51,7 @@ class _CoursePageState extends State<CoursePage> {
           Expanded(
             child: Stack(
               alignment: Alignment.bottomRight,
-              children: [
+              children: <Widget>[
                 Container(
                   width: screenWidth,
                   height: screenHeight,
@@ -61,10 +64,7 @@ class _CoursePageState extends State<CoursePage> {
                     child: Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
-                        children: [
-                          customCourse('CSC234', 'User-Centered Mobile'),
-                          customCourse('CSC234', 'User-Centered Mobile'),
-                        ],
+                        children: _contatos,
                       ),
                     ),
                   ),
@@ -116,9 +116,7 @@ class _CoursePageState extends State<CoursePage> {
                                   'Add',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                                onPressed: _addNewContactRow,
                                 style: TextButton.styleFrom(
                                   backgroundColor:
                                       Color.fromARGB(255, 56, 56, 154),
@@ -137,12 +135,19 @@ class _CoursePageState extends State<CoursePage> {
         ],
       ),
     );
+    
   }
 
   @override
   void dispose() {
     _textEditingController.dispose();
     super.dispose();
+  }
+
+  void _addNewContactRow() {
+    setState(() {
+      _count = _count + 1;
+    });
   }
 
   Widget customField(
@@ -209,4 +214,60 @@ class _CoursePageState extends State<CoursePage> {
       ),
     );
   }
+}
+
+class ContactRow extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ContactRow('AAA','BBB');
+  
+}
+
+class _ContactRow extends State<ContactRow> {
+  String title;
+  String description; 
+  
+
+   _ContactRow(this.title, this.description);
+  double screenHeight = 0;
+  double screenWidth = 0;
+  @override
+  Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => InsideCoursePage()))),
+      child: Container(
+        width: screenWidth - 40,
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Card(
+          color: const Color.fromARGB(255, 236, 242, 255),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 56, 56, 154),
+                  ),
+                ),
+                subtitle: Text(description),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Todo {
+  final String title;
+  final String description;
+
+  const Todo(this.title, this.description);
 }

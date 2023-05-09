@@ -8,30 +8,43 @@ import 'package:mamaimakhrap/loginscreen.dart';
 import 'package:mamaimakhrap/model/authen.dart';
 import 'package:mamaimakhrap/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
 
 class AuthService {
   signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+    print(1);
+    String os = Platform.operatingSystem;
+    GoogleSignInAccount? googleUser;
+    if (Platform.isAndroid) {
+     googleUser = await GoogleSignIn(
+            
+            )
+        .signIn();
+    }
+    if (Platform.isIOS){
+      googleUser = await GoogleSignIn(
             scopes: <String>["email"],
             clientId: DefaultFirebaseOptions.currentPlatform.iosClientId)
         .signIn();
-
+    }
+    print(2);
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
-
+    print(3);
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
+    print(4);
     final userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-
+    print(5);
     final idToken = await userCredential.user!.getIdToken();
-
+    print(6);
     final dio = Dio();
+    print(7);
     final response = await Caller.dio.get('/callback?idToken=' + idToken);
-
+    print(8);
     CallbackResponse cb = CallbackResponse.fromJson(response.data);
 
     print(cb.token);

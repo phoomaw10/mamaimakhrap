@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.orange),
                               label: Text("Login with Google"),
                               onPressed: () async {
+                                try{
                                 await AuthService().signInWithGoogle();
                                 Navigator.push(
                                     context,
@@ -99,6 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 // formKey.currentState!.save();
                                 print(
                                     "email = ${idController.text} password= ${passController.text}");
+                              } catch(e) {
+                                print(e.toString());
+                              }
                               },
                             ),
                           ),
