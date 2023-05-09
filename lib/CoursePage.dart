@@ -18,6 +18,7 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
+  List<Course> enrolled_courses = [];
   @override
   void initState() {
     super.initState();
@@ -28,7 +29,13 @@ class _CoursePageState extends State<CoursePage> {
     try {
       Response response = await Caller.dio.get("/course");
       setState(() {
-        final data = ClassList.fromJson(response.data["data"]);
+        print(response.data);
+        final List<dynamic> courses = response.data["enrolled_courses"];
+        for (var course in courses) {
+          enrolled_courses.add(Course.fromJson(course));
+        }
+        print(enrolled_courses);
+        // data = ClassList.fromJson(response.data["enrolled_courses"]);
         // final data = Profile.fromJson(response.data);
         // fname = data.firstname;
         // lastname = data.lastname;
@@ -37,7 +44,6 @@ class _CoursePageState extends State<CoursePage> {
         // department = data.department;
         // this.avatarUrl = data.avatarURL;
         // print(data.firstname);
-        print(data.code);
       });
     } catch (e) {
       print(e);
@@ -90,11 +96,14 @@ class _CoursePageState extends State<CoursePage> {
                     child: Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
-                        children: [
-                          customCourse('CSC234', 'User-Centered Mobile'),
-                          customCourse('CSC234', 'User-Centered Mobile'),
-                        ],
-                      ),
+                          children: enrolled_courses
+                              .map((e) => customCourse(e.id, e.code, e.name))
+                              .toList()
+                          // [
+                          //   customCourse('CSC234', 'User-Centered Mobile'),
+                          //   customCourse('CSC234', 'User-Centered Mobile'),
+                          // ],
+                          ),
                     ),
                   ),
                 ),
@@ -187,6 +196,7 @@ class _CoursePageState extends State<CoursePage> {
               child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  // children: data!.id.map((e) => )
                   children: <Widget>[
                     ListTile(
                       leading: Icon(
@@ -208,10 +218,17 @@ class _CoursePageState extends State<CoursePage> {
     ]);
   }
 
-  Widget customCourse(String title, String subtitle) {
+  Widget customCourse(int id, String title, String subtitle) {
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => InsideCoursePage()))),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => InsideCoursePage()),
+          settings: RouteSettings(
+            arguments: {"id": id},
+          ),
+        ),
+      ),
       child: Container(
         width: screenWidth - 40,
         margin: const EdgeInsets.only(bottom: 10),

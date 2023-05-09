@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'class.g.dart';
 
 @JsonSerializable()
-class ClassList {
+class Course {
   @JsonKey(name: 'id')
   final int id;
 
@@ -16,13 +16,13 @@ class ClassList {
   @JsonKey(name: 'join_code')
   final String join_code;
 
-  ClassList(
+  Course(
       {required this.id,
       required this.name,
       required this.code,
       required this.join_code});
 
-  factory ClassList.fromJson(Map<String, dynamic> json) =>
+  factory Course.fromJson(Map<String, dynamic> json) =>
       _$ClassListFromJson(json);
 
   Map<String, dynamic> toJson() => _$ClassListToJson(this);
