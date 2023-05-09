@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,6 +6,8 @@ import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
+
+import 'caller.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -16,6 +19,31 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   double screenHeight = 0;
   double screenWidth = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      Response response = await Caller.dio.get("/me");
+      setState(() {
+        // final data = course.fromJson(response.data);
+        // fname = data.firstname;
+        // lastname = data.lastname;
+        // email = data.email;
+        // faculty = data.faculty;
+        // department = data.department;
+        // this.avatarUrl = data.avatarURL;
+        // print(data.firstname);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Color primary = const Color.fromARGB(255, 177, 230, 252);
   @override
   Widget build(BuildContext context) {

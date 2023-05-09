@@ -22,8 +22,7 @@ class Course {
       required this.code,
       required this.join_code});
 
-  factory Course.fromJson(Map<String, dynamic> json) =>
-      _$ClassListFromJson(json);
+  factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ClassListToJson(this);
+  Map<String, dynamic> toJson() => _$CourseToJson(this);
 }
