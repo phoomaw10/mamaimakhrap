@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
+import 'package:mamaimakhrap/NavbarStudent.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/caller.dart';
@@ -50,11 +51,27 @@ class _CoursePageState extends State<CoursePage> {
     }
   }
 
+  void saveInfo() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Caller.dio
+        .post("/course", data: {
+          "join_code": _join_code.text,
+        })
+        .then((response) {})
+        .onError((DioError error, _) {
+          Caller.handle(context, error);
+        })
+        .whenComplete(() {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NavbarStudent()));
+        });
+  }
+
   double screenHeight = 0;
   double screenWidth = 0;
   int _count = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
-  TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _join_code = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +147,7 @@ class _CoursePageState extends State<CoursePage> {
                                   color: Color.fromARGB(255, 5, 47, 109)),
                             ),
                             content: TextField(
-                              controller: _textEditingController,
+                              controller: _join_code,
                               decoration: InputDecoration(hintText: "CourseID"),
                             ),
                             actions: <Widget>[
@@ -157,7 +174,9 @@ class _CoursePageState extends State<CoursePage> {
                                   'Add',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed: _addNewContactRow,
+                                onPressed: () {
+                                  saveInfo();
+                                },
                                 style: TextButton.styleFrom(
                                   backgroundColor:
                                       Color.fromARGB(255, 56, 56, 154),
@@ -180,7 +199,7 @@ class _CoursePageState extends State<CoursePage> {
 
   @override
   void dispose() {
-    _textEditingController.dispose();
+    _join_code.dispose();
     super.dispose();
   }
 

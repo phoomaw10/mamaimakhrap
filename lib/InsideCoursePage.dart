@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/caller.dart';
 import 'package:mamaimakhrap/model/class.dart';
+import 'package:mamaimakhrap/model/courseRound.dart';
+import 'package:mamaimakhrap/model/inHistory.dart';
 
 class InsideCoursePage extends StatefulWidget {
   const InsideCoursePage({super.key});
@@ -18,6 +20,8 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
   String name = '';
   String code = '';
   String join_code = '';
+  String createdAt = "";
+  List<Course> course_rounds = [];
 
   @override
   void initState() {
@@ -37,13 +41,33 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
       // print(routeArguments);
       final id = ModalRoute.of(context)!.settings.arguments as int;
       Response response = await Caller.dio.get("/course/$id");
+      print(response.data);
       setState(() {
-        final data = Course.fromJson(response.data);
-        name = data.name;
-        code = data.code;
-        join_code = data.join_code;
-        print(name);
+        final List<dynamic> courses = response.data["course_rounds"];
+        for (var course in courses) {
+          course_rounds.add(Course.fromJson(course));
+        }
+        print(course_rounds);
+        // final List<dynamic> courses = response.data;
+        // for (var course in courses) {
+        //   course_rounds.add(Course.fromJson(course));
+        // }
+
+        // print(courses);
+        print(1);
+        // final data = Course.fromJson(response.data);
+        print(2);
+        // name = data.name;
+        // code = data.code;
+        // //createdAt = data.courseRound?.createAt as String;
+        // join_code = data.join_code;
+        // print(name);
+        print('awdwadwad');
       });
+      // final List<dynamic> courses = response.data["course_rounds"];
+      // for (var course in courses) {
+      //   course_rounds.add(Course.fromJson(course));
+      // }
     } catch (e) {
       print(e);
     }
@@ -169,19 +193,9 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                       child: Container(
                         margin: EdgeInsets.only(top: 20),
                         child: Column(
-                          children: [
-                            customField('CSC234',
-                                'Thursday 13 April 2023 13.30 - 16.30'),
-                            customField('CSC234',
-                                'Thursday 20 April 2023 13.30 - 16.30'),
-                            customField('CSC234',
-                                'Thursday 27 April 2023 13.30 - 16.30'),
-                            customField('CSC234',
-                                'Thursday 27 April 2023 13.30 - 16.30'),
-                            customField(
-                                'CSC234', 'Thursday 4 April 2023 13.30 - 16.30')
-                          ],
-                        ),
+                            children: course_rounds
+                                .map((e) => customField(e.id, code, "dad"))
+                                .toList()),
                       ),
                     ),
                   ),
@@ -201,6 +215,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
   }
 
   Widget customField(
+    int id,
     String hint,
     String date,
   ) {

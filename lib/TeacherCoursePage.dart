@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/HistoryPage.dart';
 import 'package:mamaimakhrap/InCoursePage.dart';
 import 'package:mamaimakhrap/InsideCoursePage.dart';
+import 'package:mamaimakhrap/NavbarTeacher.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
@@ -59,8 +60,26 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
     }
   }
 
+  void saveInfo() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Caller.dio
+        .post("/course", data: {
+          "course_code": _courseID.text,
+          "course_name": _courseName.text,
+        })
+        .then((response) {})
+        .onError((DioError error, _) {
+          Caller.handle(context, error);
+        })
+        .whenComplete(() {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NavbarTeacher()));
+        });
+  }
+
   Color primary = const Color.fromARGB(255, 255, 255, 255);
-  TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _courseID = TextEditingController();
+  TextEditingController _courseName = TextEditingController();
   final CourseController = TextEditingController();
 
   @override
@@ -129,10 +148,22 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromARGB(255, 5, 47, 109)),
                             ),
-                            content: TextField(
-                              controller: _textEditingController,
-                              decoration:
-                                  InputDecoration(hintText: "Course Name"),
+                            content: Container(
+                              height: screenHeight / 9,
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    controller: _courseID,
+                                    decoration:
+                                        InputDecoration(hintText: "Course ID"),
+                                  ),
+                                  TextField(
+                                    controller: _courseName,
+                                    decoration: InputDecoration(
+                                        hintText: "Course Name"),
+                                  ),
+                                ],
+                              ),
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -159,7 +190,7 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  saveInfo();
                                 },
                                 style: TextButton.styleFrom(
                                   backgroundColor:

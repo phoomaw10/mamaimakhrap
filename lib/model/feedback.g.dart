@@ -14,6 +14,12 @@ FeedbackList _$FeedbackListFromJson(Map<String, dynamic> json) => FeedbackList(
       teacher_id: json['teacher_id'] as int,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
+      course: json['course'] == null
+          ? null
+          : Course.fromJson(json['course'] as Map<String, dynamic>),
+      teacher: json['teacher'] == null
+          ? null
+          : Teacher.fromJson(json['teacher'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$FeedbackListToJson(FeedbackList instance) =>
@@ -25,4 +31,6 @@ Map<String, dynamic> _$FeedbackListToJson(FeedbackList instance) =>
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       'teacher_id': instance.teacher_id,
+      'course': instance.course,
+      'teacher': instance.teacher,
     };

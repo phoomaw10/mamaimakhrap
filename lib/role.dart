@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/NavbarStudent.dart';
 import 'package:mamaimakhrap/NavbarTeacher.dart';
 import 'package:mamaimakhrap/caller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RolePage extends StatefulWidget {
   const RolePage({super.key});
@@ -18,7 +19,9 @@ class _RolePageState extends State<RolePage> {
     // Set caller token value
     try {
       // * Call launch information endpoint
-      final setRole = await Caller.dio.post("/me/role");
+      final tokem = await Caller.dio.post("/me/role");
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', tokem as String);
     } on DioError catch (e) {
       print(e);
     }

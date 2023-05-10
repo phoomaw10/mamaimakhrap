@@ -167,8 +167,8 @@ class _studentProfile extends State<studentProfile> {
                   ),
                   SizedBox(
                     child: Column(children: [
-                      const CircleAvatar(
-                        backgroundImage: AssetImage('images/face.jpeg'),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(avatarUrl),
                         radius: 100,
                       ),
                       Container(

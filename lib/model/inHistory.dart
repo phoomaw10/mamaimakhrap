@@ -7,20 +7,17 @@ class inHistory {
   @JsonKey(name: 'id')
   final int id;
 
-  @JsonKey(name: 'name')
-  final String name;
+  @JsonKey(name: 'course_id')
+  final int course_id;
 
-  @JsonKey(name: 'code')
-  final String code;
+  @JsonKey(name: 'createdAt')
+  final String createAt;
 
-  @JsonKey(name: 'join_code')
-  final String join_code;
-
-  inHistory(
-      {required this.id,
-      required this.name,
-      required this.code,
-      required this.join_code});
+  inHistory({
+    required this.id,
+    required this.course_id,
+    required this.createAt,
+  });
 
   factory inHistory.fromJson(Map<String, dynamic> json) =>
       _$inHistoryFromJson(json);

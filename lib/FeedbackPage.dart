@@ -37,6 +37,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         final List<dynamic> feedbacks = response.data;
         print("arrrrrr" + feedbacks.toString());
         for (var feedback in feedbacks) {
+          print(feedback.toString());
           get_Feedback.add(FeedbackList.fromJson(feedback));
         }
         // print('feed bacsadasdasd ' + get_Feedback.toString());
@@ -98,7 +99,10 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     height: screenHeight / 1.4,
                     child: Column(
                         children: get_Feedback
-                            .map((e) => customField(e.id, 'aaaa', 'dddd'))
+                            .map((e) => customField(
+                                e.id,
+                                e.course?.code as String,
+                                e.course?.name as String))
                             .toList()),
                   ),
                 ],
@@ -117,8 +121,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
   ) {
     return Column(children: [
       GestureDetector(
-        onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => InsideFeedbackPage()))),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => InsideFeedbackPage()),
+            settings: RouteSettings(
+              arguments: id,
+            ),
+          ),
+        ),
         child: Container(
             width: screenWidth - 40,
             margin: const EdgeInsets.only(bottom: 10),

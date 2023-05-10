@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mamaimakhrap/auth_service.dart';
 import 'package:mamaimakhrap/splash_screen.dart';
+
+import 'caller.dart';
+import 'model/me.dart';
 
 class TeacherProfile extends StatefulWidget {
   const TeacherProfile({super.key});
@@ -11,10 +15,41 @@ class TeacherProfile extends StatefulWidget {
 }
 
 class _TeacherProfile extends State<TeacherProfile> {
+  String fname = '';
+  String lastname = '';
+  String email = '';
+  String faculty = '';
+  String department = '';
+  String avatarUrl = '';
   double screenHeight = 0;
   double screenWidth = 0;
-  Color primary = const Color.fromARGB(255, 255, 255, 255);
   final users = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      Response response = await Caller.dio.get("/me");
+      setState(() {
+        final data = Profile.fromJson(response.data);
+        fname = data.firstname;
+        lastname = data.lastname;
+        email = data.email;
+        faculty = data.faculty;
+        department = data.department;
+        this.avatarUrl = data.avatarURL;
+        print(data.firstname);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Color primary = const Color.fromARGB(255, 255, 255, 255);
 
   @override
   Widget build(BuildContext context) {
@@ -129,8 +164,8 @@ class _TeacherProfile extends State<TeacherProfile> {
                   ),
                   SizedBox(
                     child: Column(children: [
-                      const CircleAvatar(
-                        backgroundImage: AssetImage('images/face.jpeg'),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(avatarUrl),
                         radius: 100,
                       ),
                       Container(
@@ -145,7 +180,7 @@ class _TeacherProfile extends State<TeacherProfile> {
                           ],
                         ),
                       ),
-                      customField('Vajirsak'),
+                      customField(fname),
                       Container(
                         margin: const EdgeInsets.only(left: 40),
                         child: Row(
@@ -158,7 +193,7 @@ class _TeacherProfile extends State<TeacherProfile> {
                           ],
                         ),
                       ),
-                      customField('Vanija'),
+                      customField(lastname),
                       Container(
                         margin: const EdgeInsets.only(left: 40),
                         child: Row(
@@ -197,7 +232,7 @@ class _TeacherProfile extends State<TeacherProfile> {
                           ],
                         ),
                       ),
-                      customField('vachee@sit.kmutt.ac.th'),
+                      customField(email),
                     ]),
                   ),
                 ],

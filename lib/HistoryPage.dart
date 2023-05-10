@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
+import 'package:mamaimakhrap/model/HistoryBoth.dart';
 import 'package:mamaimakhrap/studentProfile.dart';
 
 import 'caller.dart';
@@ -20,6 +21,7 @@ class _HistoryPageState extends State<HistoryPage> {
   double screenHeight = 0;
   double screenWidth = 0;
 
+  List<HistoryBoth> enrolled_courses = [];
   @override
   void initState() {
     super.initState();
@@ -28,9 +30,16 @@ class _HistoryPageState extends State<HistoryPage> {
 
   void fetchData() async {
     try {
-      Response response = await Caller.dio.get("/me");
+      Response response = await Caller.dio.get("/history");
       setState(() {
-        // final data = course.fromJson(response.data);
+        print(response.data);
+        final List<dynamic> courses = response.data;
+        for (var course in courses) {
+          enrolled_courses.add(HistoryBoth.fromJson(course));
+        }
+        print(enrolled_courses);
+        // data = ClassList.fromJson(response.data["enrolled_courses"]);
+        // final data = Profile.fromJson(response.data);
         // fname = data.firstname;
         // lastname = data.lastname;
         // email = data.email;
@@ -82,14 +91,10 @@ class _HistoryPageState extends State<HistoryPage> {
               child: SingleChildScrollView(
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
-                  child: Column(children: [
-                    customField(
-                        'CSC111', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC213', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                    customField(
-                        'CSC102', 'Thursday 13 April 2023 13.30 - 16.30 pm'),
-                  ]),
+                  child: Column(
+                      children: enrolled_courses
+                          .map((e) => customField(e.id, 'dsds', 'dsds'))
+                          .toList()),
                 ),
               ),
             ),
@@ -100,6 +105,7 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   Widget customField(
+    int id,
     String hint,
     String date,
   ) {

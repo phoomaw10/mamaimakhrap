@@ -25,7 +25,7 @@ class _NavbarStudentState extends State<NavbarStudent> {
     ScanPage(),
     FeedbackPage(),
   ];
-  int _selectedTab = 2;
+  int _selectedTab = 0;
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = Color.fromARGB(255, 2, 2, 2);

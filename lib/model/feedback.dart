@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mamaimakhrap/model/class.dart';
+import 'package:mamaimakhrap/model/teacher.dart';
 
 part 'feedback.g.dart';
 
@@ -25,6 +27,12 @@ class FeedbackList {
   @JsonKey(name: "teacher_id")
   final int teacher_id;
 
+  @JsonKey(name: "course")
+  final Course? course;
+
+  @JsonKey(name: "teacher")
+  final Teacher? teacher;
+
   FeedbackList(
       {required this.id,
       required this.student_id,
@@ -32,7 +40,9 @@ class FeedbackList {
       required this.course_id,
       required this.teacher_id,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt,
+      this.course,
+      this.teacher});
 
   factory FeedbackList.fromJson(Map<String, dynamic> json) =>
       _$FeedbackListFromJson(json);

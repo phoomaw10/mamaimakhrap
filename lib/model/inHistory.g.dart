@@ -8,14 +8,12 @@ part of 'inHistory.dart';
 
 inHistory _$inHistoryFromJson(Map<String, dynamic> json) => inHistory(
       id: json['id'] as int,
-      name: json['name'] as String,
-      code: json['code'] as String,
-      join_code: json['join_code'] as String,
+      course_id: json['course_id'] as int,
+      createAt: json['createdAt'] as String,
     );
 
 Map<String, dynamic> _$inHistoryToJson(inHistory instance) => <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
-      'code': instance.code,
-      'join_code': instance.join_code,
+      'course_id': instance.course_id,
+      'createdAt': instance.createAt,
     };
