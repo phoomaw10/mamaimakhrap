@@ -459,6 +459,8 @@ class _InCoursePageState extends State<InCoursePage> {
   }
 
   void _showQrCodeGeneratorDialog(BuildContext context) {
+    int _numberOfStudents = 0;
+    int _maxScan = 0;
     showDialog(
       context: context,
       builder: (context) {
@@ -469,7 +471,7 @@ class _InCoursePageState extends State<InCoursePage> {
             children: [
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Enter student ID',
+                  labelText: 'Number of Student',
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -521,7 +523,7 @@ class _InCoursePageState extends State<InCoursePage> {
                   MaterialPageRoute(
                     builder: (context) => QRCodeGenerator(
                       data: _qrData,
-                      endTime: _endTime,
+                      endTime: _endTime, maxScan: _maxScan, studentNumber: '',
                     ),
                   ),
                 );

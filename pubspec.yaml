@@ -48,6 +48,7 @@ dependencies:
   shared_preferences: ^2.1.0
   flutter_platform_alert: ^0.3.0
   font_awesome_flutter: ^10.4.0
+  path_provider: ^2.0.15
 
 
 

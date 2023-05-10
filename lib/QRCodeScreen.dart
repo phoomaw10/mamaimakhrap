@@ -35,6 +35,8 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
   }
 
   void _showQrCodeGeneratorDialog(BuildContext context) {
+      int _numberOfStudents = 0;
+    int _maxScan = 0;
     showDialog(
       context: context,
       builder: (context) {
@@ -97,7 +99,7 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
                   MaterialPageRoute(
                     builder: (context) => QRCodeGenerator(
                       data: _qrData,
-                      endTime: _endTime,
+                      endTime: _endTime, maxScan: _maxScan, studentNumber: '',
                     ),
                   ),
                 );

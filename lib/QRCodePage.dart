@@ -90,7 +90,7 @@ class _QRCodePageState extends State<QRCodePage> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
