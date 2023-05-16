@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -6,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/SendFeedback.dart';
+import 'package:mamaimakhrap/model/enrollUser.dart';
 import 'package:mamaimakhrap/profile.dart';
 
 import 'caller.dart';
@@ -29,6 +32,7 @@ class _InCoursePageState extends State<InCoursePage> {
   String name = '';
   String code = '';
   String join_code = '';
+  List<EnrollUser> enroll_User = [];
 
   @override
   void initState() {
@@ -48,13 +52,44 @@ class _InCoursePageState extends State<InCoursePage> {
       // print(routeArguments);
       final id = ModalRoute.of(context)!.settings.arguments as int;
       Response response = await Caller.dio.get("/course/$id");
+
       setState(() {
-        final data = Course.fromJson(response.data);
-        name = data.name;
-        code = data.code;
-        join_code = data.join_code;
+        print('test');
+        List<dynamic> enroll_Student = response.data["enrolled_users"];
+        print(1212);
+        print(enroll_Student);
+        Map<String, dynamic> fetchCourse = response.data;
+        name = fetchCourse['name'];
+        code = fetchCourse['code'];
+        join_code = fetchCourse['join_code'];
+        print(code);
+        print(join_code);
         print(name);
+        enroll_User = enroll_Student
+            .map<EnrollUser>((json) => EnrollUser.fromJson(json))
+            .toList();
+        // for (var user in enroll_Student) {
+        //   print(user);
+        //   enroll_User.add(EnrollUser.fromJson(user));
+        // }
+        print(enroll_User);
+        print(111111);
+        // final List<dynamic> listStudent = response.data;
+        // final List<EnrollUser> mappedData = listStudent
+        //     .map<EnrollUser>((json) => EnrollUser.fromJson(json))
+        //     .toList();
+        // print(mappedData);
       });
+
+      // return listStudent
+      //     .map<EnrollUser>((json) => EnrollUser.fromJson(json))
+      //     .toList();
+      // final List<EnrollUser> listStuden = enroll_Student.map((json) {
+      //   final studentJson = json['enrolled_users'];
+      // });
+      // print(enroll_User);
+      // print(enroll_User.first.enrollUser?.firstname);
+      // Future.delayed(Duration(seconds: 5));
     } catch (e) {
       print(e);
     }
@@ -192,12 +227,23 @@ class _InCoursePageState extends State<InCoursePage> {
                     child: Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
-                        children: [
-                          customMember('Nawat Sujjaritrat'),
-                        ],
+                        children: enroll_User
+                            .map((e) => customMember(e.id!, e.firstname ?? '',
+                                e.lastname ?? '', e.avatarURL ?? ''
+                                // e.enrollUser?.firstname as String,
+                                // e.enrollUser?.avatarURL as String
+                                ))
+                            .toList(),
+                        // children: enroll_User
+                        //     .map((e) => customMember(
+                        //         // e.enrollUser?.firstname as String,
+                        //         "adad",
+                        //         // e.enrollUser?.avatarURL as String
+                        //         "asd"))
+                        //     .toList()),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -213,15 +259,14 @@ class _InCoursePageState extends State<InCoursePage> {
     super.dispose();
   }
 
-  Widget customMember(
-    String hint,
-    //String date,
-  ) {
+  Widget customMember(int id, String hint, String lastname, String avatarUrl
+      //String date,
+      ) {
     return Column(
       children: [
         Container(
           width: screenWidth - 40,
-          margin: const EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 0),
           child: Card(
             margin: const EdgeInsets.all(20),
             child: InkWell(
@@ -253,10 +298,14 @@ class _InCoursePageState extends State<InCoursePage> {
                               child: InkWell(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SendFeedback()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) => SendFeedback()),
+                                      settings: RouteSettings(
+                                        arguments: id,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: ListTile(
                                   leading: Icon(Icons.feedback),
@@ -400,10 +449,10 @@ class _InCoursePageState extends State<InCoursePage> {
                   ListTile(
                     leading: CircleAvatar(
                       radius: 23,
-                      backgroundImage: AssetImage("images/face.jpeg"),
+                      backgroundImage: NetworkImage(avatarUrl),
                     ),
                     title: Text(
-                      hint,
+                      hint + ' ' + lastname,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.normal,
@@ -471,7 +520,7 @@ class _InCoursePageState extends State<InCoursePage> {
             children: [
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Number of Student',
+                  labelText: 'Enter Amount of Student',
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -523,7 +572,9 @@ class _InCoursePageState extends State<InCoursePage> {
                   MaterialPageRoute(
                     builder: (context) => QRCodeGenerator(
                       data: _qrData,
-                      endTime: _endTime, maxScan: _maxScan, studentNumber: '',
+                      endTime: _endTime,
+                      maxScan: _maxScan,
+                      studentNumber: '',
                     ),
                   ),
                 );

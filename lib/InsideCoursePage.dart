@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/caller.dart';
 import 'package:mamaimakhrap/model/class.dart';
@@ -21,7 +22,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
   String code = '';
   String join_code = '';
   String createdAt = "";
-  List<Course> course_rounds = [];
+  List<CourseRound> course_rounds = [];
 
   @override
   void initState() {
@@ -41,12 +42,13 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
       // print(routeArguments);
       final id = ModalRoute.of(context)!.settings.arguments as int;
       Response response = await Caller.dio.get("/course/$id");
+      final Response fetchResponse = await Caller.dio.get("/course/$id");
       print(response.data);
       setState(() {
-        final List<dynamic> courses = response.data["course_rounds"];
-        for (var course in courses) {
-          course_rounds.add(Course.fromJson(course));
-        }
+        // final List<dynamic> courses = response.data["course_rounds"];
+        // for (var course in courses) {
+        //   course_rounds.add(Course.fromJson(course));
+        // }
         print(course_rounds);
         // final List<dynamic> courses = response.data;
         // for (var course in courses) {
@@ -55,11 +57,27 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
 
         // print(courses);
         print(1);
+        List<dynamic> courses = response.data["course_rounds"];
+        Map<String, dynamic> fetchCourse = response.data;
+        name = fetchCourse['name'];
+        code = fetchCourse['code'];
+        join_code = fetchCourse['join_code'];
+        createdAt = fetchCourse['createdAt'];
+        print(name);
+        print(55555555);
+        print(fetchCourse);
         // final data = Course.fromJson(response.data);
         print(2);
+        // for (var course in courses) {
+        //   course_rounds.add(Course.fromJson(course));
+        // }
+        course_rounds = courses
+            .map<CourseRound>((json) => CourseRound.fromJson(json))
+            .toList();
+        print(course_rounds);
         // name = data.name;
         // code = data.code;
-        // //createdAt = data.courseRound?.createAt as String;
+        //createdAt = data.courseRound?.createAt as String;
         // join_code = data.join_code;
         // print(name);
         print('awdwadwad');
@@ -194,7 +212,11 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                         margin: EdgeInsets.only(top: 20),
                         child: Column(
                             children: course_rounds
-                                .map((e) => customField(e.id, code, "dad"))
+                                .map((e) => customField(
+                                    e.id,
+                                    code,
+                                    DateFormat('E, d MMM yyyy HH:mm:ss').format(
+                                        DateTime.parse(e.createdAt as String))))
                                 .toList()),
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
@@ -93,7 +94,12 @@ class _HistoryPageState extends State<HistoryPage> {
                   margin: EdgeInsets.only(top: 20),
                   child: Column(
                       children: enrolled_courses
-                          .map((e) => customField(e.id, 'dsds', 'dsds'))
+                          .map((e) => customField(
+                              e.id!,
+                              e.round?.course?.code as String,
+                              DateFormat('E, d MMM yyyy HH:mm:ss').format(
+                                  DateTime.parse(
+                                      e.round?.createdAt as String))))
                           .toList()),
                 ),
               ),

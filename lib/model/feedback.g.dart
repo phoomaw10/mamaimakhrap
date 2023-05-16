@@ -9,11 +9,11 @@ part of 'feedback.dart';
 FeedbackList _$FeedbackListFromJson(Map<String, dynamic> json) => FeedbackList(
       id: json['id'] as int,
       student_id: json['student_id'] as int,
-      feedbackText: json['feedbackText'] as String,
+      feedbackText: json['feedbackText'] as String?,
       course_id: json['course_id'] as int,
       teacher_id: json['teacher_id'] as int,
-      createdAt: json['createdAt'] as String,
-      updatedAt: json['updatedAt'] as String,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
       course: json['course'] == null
           ? null
           : Course.fromJson(json['course'] as Map<String, dynamic>),

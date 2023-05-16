@@ -13,16 +13,16 @@ class FeedbackList {
   final int student_id;
 
   @JsonKey(name: 'feedbackText')
-  final String feedbackText;
+  final String? feedbackText;
 
   @JsonKey(name: 'course_id')
   final int course_id;
 
   @JsonKey(name: "createdAt")
-  final String createdAt;
+  final String? createdAt;
 
   @JsonKey(name: "updatedAt")
-  final String updatedAt;
+  final String? updatedAt;
 
   @JsonKey(name: "teacher_id")
   final int teacher_id;

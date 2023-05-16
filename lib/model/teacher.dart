@@ -17,7 +17,7 @@ class Teacher {
   // final String code;
 
   @JsonKey(name: 'avatar_url')
-  final String avatarUrl;
+  final String? avatarUrl;
 
   // @JsonKey(name: 'join_code')
   // final String join_code;

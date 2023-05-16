@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mamaimakhrap/model/courseRound.dart';
+import 'package:mamaimakhrap/model/enrollUser.dart';
 
 part 'class.g.dart';
 
@@ -9,23 +10,27 @@ class Course {
   final int id;
 
   @JsonKey(name: 'name')
-  final String name;
+  final String? name;
 
   @JsonKey(name: 'code')
-  final String code;
+  final String? code;
 
   @JsonKey(name: 'join_code')
-  final String join_code;
+  final String? join_code;
 
   @JsonKey(name: 'course_rounds')
-  final CourseRound? courseRound;
+  final List<CourseRound>? courseRound;
+
+  @JsonKey(name: 'enrolled_users')
+  final List<EnrollUser>? enrollUser;
 
   Course(
       {required this.id,
       required this.name,
       required this.code,
       required this.join_code,
-      this.courseRound});
+      this.courseRound,
+      this.enrollUser});
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 

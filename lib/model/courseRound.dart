@@ -12,13 +12,13 @@ class CourseRound {
   final int course_id;
 
   @JsonKey(name: 'createdAt')
-  final DateTime createdAt;
+  final String createdAt;
 
   @JsonKey(name: 'maxStudent')
   final int maxStudent;
 
   @JsonKey(name: 'histories')
-  final HistoryBoth? history;
+  final List<HistoryBoth>? history;
 
   CourseRound(
       {required this.id,

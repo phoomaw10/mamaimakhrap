@@ -117,7 +117,7 @@ class _CoursePageState extends State<CoursePage> {
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
                           children: enrolled_courses
-                              .map((e) => customCourse(e.id, e.code, e.name))
+                              .map((e) => customCourse(e.id, e.code!, e.name!))
                               .toList()
                           // [
                           //   customCourse('CSC234', 'User-Centered Mobile'),

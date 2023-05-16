@@ -1,12 +1,13 @@
 import 'dart:ffi';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mamaimakhrap/model/owner.dart';
 import 'package:mamaimakhrap/model/round.dart';
 
-part 'HistoryBoth.g.dart';
+part 'histories.g.dart';
 
 @JsonSerializable()
-class HistoryBoth {
+class HistoryRound {
   @JsonKey(name: 'id')
   final int? id;
 
@@ -19,18 +20,18 @@ class HistoryBoth {
   @JsonKey(name: 'status')
   final bool? status;
 
-  @JsonKey(name: 'round')
-  final Round? round;
+  @JsonKey(name: 'owner')
+  final Owner? owner;
 
-  HistoryBoth(
+  HistoryRound(
       {required this.id,
       required this.user_id,
       required this.round_id,
       required this.status,
-      this.round});
+      this.owner});
 
-  factory HistoryBoth.fromJson(Map<String, dynamic> json) =>
-      _$HistoryBothFromJson(json);
+  factory HistoryRound.fromJson(Map<String, dynamic> json) =>
+      _$HistoryRoundFromJson(json);
 
-  Map<String, dynamic> toJson() => _$HistoryBothToJson(this);
+  Map<String, dynamic> toJson() => _$HistoryRoundToJson(this);
 }

@@ -44,6 +44,7 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
           print(course);
           enrolled_courses.add(Course.fromJson(course));
         }
+        // final List<Cou
         print(enrolled_courses);
         // data = ClassList.fromJson(response.data["enrolled_courses"]);
         // final data = Profile.fromJson(response.data);
@@ -124,7 +125,7 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
                           children: enrolled_courses
-                              .map((e) => customCourse(e.id, e.code, e.name))
+                              .map((e) => customCourse(e.id, e.code!, e.name!))
                               .toList()),
                     ),
                   ),

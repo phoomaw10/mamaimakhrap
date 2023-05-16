@@ -9,18 +9,18 @@ part of 'courseRound.dart';
 CourseRound _$CourseRoundFromJson(Map<String, dynamic> json) => CourseRound(
       id: json['id'] as int,
       course_id: json['course_id'] as int,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: json['createdAt'] as String,
       maxStudent: json['maxStudent'] as int,
-      history: json['histories'] == null
-          ? null
-          : HistoryBoth.fromJson(json['histories'] as Map<String, dynamic>),
+      history: (json['histories'] as List<dynamic>?)
+          ?.map((e) => HistoryBoth.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CourseRoundToJson(CourseRound instance) =>
     <String, dynamic>{
       'id': instance.id,
       'course_id': instance.course_id,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt,
       'maxStudent': instance.maxStudent,
       'histories': instance.history,
     };
