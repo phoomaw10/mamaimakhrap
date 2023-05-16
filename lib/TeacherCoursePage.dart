@@ -150,7 +150,7 @@ class _TeacherCoursePageState extends State<TeacherCoursePage> {
                                   color: Color.fromARGB(255, 5, 47, 109)),
                             ),
                             content: Container(
-                              height: screenHeight / 9,
+                              height: screenHeight / 8,
                               child: Column(
                                 children: [
                                   TextField(

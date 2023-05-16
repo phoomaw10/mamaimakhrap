@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QRCodeGenerator extends StatefulWidget {
@@ -86,7 +86,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                         "QR Code Generator",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 5, 47, 109)),
                       ),
@@ -112,7 +112,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                     child: Column(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(top: 30, bottom: 10),
+                          margin: const EdgeInsets.only(top: 30, left: 35),
                           height: screenHeight - 550,
                           width: screenWidth - 80,
                           child: Container(
@@ -180,3 +180,5 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
     }
   }
 }
+
+getApplicationDocumentsDirectory() {}

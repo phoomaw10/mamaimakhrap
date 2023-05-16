@@ -17,7 +17,7 @@ class ScanPage extends StatefulWidget {
 
 class _ScanPageState extends State<ScanPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
+  int? result;
   QRViewController? controller;
   double screenHeight = 0;
   double screenWidth = 0;
@@ -95,10 +95,16 @@ class _ScanPageState extends State<ScanPage> {
                         color: Colors.white24),
                     child: (result != null)
                         ? ElevatedButton(
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const ConfirmQR())),
+                            onPressed: () {
+                              print('this is the result data $result');
+                              Caller.dio.post("/course/check",
+                                  data: {"round_id": result});
+                              print(result);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const ConfirmQR()));
+                            },
                             child: Text('Click to open'),
                           )
                         : Text('Scan a code'),
@@ -116,10 +122,13 @@ class _ScanPageState extends State<ScanPage> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       setState(() {
-        result = scanData;
+        print(scanData.code);
+        result = int.tryParse(scanData.code!);
+        print('Parsed Result: $result');
       });
       //send api
-      Caller.dio.post("/course/check", data: {"roundId": result});
+      print('before send api');
+      // Caller.dio.post("/course/check", data: {"roundId": result});
     });
   }
 

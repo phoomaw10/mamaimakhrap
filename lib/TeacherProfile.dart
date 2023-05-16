@@ -162,79 +162,79 @@ class _TeacherProfile extends State<TeacherProfile> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    child: Column(children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(avatarUrl),
-                        radius: 100,
+                  //Container(
+                  Column(children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(avatarUrl),
+                      radius: 80,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40, top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const <Widget>[
+                          Text(
+                            "First name",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 40, top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const <Widget>[
-                            Text(
-                              "First name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                    ),
+                    customField(fname),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const <Widget>[
+                          Text(
+                            "Last name",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                      customField(fname),
-                      Container(
-                        margin: const EdgeInsets.only(left: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const <Widget>[
-                            Text(
-                              "Last name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                    ),
+                    customField(lastname),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const <Widget>[
+                          Text(
+                            "Faculty",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                      customField(lastname),
-                      Container(
-                        margin: const EdgeInsets.only(left: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const <Widget>[
-                            Text(
-                              "Faculty",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                    ),
+                    customField('School of Information Technology'),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const <Widget>[
+                          Text(
+                            "Department",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                      customField('School of Information Technology'),
-                      Container(
-                        margin: const EdgeInsets.only(left: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const <Widget>[
-                            Text(
-                              "Department",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                    ),
+                    customField('Computer Science'),
+                    Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const <Widget>[
+                          Text(
+                            "Email",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                      customField('Computer Science'),
-                      Container(
-                        margin: const EdgeInsets.only(left: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const <Widget>[
-                            Text(
-                              "Email",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                      customField(email),
-                    ]),
-                  ),
+                    ),
+                    customField(email),
+                  ]),
+                  //),
                 ],
               ),
             ),
@@ -249,7 +249,7 @@ class _TeacherProfile extends State<TeacherProfile> {
   ) {
     return Container(
         width: screenWidth - 80,
-        height: screenHeight / 17,
+        height: screenHeight / 20,
         margin: const EdgeInsets.only(bottom: 10),
         decoration: const BoxDecoration(
             color: Color.fromARGB(255, 236, 242, 255),

@@ -577,13 +577,14 @@ class _InCoursePageState extends State<InCoursePage> {
                 onTap: () async {
                   _selectDateTime(context);
                 },
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'End Time',
+                      'End Time\n',
                       style: TextStyle(fontSize: 16),
                     ),
+                    SizedBox(height: 10),
                     Text(
                       selectedDateTime,
                       style: TextStyle(fontSize: 16),
