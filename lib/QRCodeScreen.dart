@@ -10,7 +10,7 @@ class QRCodeScreen extends StatefulWidget {
 
 class _QRCodeScreenState extends State<QRCodeScreen> {
   String _qrData = '';
-  TimeOfDay _endTime = TimeOfDay(hour: 0, minute: 0);
+  late DateTime selectedDateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
   }
 
   void _showQrCodeGeneratorDialog(BuildContext context) {
-      int _numberOfStudents = 0;
+    int _numberOfStudents = 0;
     int _maxScan = 0;
     showDialog(
       context: context,
@@ -58,15 +58,7 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
               SizedBox(height: 16),
               InkWell(
                 onTap: () async {
-                  final TimeOfDay? selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: _endTime,
-                  );
-                  if (selectedTime != null) {
-                    setState(() {
-                      _endTime = selectedTime;
-                    });
-                  }
+                  selectedDateTime;
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,10 +67,10 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
                       'End Time',
                       style: TextStyle(fontSize: 16),
                     ),
-                    Text(
-                      _endTime.format(context),
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    // Text(
+                    //   _endTime.format(context),
+                    //   style: TextStyle(fontSize: 16),
+                    // ),
                   ],
                 ),
               ),
@@ -91,21 +83,21 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
               },
               child: Text('Cancel'),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => QRCodeGenerator(
-                      data: _qrData,
-                      endTime: _endTime, maxScan: _maxScan, studentNumber: '',
-                    ),
-                  ),
-                );
-              },
-              child: Text('Generate'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => QRCodeGenerator(
+            //           data: _qrData,
+            //           endTime: , maxScan: _maxScan, studentNumber: '',
+            //         ),
+            //       ),
+            //     );
+            //   },
+            //   child: Text('Generate'),
+            // ),
           ],
         );
       },

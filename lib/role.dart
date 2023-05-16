@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/NavbarStudent.dart';
 import 'package:mamaimakhrap/NavbarTeacher.dart';
 import 'package:mamaimakhrap/caller.dart';
+import 'package:mamaimakhrap/model/authen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RolePage extends StatefulWidget {
@@ -58,8 +59,19 @@ class _RolePageState extends State<RolePage> {
               width: double.infinity,
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Caller.dio.post("/me/role", data: {"role": "teacher"});
+                  onPressed: () async {
+                    //
+                    await Caller.dio
+                        .post("/me/role", data: {"role": "teacher"});
+                    final response = await Caller.dio.post('/me/role');
+                    CallbackResponse cb =
+                        CallbackResponse.fromJson(response.data);
+                    print('tokennnnnnnnnnnn');
+                    print(response);
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString('token', cb.token);
+                    Caller.setToken(cb.token);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -80,8 +92,18 @@ class _RolePageState extends State<RolePage> {
               width: double.infinity,
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Caller.dio.post("/me/role", data: {"role": "student"});
+                  onPressed: () async {
+                    await Caller.dio
+                        .post("/me/role", data: {"role": "student"});
+                    final response = await Caller.dio.post('/me/role');
+                    CallbackResponse cb =
+                        CallbackResponse.fromJson(response.data);
+                    print('tokennnnnnnnnn');
+                    print(cb.token);
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString('token', cb.token);
+                    Caller.setToken(cb.token);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

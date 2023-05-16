@@ -24,22 +24,56 @@ class InCoursePage extends StatefulWidget {
 
 class _InCoursePageState extends State<InCoursePage> {
   String _qrData = '';
-  TimeOfDay _endTime =
-      TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 2)));
+  String selectedDateTime = "";
+
   double screenHeight = 0;
   double screenWidth = 0;
   late int id;
   String name = '';
   String code = '';
   String join_code = '';
+  int round_id = 0;
+  int courseId = 0;
   List<EnrollUser> enroll_User = [];
 
   @override
   void initState() {
     super.initState();
+    selectedDateTime = DateTime.now().toString();
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       fetchData(context);
     });
+  }
+
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDateTime = await showDatePicker(
+      context: context,
+      initialDate: DateTime.parse(selectedDateTime),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDateTime != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(DateTime.parse(selectedDateTime)),
+      );
+
+      if (pickedTime != null) {
+        final DateTime newDateTime = DateTime(
+          pickedDateTime.year,
+          pickedDateTime.month,
+          pickedDateTime.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        setState(() {
+          selectedDateTime = newDateTime.toString();
+        });
+      }
+    }
   }
 
   void fetchData(BuildContext context) async {
@@ -62,6 +96,7 @@ class _InCoursePageState extends State<InCoursePage> {
         name = fetchCourse['name'];
         code = fetchCourse['code'];
         join_code = fetchCourse['join_code'];
+        courseId = fetchCourse['id'];
         print(code);
         print(join_code);
         print(name);
@@ -228,8 +263,13 @@ class _InCoursePageState extends State<InCoursePage> {
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
                         children: enroll_User
-                            .map((e) => customMember(e.id!, e.firstname ?? '',
-                                e.lastname ?? '', e.avatarURL ?? ''
+                            .map((e) => customMember(
+                                e.id!,
+                                e.firstname ?? '',
+                                e.lastname ?? '',
+                                e.avatarURL ?? '',
+                                courseId,
+                                e.id!
                                 // e.enrollUser?.firstname as String,
                                 // e.enrollUser?.avatarURL as String
                                 ))
@@ -259,7 +299,8 @@ class _InCoursePageState extends State<InCoursePage> {
     super.dispose();
   }
 
-  Widget customMember(int id, String hint, String lastname, String avatarUrl
+  Widget customMember(int id, String hint, String lastname, String avatarUrl,
+      int courseId, int studentId
       //String date,
       ) {
     return Column(
@@ -302,7 +343,10 @@ class _InCoursePageState extends State<InCoursePage> {
                                     MaterialPageRoute(
                                       builder: ((context) => SendFeedback()),
                                       settings: RouteSettings(
-                                        arguments: id,
+                                        arguments: {
+                                          'courseId': courseId,
+                                          'studentId': studentId,
+                                        },
                                       ),
                                     ),
                                   );
@@ -531,15 +575,7 @@ class _InCoursePageState extends State<InCoursePage> {
               SizedBox(height: 16),
               InkWell(
                 onTap: () async {
-                  final TimeOfDay? selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: _endTime,
-                  );
-                  if (selectedTime != null) {
-                    setState(() {
-                      _endTime = selectedTime;
-                    });
-                  }
+                  _selectDateTime(context);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -549,7 +585,7 @@ class _InCoursePageState extends State<InCoursePage> {
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      _endTime.format(context),
+                      selectedDateTime,
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
@@ -565,16 +601,30 @@ class _InCoursePageState extends State<InCoursePage> {
               child: Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                Response response = await Caller.dio.post(
+                    "/course/$courseId/generate_qrcode",
+                    data: {"maxStudent": _qrData, "endAt": selectedDateTime});
+                print('this is response');
+                print(response.data);
+                print('testsets');
+                List<dynamic> responseData = response.data["created_rounds"];
+                print('12121212');
+                print(responseData);
+                round_id = responseData[0]['id'] as int;
+                print(round_id);
+                // int round_id = response['id'] as int;
+                print(courseId);
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => QRCodeGenerator(
-                      data: _qrData,
-                      endTime: _endTime,
-                      maxScan: _maxScan,
-                      studentNumber: '',
+                      round_id: round_id,
+                      // data: _qrData,
+                      // endTime: selectedDateTime as String,
+                      // maxScan: _maxScan,
+                      // studentNumber: '',
                     ),
                   ),
                 );

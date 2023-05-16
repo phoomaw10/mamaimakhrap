@@ -21,6 +21,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future sendRole() async {
+    // Set caller token value
+    try {
+      // * Call launch information endpoint
+      final tokem = await Caller.dio.post("/me/role");
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', tokem as String);
+    } on DioError catch (e) {
+      print(e);
+    }
+  }
+
   Future navigate() async {
     // Get user token from shared preferences
     final prefs = await SharedPreferences.getInstance();

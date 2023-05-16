@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
+import 'package:mamaimakhrap/caller.dart';
 
 class SendFeedback extends StatefulWidget {
   const SendFeedback({super.key});
@@ -11,9 +13,95 @@ class SendFeedback extends StatefulWidget {
 }
 
 class _SendFeedbackState extends State<SendFeedback> {
+  late int id;
+  String name = '';
+  String code = '';
+  String join_code = '';
+  String studentfName = '';
+  String studentlName = '';
+  String studentProfileUrl = '';
+  int courseIdSent = 0;
+  int studentIdSent = 0;
+  // int courseId = 0;
+  // int studentId = 0;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final routeArguments =
+          ModalRoute.of(context)!.settings.arguments as Map<String, int>;
+      final courseId = routeArguments["courseId"];
+      final studentId = routeArguments["studentId"];
+      print(courseId);
+      print(studentId);
+      fetchData(context, courseId!, studentId!);
+    });
+  }
+
+  void fetchData(BuildContext context, int courseId, int studentId) async {
+    try {
+      // final routeArguments =
+      //     ModalRoute.of(context)!.settings.arguments as Map<String, int>;
+      // final id = routeArguments["id"];
+      // print("Id of course " + id.toString());
+      // print('arguments');
+      // print(routeArguments);
+      print('before set state');
+      // final id = ModalRoute.of(context)!.settings.arguments as int;
+      Response response =
+          await Caller.dio.get("/course/$courseId/students/$studentId");
+
+      setState(() {
+        print('test');
+        List<dynamic> enroll_Student = response.data["enrolled_users"];
+        print(1212);
+        print(enroll_Student);
+        Map<String, dynamic> fetchCourse = response.data;
+        name = fetchCourse['name'];
+        code = fetchCourse['code'];
+        join_code = fetchCourse['join_code'];
+        studentfName = enroll_Student[0]['firstname'];
+        print(fetchCourse);
+        print(studentfName);
+        studentlName = enroll_Student[0]['lastname'];
+        studentProfileUrl = enroll_Student[0]['avatar_url'];
+        courseIdSent = fetchCourse['id'];
+        studentIdSent = enroll_Student[0]['id'];
+        print('this is student id');
+        print(studentId);
+
+        print(111111);
+        // final List<dynamic> listStudent = response.data;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void saveInfo(int courseId, int studentId) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Caller.dio.post("/course/$courseId/students/$studentId", data: {
+      "feedback_text": _textEditingController.text,
+    }).then((response) {
+      print(courseId);
+      print(studentId);
+    }).onError((DioError error, _) {
+      Caller.handle(context, error);
+    }).whenComplete(() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Sent Complete"),
+            );
+          });
+    });
+  }
+
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 255, 255, 255);
+  TextEditingController _join_code = TextEditingController();
   TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -45,7 +133,7 @@ class _SendFeedbackState extends State<SendFeedback> {
                     ),
                     const Expanded(
                         child: Padding(
-                      padding: EdgeInsets.only(left: 2),
+                      padding: EdgeInsets.only(right: 50),
                       child: Text(
                         "Course",
                         textAlign: TextAlign.center,
@@ -55,91 +143,6 @@ class _SendFeedbackState extends State<SendFeedback> {
                             color: Color.fromARGB(255, 5, 47, 109)),
                       ),
                     )),
-                    Container(
-                        margin: const EdgeInsets.only(right: 20),
-                        child: IconButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    title: Row(
-                                      children: [
-                                        const Text(
-                                          'Generate QR Code',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 5, 47, 109)),
-                                        ),
-                                        Spacer(),
-                                      ],
-                                    ),
-                                    content: Container(
-                                      height: screenHeight / 5,
-                                      child: Column(
-                                        children: [
-                                          TextField(
-                                            controller: _textEditingController,
-                                            decoration: InputDecoration(
-                                                hintText: "CourseID"),
-                                          ),
-                                          TextField(
-                                            controller: _textEditingController,
-                                            decoration: InputDecoration(
-                                                hintText: "CourseID"),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text(
-                                          'Close',
-                                          style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 56, 56, 154),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Colors.white,
-                                          side: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 56, 56, 154),
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      TextButton(
-                                        child: Text(
-                                          'Add',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        style: TextButton.styleFrom(
-                                          backgroundColor:
-                                              Color.fromARGB(255, 56, 56, 154),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.qr_code,
-                              size: 35,
-                              color: Color.fromARGB(255, 5, 47, 109),
-                            ))),
                   ],
                 ),
               )),
@@ -164,16 +167,16 @@ class _SendFeedbackState extends State<SendFeedback> {
                         children: <Widget>[
                           ListTile(
                             title: Text(
-                              'CSC234',
+                              code,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 56, 56, 154),
                               ),
                             ),
-                            subtitle: Text('User-Centered Mobile Application'),
+                            subtitle: Text(name),
                           ),
-                          customMember('Nawat Sujjaritrat')
+                          customMember(studentfName)
                         ],
                       ),
                     ),
@@ -195,6 +198,7 @@ class _SendFeedbackState extends State<SendFeedback> {
                               children: [
                                 SizedBox(
                                   child: TextField(
+                                    controller: _textEditingController,
                                     maxLines: 22,
                                     minLines: 1,
                                   ),
@@ -202,7 +206,9 @@ class _SendFeedbackState extends State<SendFeedback> {
                               ],
                             )),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              saveInfo(courseIdSent, studentIdSent);
+                            },
                             icon: Icon(
                               Icons.send_rounded,
                               size: 30,
@@ -337,10 +343,10 @@ class _SendFeedbackState extends State<SendFeedback> {
                     ListTile(
                       leading: CircleAvatar(
                         radius: 23,
-                        backgroundImage: AssetImage("images/face.jpeg"),
+                        backgroundImage: NetworkImage(studentProfileUrl),
                       ),
                       title: Text(
-                        hint,
+                        hint + ' ' + studentlName,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.normal,

@@ -5,26 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-
 class QRCodeGenerator extends StatefulWidget {
-  final String data;
-    final String studentNumber;
-  final int maxScan;
+  // final String data;
+  // final String studentNumber;
+  // final int maxScan;
+  final int round_id;
 
-  const QRCodeGenerator(
-      {Key? key, required this.data, required TimeOfDay endTime, required this.studentNumber, required this.maxScan})
-      : super(key: key);
+  const QRCodeGenerator({
+    required this.round_id,
+  });
+  // const QRCodeGenerator(
+  //     {Key? key,
+  //     required this.data,
+  //     required endTime,
+  //     required this.studentNumber,
+  //     required this.maxScan})
+  //     : super(key: key);
 
   @override
   _QRCodeGeneratorState createState() => _QRCodeGeneratorState();
 }
 
 class _QRCodeGeneratorState extends State<QRCodeGenerator> {
-   late int _count;
+  late int _count;
   late StreamSubscription<int> _subscription;
-    double screenHeight = 0;
+  double screenHeight = 0;
   double screenWidth = 0;
-   Color primary = const Color.fromARGB(255, 177, 230, 252);
+  Color primary = const Color.fromARGB(255, 177, 230, 252);
 
   @override
   void initState() {
@@ -48,7 +55,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-       backgroundColor: const Color.fromARGB(255, 202, 189, 255),
+      backgroundColor: const Color.fromARGB(255, 202, 189, 255),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
@@ -89,7 +96,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
               ),
             ),
           ),
-                    Expanded(
+          Expanded(
             child: Container(
               height: screenHeight,
               width: screenWidth,
@@ -103,19 +110,25 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                   SizedBox(
                     height: screenHeight / 1.35,
                     child: Column(
-              children: [
-                Container(margin: const EdgeInsets.only(top: 30, bottom: 10),
-                        height: screenHeight - 550,
-                        width: screenWidth - 80,
-                        child: Container(child: QrImage(data: '${widget.studentNumber}:${widget.maxScan}:$_count',version: QrVersions.auto,
-                  size: 200.0,),),),
-              
-                Text(
-                  'Scan count: $_count',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ],
-            ),
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 30, bottom: 10),
+                          height: screenHeight - 550,
+                          width: screenWidth - 80,
+                          child: Container(
+                            child: QrImage(
+                              data: '${widget.round_id}',
+                              version: QrVersions.auto,
+                              size: 200.0,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Scan count: $_count',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -144,7 +157,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
 
   Stream<int> _loadCount() async* {
     final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/${widget.studentNumber}_count.txt');
+    final file = File('${directory.path}/${''}_count.txt');
     int count = 0;
     if (await file.exists()) {
       final contents = await file.readAsString();
@@ -159,8 +172,9 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
   }
 
   Stream<int> _countDeltaStream() async* {
-    await for (var line in stdin.transform(utf8.decoder).transform(LineSplitter())) {
-      if (line == widget.studentNumber) {
+    await for (var line
+        in stdin.transform(utf8.decoder).transform(LineSplitter())) {
+      if (line == '') {
         yield 1;
       }
     }

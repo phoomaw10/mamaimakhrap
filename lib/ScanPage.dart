@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mamaimakhrap/ConfirmQR.dart';
+import 'package:mamaimakhrap/caller.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -117,6 +118,8 @@ class _ScanPageState extends State<ScanPage> {
       setState(() {
         result = scanData;
       });
+      //send api
+      Caller.dio.post("/course/check", data: {"roundId": result});
     });
   }
 
