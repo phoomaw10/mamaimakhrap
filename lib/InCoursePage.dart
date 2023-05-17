@@ -97,6 +97,7 @@ class _InCoursePageState extends State<InCoursePage> {
         code = fetchCourse['code'];
         join_code = fetchCourse['join_code'];
         courseId = fetchCourse['id'];
+        // userId
         print(code);
         print(join_code);
         print(name);
@@ -269,7 +270,8 @@ class _InCoursePageState extends State<InCoursePage> {
                                 e.lastname ?? '',
                                 e.avatarURL ?? '',
                                 courseId,
-                                e.id!
+                                e.id!,
+                                e.userId!
                                 // e.enrollUser?.firstname as String,
                                 // e.enrollUser?.avatarURL as String
                                 ))
@@ -300,7 +302,7 @@ class _InCoursePageState extends State<InCoursePage> {
   }
 
   Widget customMember(int id, String hint, String lastname, String avatarUrl,
-      int courseId, int studentId
+      int courseId, int studentId, String uid
       //String date,
       ) {
     return Column(
@@ -441,7 +443,14 @@ class _InCoursePageState extends State<InCoursePage> {
                                                   ),
                                                 )),
                                             TextButton(
-                                                onPressed: () {},
+                                                onPressed: () async {
+                                                  print(courseId);
+                                                  print(studentId);
+                                                  await Caller.dio.delete(
+                                                      "/course/$courseId/students/$studentId",
+                                                      data: {"uid": uid});
+                                                  Navigator.pop(context);
+                                                },
                                                 style: TextButton.styleFrom(
                                                   backgroundColor:
                                                       Color.fromARGB(
