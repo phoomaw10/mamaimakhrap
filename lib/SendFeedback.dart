@@ -88,13 +88,28 @@ class _SendFeedbackState extends State<SendFeedback> {
     }).onError((DioError error, _) {
       Caller.handle(context, error);
     }).whenComplete(() {
-      showDialog(
+      if (mounted) {
+        showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Sent Complete"),
+              icon: Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 50,
+              ),
+              title: Text(
+                "Sent Successfully",
+                style: TextStyle(color: Colors.green),
+              ),
             );
-          });
+          },
+        ).then((value) {
+          if (mounted) {
+            Navigator.pop(context);
+          }
+        });
+      }
     });
   }
 
@@ -107,120 +122,127 @@ class _SendFeedbackState extends State<SendFeedback> {
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 188, 153),
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-              height: 100,
-              width: screenWidth,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 255, 188, 153),
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          children: <Widget>[
+            SizedBox(
+                height: 100,
+                width: screenWidth,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 40),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, bottom: 4),
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_circle_left_rounded,
+                              size: 40,
+                              color: Color.fromARGB(255, 56, 56, 154),
+                            )),
+                      ),
+                      const Expanded(
+                          child: Padding(
+                        padding: EdgeInsets.only(right: 50),
+                        child: Text(
+                          "Course",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 5, 47, 109)),
+                        ),
+                      )),
+                    ],
+                  ),
+                )),
+            Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: Row(
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0))),
+                child: Column(
                   children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.only(left: 10, bottom: 4),
-                      child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_circle_left_rounded,
-                            size: 40,
-                            color: Color.fromARGB(255, 56, 56, 154),
-                          )),
+                      alignment: Alignment.bottomCenter,
+                      margin:
+                          const EdgeInsets.only(top: 10, right: 10, bottom: 20),
                     ),
-                    const Expanded(
-                        child: Padding(
-                      padding: EdgeInsets.only(right: 50),
-                      child: Text(
-                        "Course",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 5, 47, 109)),
-                      ),
-                    )),
-                  ],
-                ),
-              )),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0))),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    margin:
-                        const EdgeInsets.only(top: 10, right: 10, bottom: 20),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 15.0, right: 15, top: 15),
-                    child: SizedBox(
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: Text(
-                              code,
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 56, 56, 154),
+                    Container(
+                      margin: EdgeInsets.only(left: 15.0, right: 15, top: 15),
+                      child: SizedBox(
+                        child: Column(
+                          children: <Widget>[
+                            ListTile(
+                              title: Text(
+                                code,
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 56, 56, 154),
+                                ),
                               ),
+                              subtitle: Text(name),
                             ),
-                            subtitle: Text(name),
-                          ),
-                          customMember(studentfName)
+                            customMember(studentfName)
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: screenHeight / 1.8,
+                      width: screenWidth - 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color.fromARGB(255, 236, 242, 255),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          Container(
+                              margin:
+                                  EdgeInsets.only(top: 10, right: 20, left: 20),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          hintText: "Write Something..."),
+                                      controller: _textEditingController,
+                                      maxLines: 22,
+                                      minLines: 1,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                saveInfo(courseIdSent, studentIdSent);
+                              },
+                              icon: Icon(
+                                Icons.send_rounded,
+                                size: 30,
+                              ))
                         ],
                       ),
                     ),
-                  ),
-                  Container(
-                    height: screenHeight / 1.8,
-                    width: screenWidth - 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Color.fromARGB(255, 236, 242, 255),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        Container(
-                            margin:
-                                EdgeInsets.only(top: 10, right: 20, left: 20),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  child: TextField(
-                                    controller: _textEditingController,
-                                    maxLines: 22,
-                                    minLines: 1,
-                                  ),
-                                ),
-                              ],
-                            )),
-                        IconButton(
-                            onPressed: () {
-                              saveInfo(courseIdSent, studentIdSent);
-                            },
-                            icon: Icon(
-                              Icons.send_rounded,
-                              size: 30,
-                            ))
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

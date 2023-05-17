@@ -1,15 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mamaimakhrap/model/enrollUser.dart';
+import 'package:mamaimakhrap/model/histories.dart';
 // import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+import '../caller.dart';
 
 class QRCodeGenerator extends StatefulWidget {
   // final String data;
   // final String studentNumber;
   // final int maxScan;
   final int round_id;
+  // List<
 
   const QRCodeGenerator({
     required this.round_id,
@@ -29,6 +35,7 @@ class QRCodeGenerator extends StatefulWidget {
 class _QRCodeGeneratorState extends State<QRCodeGenerator> {
   late int _count;
   late StreamSubscription<int> _subscription;
+  List<HistoryRound> user_attend = [];
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 177, 230, 252);
@@ -37,11 +44,45 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
   void initState() {
     super.initState();
     _count = 0;
-    _subscription = _loadCount().listen((count) {
+    print('before count');
+    // _subscription = _loadCount().listen((count) {
+    //   setState(() {
+    //     _count = count;
+    //   });
+    // });
+    // fetchData(context);
+    // _subscription = _loadCount().listen((count) {
+    //   setState(() {
+    //     _count = count;
+    //   });
+    // });
+  }
+
+  @override
+  void didChangeDependencies() {
+    print('fetchData');
+    fetchData(); // Move the code that depends on inherited widgets here
+    super.didChangeDependencies();
+  }
+
+  void fetchData() async {
+    try {
+      // final id = ModalRoute.of(context)!.settings.arguments as int;
+      print("in scan page");
+      Response response = await Caller.dio
+          .get("/history/QR/listStudent", data: {"round_id": widget.round_id});
+      print("Response Data");
+      print(response.data);
       setState(() {
-        _count = count;
+        List<dynamic> owner_student = response.data["histories"];
+        user_attend =
+            owner_student.map((json) => HistoryRound.fromJson(json)).toList();
+        print("//////////////////");
+        print(user_attend);
       });
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -106,13 +147,13 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0))),
               child: Column(
-                children: <Widget>[
+                children: [
                   SizedBox(
                     height: screenHeight / 1.35,
                     child: Column(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(top: 30, left: 35),
+                          margin: EdgeInsets.only(top: 30, left: 35),
                           height: screenHeight - 550,
                           width: screenWidth - 80,
                           child: Container(
@@ -123,10 +164,17 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                             ),
                           ),
                         ),
-                        Text(
-                          'Scan count: $_count',
-                          style: TextStyle(fontSize: 24),
-                        ),
+                        Column(
+                          children: user_attend
+                              .map((e) => customMember(
+                                  e.owner?.firstname ?? '',
+                                  e.owner?.avatarURL ?? '',
+                                  e.owner?.lastname ?? ''
+                                  // e.enrollUser?.firstname as String,
+                                  // e.enrollUser?.avatarURL as String
+                                  ))
+                              .toList(),
+                        )
                       ],
                     ),
                   ),
@@ -178,6 +226,45 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
         yield 1;
       }
     }
+  }
+
+  Widget customMember(String hint, String avatar, String lastname
+      //String date,
+      ) {
+    return Column(
+      children: [
+        Container(
+          width: screenWidth - 40,
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Card(
+            color: Color.fromARGB(255, 236, 242, 255),
+            margin: const EdgeInsets.all(10),
+            child: InkWell(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 23,
+                      backgroundImage: NetworkImage(avatar),
+                    ),
+                    title: Text(
+                      hint + ' ' + lastname,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 

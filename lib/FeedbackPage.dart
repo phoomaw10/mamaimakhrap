@@ -83,29 +83,24 @@ class _FeedbackPageState extends State<FeedbackPage> {
               )),
           Expanded(
             child: Container(
+              height: screenHeight,
+              width: screenWidth,
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0))),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    margin:
-                        const EdgeInsets.only(top: 10, right: 10, bottom: 20),
-                  ),
-                  SizedBox(
-                    height: screenHeight / 1.4,
-                    child: Column(
-                        children: get_Feedback
-                            .map((e) => customField(
-                                e.id,
-                                e.course?.code as String,
-                                e.course?.name as String))
-                            .toList()),
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Column(
+                      children: get_Feedback
+                          .map((e) => customField(
+                              e.id,
+                              e.course?.code as String,
+                              e.course?.name as String))
+                          .toList()),
+                ),
               ),
             ),
           )
