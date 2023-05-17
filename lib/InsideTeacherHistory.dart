@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:mamaimakhrap/CoursePage.dart';
 import 'package:mamaimakhrap/QRCodePage.dart';
 import 'package:mamaimakhrap/StudentHomePage.dart';
@@ -138,7 +139,8 @@ class _InsideTeacherHistoryState extends State<InsideTeacherHistory> {
                               ),
                               subtitle: Text(courseinfo +
                                   "\n" +
-                                  createdAt +
+                                  DateFormat('E, d MMM yyyy HH:mm:ss')
+                                      .format(DateTime.parse(createdAt)) +
                                   "\n" +
                                   "Amount of Student = $amountStudent"),
                             )
