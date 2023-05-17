@@ -123,10 +123,10 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                             ),
                           ),
                         ),
-                        Text(
-                          'Scan count: $_count',
-                          style: TextStyle(fontSize: 24),
-                        ),
+                        // Text(
+                        //   'Scan count: $_count',
+                        //   style: TextStyle(fontSize: 24),
+                        // ),
                       ],
                     ),
                   ),
