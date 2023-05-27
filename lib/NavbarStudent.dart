@@ -21,8 +21,8 @@ class _NavbarStudentState extends State<NavbarStudent> {
   final pages = const [
     CoursePage(),
     HistoryPage(),
-    studentProfile(),
     ScanPage(),
+    studentProfile(),
     FeedbackPage(),
   ];
   int _selectedTab = 0;
@@ -61,18 +61,19 @@ class _NavbarStudentState extends State<NavbarStudent> {
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
-              Icons.person_2_rounded,
-              color: Color.fromARGB(255, 56, 56, 154),
+              Icons.qr_code,
+              color: Colors.orange,
+              size: 25,
             ),
-            label: 'Profile',
+            label: 'Scan',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),
             icon: Icon(
-              Icons.qr_code,
+              Icons.person_2_rounded,
               color: Color.fromARGB(255, 56, 56, 154),
             ),
-            label: 'Scan',
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 236, 242, 255),

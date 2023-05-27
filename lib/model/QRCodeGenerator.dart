@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mamaimakhrap/InCoursePage.dart';
 import 'package:mamaimakhrap/model/enrollUser.dart';
 import 'package:mamaimakhrap/model/histories.dart';
 // import 'package:path_provider/path_provider.dart';
@@ -111,7 +112,60 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                     margin: const EdgeInsets.only(left: 10, bottom: 4),
                     child: IconButton(
                       onPressed: () {
-                        Navigator.pop((context));
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              title: const Text(
+                                'Warning',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 5, 47, 109)),
+                              ),
+                              content: const Text(
+                                  'If you close this page QR Code\nwill be end'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text(
+                                    'No',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color:
+                                            Color.fromARGB(255, 56, 56, 154)),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    side: BorderSide(
+                                      color: Color.fromARGB(255, 56, 56, 154),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.white),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromARGB(255, 56, 56, 154),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       icon: const Icon(
                         Icons.arrow_circle_left_rounded,
@@ -149,32 +203,54 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: screenHeight / 1.35,
+                    //height: screenHeight / 1,
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 30, left: 35),
-                          height: screenHeight - 550,
+                          margin: EdgeInsets.only(top: 15, left: 45),
+                          height: screenHeight - 630,
                           width: screenWidth - 80,
                           child: Container(
                             child: QrImage(
                               data: '${widget.round_id}',
                               version: QrVersions.auto,
-                              size: 200.0,
+                              //size: 200.0,
                             ),
                           ),
                         ),
-                        Column(
-                          children: user_attend
-                              .map((e) => customMember(
-                                  e.owner?.firstname ?? '',
-                                  e.owner?.avatarURL ?? '',
-                                  e.owner?.lastname ?? ''
-                                  // e.enrollUser?.firstname as String,
-                                  // e.enrollUser?.avatarURL as String
-                                  ))
-                              .toList(),
-                        )
+                        Container(
+                          child: Text(
+                            "Take screen shot of OR Code.",
+                            style: TextStyle(fontSize: 15, color: Colors.red),
+                          ),
+                        ),
+                        SizedBox(height: 30),
+                        Container(
+                          child: Text(
+                            "Checked ✅",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          height: screenWidth - 20,
+                          width: screenWidth - 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color.fromARGB(255, 236, 242, 255),
+                          ),
+                          child: Container(
+                              child: Column(
+                            children: user_attend
+                                .map((e) => customMember(
+                                    e.owner?.firstname ?? '',
+                                    e.owner?.avatarURL ?? '',
+                                    e.owner?.lastname ?? ''
+                                    // e.enrollUser?.firstname as String,
+                                    // e.enrollUser?.avatarURL as String
+                                    ))
+                                .toList(),
+                          )),
+                        ),
                       ],
                     ),
                   ),

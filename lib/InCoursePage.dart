@@ -285,7 +285,7 @@ class _InCoursePageState extends State<InCoursePage> {
                         //     .toList()),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
