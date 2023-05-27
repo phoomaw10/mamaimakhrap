@@ -69,12 +69,12 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
     try {
       // final id = ModalRoute.of(context)!.settings.arguments as int;
       print("in scan page");
-      Response response = await Caller.dio
-          .get("/history/QR/listStudent", data: {"round_id": widget.round_id});
+      int roundId = widget.round_id;
+      Response response = await Caller.dio.get("/course/rounds/$roundId");
       print("Response Data");
       print(response.data);
       setState(() {
-        List<dynamic> owner_student = response.data["histories"];
+        List<dynamic> owner_student = response.data;
         user_attend =
             owner_student.map((json) => HistoryRound.fromJson(json)).toList();
         print("//////////////////");
