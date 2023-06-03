@@ -38,9 +38,10 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
   late StreamSubscription<int> _subscription;
   List<HistoryRound> user_attend = [];
   double screenHeight = 0;
+  int studentAmount = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 177, 230, 252);
-
+  late Timer timer;
   @override
   void initState() {
     super.initState();
@@ -62,8 +63,20 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
   @override
   void didChangeDependencies() {
     print('fetchData');
-    fetchData(); // Move the code that depends on inherited widgets here
+    fetchData();
+    timer = Timer.periodic(new Duration(seconds: 1), (timer) {
+      fetchData();
+      print('refreshed');
+    });
+    // Move the code that depends on inherited widgets here
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+    timer.cancel();
   }
 
   void fetchData() async {
@@ -80,17 +93,18 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
             owner_student.map((json) => HistoryRound.fromJson(json)).toList();
         print("//////////////////");
         print(user_attend);
+        studentAmount = user_attend.length;
       });
     } catch (e) {
       print(e);
     }
   }
 
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +172,12 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                                         Color.fromARGB(255, 56, 56, 154),
                                   ),
                                   onPressed: () {
+                                    // dispose();
+                                    // Timer.periodic(new Duration(seconds: 1),
+                                    //     (timer) {
+                                    //   timer.cancel();
+                                    // });
+                                    timer.cancel();
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pop();
                                   },
@@ -224,10 +244,17 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                             style: TextStyle(fontSize: 15, color: Colors.red),
                           ),
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 20),
                         Container(
                           child: Text(
                             "Checked ✅",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          child: Text(
+                            "Amount of Student = $studentAmount",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),

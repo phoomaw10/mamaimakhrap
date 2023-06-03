@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -95,15 +96,37 @@ class _ScanPageState extends State<ScanPage> {
                         color: Colors.white24),
                     child: (result != null)
                         ? ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               print('this is the result data $result');
-                              Caller.dio.post("/course/check",
+                              Response response = await Caller.dio.post(
+                                  "/course/check",
                                   data: {"round_id": result});
+                              String resss = response.data;
                               print(result);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const ConfirmQR()));
+                              if (resss == "Succesfully scan QR Code")
+                                [
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ConfirmQR()))
+                                ];
+                              else
+                                [
+                                  // Find the ScaffoldMessenger in the widget tree
+                                  // and use it to show a SnackBar.
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: const Text(
+                                        'Error! The amount of student exceeded!'),
+                                    action: SnackBarAction(
+                                      label: 'Close',
+                                      onPressed: () {
+                                        // Some code to undo the change.
+                                      },
+                                    ),
+                                  ))
+                                ];
                             },
                             child: Text('Click to open'),
                           )
