@@ -35,6 +35,7 @@ class _InCoursePageState extends State<InCoursePage> {
   int round_id = 0;
   int courseId = 0;
   List<EnrollUser> enroll_User = [];
+  bool _validate = false;
 
   @override
   void initState() {
@@ -137,6 +138,7 @@ class _InCoursePageState extends State<InCoursePage> {
   Color primary = const Color.fromARGB(255, 255, 255, 255);
   TextEditingController _textEditingController = TextEditingController();
   Profile profile = Profile(email: '', password: '');
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -573,7 +575,7 @@ class _InCoursePageState extends State<InCoursePage> {
             children: [
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Enter Amount of Student',
+                  labelText: 'Enter Amount of Student ',
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -612,14 +614,43 @@ class _InCoursePageState extends State<InCoursePage> {
             ),
             ElevatedButton(
               onPressed: () async {
+                // Check that amount of student is 0 or not
+                if (_qrData == "0") {
+                  return showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      title: Text(
+                          'Amount of student is 0. \nYou need to put amount of student again.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            'OK',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 56, 56, 154),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                print('number of student is 0 !!!');
                 Response response = await Caller.dio.post(
                     "/course/$courseId/generate_qrcode",
                     data: {"maxStudent": _qrData, "endAt": selectedDateTime});
-                print('this is response');
+                print('this is response !!!!!');
                 print(response.data);
-                print('testsets');
+
+                print('testsets !!!!');
                 List<dynamic> responseData = response.data["created_rounds"];
-                print('12121212');
+                print('12121212 !!!!');
                 print(responseData);
                 round_id = responseData[0]['id'] as int;
                 print(round_id);
@@ -632,7 +663,7 @@ class _InCoursePageState extends State<InCoursePage> {
                     builder: (context) => QRCodeGenerator(
                       round_id: round_id,
                       // data: _qrData,
-                      // endTime: selectedDateTime as String,
+                      endTime: DateTime.parse(selectedDateTime),
                       // maxScan: _maxScan,
                       // studentNumber: '',
                     ),

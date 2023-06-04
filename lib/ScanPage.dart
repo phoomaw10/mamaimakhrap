@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -22,6 +23,7 @@ class _ScanPageState extends State<ScanPage> {
   double screenHeight = 0;
   double screenWidth = 0;
   Color primary = const Color.fromARGB(255, 177, 230, 252);
+
   @override
   void reassemble() {
     super.reassemble();
@@ -95,15 +97,78 @@ class _ScanPageState extends State<ScanPage> {
                         color: Colors.white24),
                     child: (result != null)
                         ? ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               print('this is the result data $result');
-                              Caller.dio.post("/course/check",
+                              Response res = await Caller.dio.post(
+                                  "/course/check",
                                   data: {"round_id": result});
-                              print(result);
-                              Navigator.push(
+                              print(res.data);
+                              if (res.data == "Successfully scan QR Code") {
+                                print(result);
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const ConfirmQR()));
+                                      builder: (context) => const ConfirmQR()),
+                                );
+                              } else if (res.data ==
+                                  "The amount of student exceeded") {
+                                return showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    title:
+                                        Text('The amount of student exceeded'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                          'OK',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        ),
+                                        style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              Color.fromARGB(255, 56, 56, 154),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else if (res.data == "The time is exceed") {
+                                return showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    title: Text('This QR code has expired.'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                          'OK',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        ),
+                                        style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              Color.fromARGB(255, 56, 56, 154),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
                             },
                             child: Text('Click to open'),
                           )

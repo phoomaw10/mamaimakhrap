@@ -9,7 +9,7 @@ part of 'round.dart';
 Round _$RoundFromJson(Map<String, dynamic> json) => Round(
       id: json['id'] as int,
       course_id: json['course_id'] as int,
-      createdAt: json['createdAt'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
       endAt: json['endAt'] as String,
       course: json['course'] == null
           ? null
@@ -22,7 +22,7 @@ Round _$RoundFromJson(Map<String, dynamic> json) => Round(
 Map<String, dynamic> _$RoundToJson(Round instance) => <String, dynamic>{
       'id': instance.id,
       'course_id': instance.course_id,
-      'createdAt': instance.createdAt,
+      'createdAt': instance.createdAt.toIso8601String(),
       'endAt': instance.endAt,
       'course': instance.course,
       'histories': instance.historyRound,

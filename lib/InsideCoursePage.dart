@@ -42,7 +42,6 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
       // print(routeArguments);
       final id = ModalRoute.of(context)!.settings.arguments as int;
       Response response = await Caller.dio.get("/course/$id");
-      final Response fetchResponse = await Caller.dio.get("/course/$id");
       print(response.data);
       setState(() {
         // final List<dynamic> courses = response.data["course_rounds"];
@@ -216,7 +215,7 @@ class _InsideCoursePageState extends State<InsideCoursePage> {
                                     e.id,
                                     code,
                                     DateFormat('E, d MMM yyyy HH:mm:ss').format(
-                                        DateTime.parse(e.createdAt as String))))
+                                        e.createdAt.toLocal())))
                                 .toList()),
                       ),
                     ),

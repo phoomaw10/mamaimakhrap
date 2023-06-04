@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "921089098894-0ikiusslv3ce9cml4p9ld00dpe4jng6v.apps.googleusercontent.com",
+          "client_id": "921089098894-iaunb7nlautcbmbsbajc81v6ho3jrks5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mamaimakhrap",
+            "certificate_hash": "8b7f500c8c7e809025dc25f8b9663413221e14a3"
+          }
+        },
+        {
+          "client_id": "921089098894-u0ki002vvrdsilb76oaodhj3lrucju9l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "921089098894-0ikiusslv3ce9cml4p9ld00dpe4jng6v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "921089098894-4lgtcmuabedalv1bou37vmo0v5ji1r50.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mamaimakhrap"
+              }
             }
           ]
         }

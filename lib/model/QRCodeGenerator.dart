@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mamaimakhrap/InCoursePage.dart';
 import 'package:mamaimakhrap/model/enrollUser.dart';
 import 'package:mamaimakhrap/model/histories.dart';
+
 // import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -16,11 +17,13 @@ class QRCodeGenerator extends StatefulWidget {
   // final String studentNumber;
   // final int maxScan;
   final int round_id;
+  final DateTime endTime;
   // List<
 
   const QRCodeGenerator({
-    required this.round_id,
+    required this.round_id, required this.endTime,
   });
+
   // const QRCodeGenerator(
   //     {Key? key,
   //     required this.data,
@@ -39,6 +42,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
   List<HistoryRound> user_attend = [];
   double screenHeight = 0;
   double screenWidth = 0;
+  String endTime = "";
   Color primary = const Color.fromARGB(255, 177, 230, 252);
 
   @override
@@ -57,6 +61,36 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
     //     _count = count;
     //   });
     // });
+
+    final currentTime = DateTime.now();
+    final difference = widget.endTime.difference(currentTime);
+
+    Timer timer = new Timer(difference, () {
+      debugPrint("Print after endtime.");
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          title: Text('This QR code has expired.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'OK',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 56, 56, 154),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   @override
@@ -220,7 +254,7 @@ class _QRCodeGeneratorState extends State<QRCodeGenerator> {
                         ),
                         Container(
                           child: Text(
-                            "Take screen shot of OR Code.",
+                            "Take screen shot of QR Code.",
                             style: TextStyle(fontSize: 15, color: Colors.red),
                           ),
                         ),

@@ -14,7 +14,7 @@ class Round {
   final int course_id;
 
   @JsonKey(name: 'createdAt')
-  final String createdAt;
+  final DateTime createdAt;
 
   @JsonKey(name: 'endAt')
   final String endAt;
