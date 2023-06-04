@@ -98,7 +98,7 @@ class _HistoryPageState extends State<HistoryPage> {
                               e.id!,
                               e.round?.course?.code as String,
                               DateFormat('E, d MMM yyyy HH:mm:ss').format(
-                                      e.round?.createdAt.toLocal())))
+                                      e.round!.createdAt.toLocal())))
                           .toList()),
                 ),
               ),

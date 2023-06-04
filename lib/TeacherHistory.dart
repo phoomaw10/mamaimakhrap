@@ -100,7 +100,7 @@ class _TeacherHistoryState extends State<TeacherHistory> {
                                 e.id!,
                                 e.course?.code as String,
                                 DateFormat('E, d MMM yyyy HH:mm:ss')
-                                    .format(DateTime.parse(e.createdAt)),
+                                    .format((e.createdAt.toLocal())),
                               ))
                           .toList()),
                 ),
